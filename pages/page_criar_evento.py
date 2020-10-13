@@ -1,8 +1,7 @@
 from selenium import webdriver
-from selenium.webdriver import Chrome
-from login import LoginProfessor
+from utils.login import LoginProfessor
 
-class Main():
+class criarEvento():
 
     webdriver = webdriver.Chrome(r'd:\Downloads\chromedriver_win32\chromedriver.exe')
 
@@ -15,5 +14,4 @@ class Main():
         login='testes.professor',
         senha='6kmfDK'
     )
-
 

@@ -1,6 +1,5 @@
-from selenium import webdriver
 from selenium.webdriver.common.by import By
-from config import PageElement
+from utils.config import PageElement
 from time import sleep
 
 
@@ -15,6 +14,3 @@ class LoginProfessor(PageElement):
         self.find_element(self.senha).send_keys(senha)
         sleep(2)
         self.find_element(self.btn).click()
-
-# class loginAluno(PageElement):
-
