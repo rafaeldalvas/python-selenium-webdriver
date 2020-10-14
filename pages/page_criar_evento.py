@@ -39,12 +39,14 @@ class criarEvento():
     btn_enviar = (By.ID, 'id')
 
     # FORMUMARIO REPONSAVEL
+
     btn_buscar = (By.XPATH, "//td[text()='Buscar']")
     nome_responsavel = (By.ID, '')
     btn_pesquisar_responsavel = (By.XPATH, "//td[text()='Editar']")
     checkbox_responsavel = (By.ID, '')
     seleciona_nome = (By.ID, '')
     btn_confirma_responsavel = (By.XPATH, "//td[text()='Novo']")
+
 
 
     # FORMULARIO CERTIFICADO
