@@ -19,4 +19,11 @@ criar_evento = criarEvento(webdriver)
 
 criar_evento.caminho()
 
+criar_evento.ct01_criar_evento('Joao')
+
+criar_evento.teste('Escola')
+
+
+
+
 
