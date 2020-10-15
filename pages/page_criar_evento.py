@@ -1,27 +1,18 @@
 from selenium import webdriver
 from selenium.webdriver.common.by import By
 from utils.login import LoginProfessor
+from utils.config import PageElement
+from time import sleep
 
-class criarEvento():
 
-    webdriver = webdriver.Chrome(r'd:\Downloads\chromedriver_win32\chromedriver.exe')
-
-    url = "https://integra-h.nrc.ice.ufjf.br/"
-    webdriver.get(url)
-
-    login_professor = LoginProfessor(webdriver)
-
-    login_professor.realiza_login(
-        login='testes.professor',
-        senha='6kmfDK'
-    )
+class criarEvento(PageElement):
 
     # CAMINHO
+    calendario = (By.CSS_SELECTOR, "i.fa-calendar")
     admin = (By.CSS_SELECTOR, "a[href$='admEvento/inicial.zul?']")
     cadastro_evento = (By.ID, 'zk-comp-112')
     radio_evento = (By.ID, 'zk-comp-114!real')
-    btn_novo = (By.CSS_SELECTOR, "#zk-comp-132!box > td.z-button-cm")
-
+    btn_novo = (By.CSS_SELECTOR, '[class|=z-button]')
 
     # FORMULARIO PADRAO
     nome = (By.ID, 'zk-comp-958')
@@ -48,4 +39,25 @@ class criarEvento():
 
     # FORMULARIO CERTIFICADO
     btn_editar_certificado = (By.CSS_SELECTOR, "#zk-comp-167!box > td.z-button-cm")
+
+    def caminho(self):
+        sleep(1)
+        self.find_element(self.calendario).click()
+        sleep(1)
+        self.find_element(self.admin).click()
+        sleep(1)
+        self.find_element(self.cadastro_evento).click()
+        sleep(1)
+        self.find_element(self.radio_evento).click()
+        sleep(3)
+        self.find_element(self.btn_novo).click()
+
+
+    # def ct01_criar_evento(self, admin, cadastro_evento, radio_evento, btn_novo, nome, descricao, site, email_responsavel, inicio_evento, fim_evento, inicio_inscricao, fim_inscricao, tipo_evento, inscricao_externa, evento_pago, btn_enviar, btn_buscar, nome_responsavel, btn_pesquisar_responsavel, checkbox_responsavel, seleciona_nome, btn_confirma_responsavel):
+
+
+
+
+
+
 
