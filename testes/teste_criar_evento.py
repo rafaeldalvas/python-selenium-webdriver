@@ -29,7 +29,8 @@ criar_evento.ct01_criar_evento(
     fim_inscricao = '20/12/2020',
     funcao1 = 'Professor',
     funcao2 = 'Gerente',
-    funcao3 = 'Diretor'
+    funcao3 = 'Diretor',
+    nome_pesquisa_responsavel = 'Raquel Alves da Silva'
 )
 
 
