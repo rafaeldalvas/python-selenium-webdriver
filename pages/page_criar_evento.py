@@ -39,24 +39,24 @@ class criarEvento(PageElement):
     btn_confirma_responsavel = (By.CSS_SELECTOR, "[class|=z-button]")
 
     # FORMULARIO CERTIFICADO
-    btn_editar_certificado = (By.CSS_SELECTOR, '.z-button-cm:nth(2)')
-    combo_certificado = (By.CSS_SELECTOR, "#zk-comp-1949!btn")  # COMBO BOX
-    certificado = (By.CSS_SELECTOR, "#zk-comp-1988")  # OPÇÃO PADRAO ICE
+    btn_editar_certificado = (By.CSS_SELECTOR, 'table[id$="comp-167!box"] [class$="button-cm"]')
+    combo_certificado = (By.ID, "zk-comp-504")  # COMBO BOX
+    certificado = (By.ID, "zk-comp-542")  # OPÇÃO PADRAO ICE
 
-    combo_assinatura1 = (By.CSS_SELECTOR, "zk-comp-1954!btn")
-    assinatura1 = (By.CSS_SELECTOR, "#zk-comp-2001")
-    funcao1 = (By.CSS_SELECTOR, "zk-comp-1958")
+    combo_assinatura1 = (By.ID, "zk-comp-509!btn")
+    assinatura1 = (By.ID, "zk-comp-556")
+    funcao1 = (By.ID, "zk-comp-513")
 
-    combo_assinatura2 = (By.CSS_SELECTOR, "zk-comp-1963!btn")
-    assinatura2 = (By.CSS_SELECTOR, "#zk-comp-2038")
-    funcao2 = (By.CSS_SELECTOR, "zk-comp-1967")
+    combo_assinatura2 = (By.ID, "zk-comp-518!btn")
+    assinatura2 = (By.ID, "zk-comp-593")
+    funcao2 = (By.ID, "zk-comp-522")
 
-    combo_assinatura3 = (By.CSS_SELECTOR, "#zk-comp-1972!btn")
-    assinatura3 = (By.CSS_SELECTOR, "#zk-comp-2076")
-    funcao3 = (By.CSS_SELECTOR, "zk-comp-1976")
+    combo_assinatura3 = (By.ID, "zk-comp-527!btn")
+    assinatura3 = (By.ID, "zk-comp-630")
+    funcao3 = (By.ID, "zk-comp-531")
 
-    btn_salvar = (By.CSS_SELECTOR, "[class|=z-button]")
-    btn_ok = (By.CSS_SELECTOR, "[class|=z-button]")
+    btn_salvar = (By.CSS_SELECTOR, 'table[id$="comp-534!box"] [class$="button-cm"]')
+    btn_ok = (By.CSS_SELECTOR, 'table[id$="comp-674!box"] [class$="button-cm"]')
 
     # CONCLUIR
     btn_enviar = (By.CSS_SELECTOR, '[class|=z-button]')
@@ -74,8 +74,9 @@ class criarEvento(PageElement):
         self.find_element(self.btn_novo).click()
 
     def preenche_certificado(self, funcao1, funcao2, funcao3):
-        sleep(2)
+        sleep(1)
         self.find_element(self.btn_editar_certificado).click()
+        sleep(2)
         self.find_element(self.combo_certificado).click()
         self.find_element(self.certificado).click()
         sleep(1)
