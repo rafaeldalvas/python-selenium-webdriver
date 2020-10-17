@@ -1,4 +1,3 @@
-from selenium import webdriver
 from abc import ABC
 
 class PageElement(ABC):

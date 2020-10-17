@@ -1,5 +1,4 @@
 from selenium import webdriver
-from utils.config import PageElement
 from pages.page_criar_evento import criarEvento
 from utils.login import LoginProfessor
 
@@ -11,30 +10,45 @@ webdriver.get(url)
 login_professor = LoginProfessor(webdriver)
 
 login_professor.realiza_login(
-    login='testes.professor',
-    senha='6kmfDK'
+    login = 'testes.professor',
+    senha = '6kmfDK'
 )
 
 criar_evento = criarEvento(webdriver)
 
+# --------- Caso de teste: Criação de evento padrão -------------#
 criar_evento.caminho()
 criar_evento.ct01_criar_evento(
-    nome = 'Evento teste',
-    descricao = 'testando evento',
-    site = 'teste.com.br',
-    email_responsavel = 'teste@teste.com',
-    inicio_evento = '22/12/2020',
-    fim_evento = '01/01/2020',
-    inicio_inscricao = '16/10/2020',
-    fim_inscricao = '20/12/2020',
-    funcao1 = 'Professor',
-    funcao2 = 'Gerente',
-    funcao3 = 'Diretor',
-    nome_pesquisa_responsavel = 'Raquel Alves da Silva'
+    nome                = 'Evento teste ct1',
+    descricao           = 'testando evento',
+    site                = 'teste.com.br',
+    email_responsavel   = 'teste@teste.com',
+    inicio_evento       = '22/12/2020',
+    fim_evento          = '01/01/2021',
+    inicio_inscricao    = '20/11/2020',
+    fim_inscricao       = '20/12/2020',
+    funcao1             = 'Professor',
+    funcao2             = 'Gerente',
+    funcao3             = 'Diretor'
 )
-
-
-
+# ------------ Caso de teste: Trocar responsável ---------------#
+webdriver.get(url)
+criar_evento.caminho()
+criar_evento.ct02_criar_evento(
+    nome               = 'Evento teste ct2',
+    descricao          = 'testando responsavel',
+    site               = 'teste.com',
+    email_responsavel  = 'teste2@teste.com',
+    inicio_evento      = '03/01/2021',
+    fim_evento         = '10/01/2021',
+    inicio_inscricao   = '21/12/2020',
+    fim_inscricao      = '02/01/2021',
+    funcao1            = 'Professor',
+    funcao2            = 'Gerente',
+    funcao3            = 'Diretor',
+    nome_responsavel   = 'Raquel Alves da Silva'
+)
+# ------------ Caso de teste: Cancelar transação ---------------#
 
 
 

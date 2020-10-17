@@ -1,7 +1,4 @@
-from selenium import webdriver
 from selenium.webdriver.common.by import By
-from selenium.webdriver.support.select import Select
-from utils.login import LoginProfessor
 from utils.config import PageElement
 from time import sleep
 from selenium.webdriver.common.keys import Keys
@@ -32,35 +29,35 @@ class criarEvento(PageElement):
     evento_pago = (By.ID, 'zk-comp-195!real')
 
     # FORMUMARIO RESPONSAVEL
-    btn_buscar = (By.CSS_SELECTOR, 'table[id$="zk-comp-159!box"] [class$="z-button-cm"]')
+    btn_buscar = (By.CSS_SELECTOR, 'table[id$="comp-159!box"] [class$="button-cm"]')
     nome_responsavel = (By.ID, 'zk-comp-240')  # Pesquisa - Raquel Alves da Silva
-    btn_pesquisar_responsavel = (By.CSS_SELECTOR, "[class|=z-button]")
-    checkbox_responsavel = (By.ID, 'zk-comp-318!cm')
-    seleciona_nome = (By.ID, 'zk-comp-259!hvig')
-    btn_confirma_responsavel = (By.CSS_SELECTOR, "[class|=z-button]")
+    btn_pesquisar_responsavel = (By.CSS_SELECTOR, 'table[id$="comp-247!box"] [class$="button-cm"]')
+    checkbox_responsavel = (By.CSS_SELECTOR, '[type="checkbox"]')
+    seleciona_nome = (By.ID, 'table[id$="comp-259!box"] [class$="button-cm"]')
+    btn_confirma_responsavel = (By.CSS_SELECTOR, 'table[id$="comp-278!box"] [class$="button-cm"]')
 
     # FORMULARIO CERTIFICADO
     btn_editar_certificado = (By.CSS_SELECTOR, 'table[id$="comp-167!box"] [class$="button-cm"]')
     combo_certificado = (By.ID, "zk-comp-233!btn")  # COMBO BOX
-    certificado = (By.CSS_SELECTOR, 'tr[id$="zk-comp-271"] [class$="z-combo-item-text"]')  # OPÇÃO PADRAO ICE
+    certificado = (By.CSS_SELECTOR, 'tr[id$="comp-271"] [class="z-combo-item-text"]')  # OPÇÃO PADRAO ICE
 
     combo_assinatura1 = (By.ID, "zk-comp-238!btn")
-    assinatura1 = (By.CSS_SELECTOR, 'tr[id$="zk-comp-285"] [class$="z-combo-item-text"]')
+    assinatura1 = (By.CSS_SELECTOR, 'tr[id$="comp-285"] [class="z-combo-item-text"]')
     funcao1 = (By.ID, "zk-comp-242")
 
     combo_assinatura2 = (By.ID, "zk-comp-247!btn")
-    assinatura2 = (By.CSS_SELECTOR, 'tr[id$="zk-comp-322"] [class$="z-combo-item-text"]')
+    assinatura2 = (By.CSS_SELECTOR, 'tr[id$="comp-322"] [class="z-combo-item-text"]')
     funcao2 = (By.ID, "zk-comp-251")
 
     combo_assinatura3 = (By.ID, "zk-comp-256!btn")
-    assinatura3 = (By.CSS_SELECTOR, 'tr[id$="zk-comp-361"] [class$="z-combo-item-text"]')
+    assinatura3 = (By.CSS_SELECTOR, 'tr[id$="comp-361"] [class="z-combo-item-text"]')
     funcao3 = (By.ID, "zk-comp-260")
 
-    btn_salvar = (By.CSS_SELECTOR, 'table[id$="zk-comp-263!box"] [class$="z-button-cm"]')
-    btn_ok = (By.CSS_SELECTOR, 'table[id$="zk-comp-403!box"] [class$="z-button-cm"]')
+    btn_salvar = (By.CSS_SELECTOR, 'table[id$="comp-263!box"] [class="z-button-cm"]')
+    btn_ok = (By.CSS_SELECTOR, 'table[id$="comp-403!box"] [class="z-button-cm"]')
 
     # CONCLUIR
-    btn_enviar = (By.CSS_SELECTOR, '[class|=z-button]')
+    btn_enviar = (By.CSS_SELECTOR, 'table[id$="comp-199!box"] [class$="z-button-cm"]')
 
     def caminho(self):
         sleep(1)
@@ -96,7 +93,7 @@ class criarEvento(PageElement):
         sleep(1)
         self.find_element(self.btn_buscar).click()
         sleep(1)
-        self.sendKeys(Keys.RETURN);
+        # self.sendKeys(Keys.RETURN)
         sleep(1)
         self.find_element(self.nome_responsavel).send_keys(nome_responsavel)
         self.find_element(self.btn_pesquisar_responsavel).click()
@@ -104,8 +101,9 @@ class criarEvento(PageElement):
         self.find_element(self.seleciona_nome).click()
         self.find_element(self.btn_confirma_responsavel).click()
 
+    # --------- Caso de teste: Criação de evento padrão -------------#
     def ct01_criar_evento(self, nome, descricao, site, email_responsavel, inicio_evento, fim_evento, inicio_inscricao,
-                          fim_inscricao, funcao1, funcao2, funcao3, nome_pesquisa_responsavel):
+                          fim_inscricao, funcao1, funcao2, funcao3):
         sleep(1)
         self.find_element(self.nome).send_keys(nome)
         self.find_element(self.descricao).send_keys(descricao)
@@ -114,11 +112,6 @@ class criarEvento(PageElement):
 
         # CERTIFICADO
         self.preenche_certificado(funcao1, funcao2, funcao3)
-        # FIM CERTIFICADO
-        #
-
-        # CERTIFICADO
-        self.preenche_responsavel(nome_pesquisa_responsavel)
         # FIM CERTIFICADO
 
         self.find_element(self.inicio_evento).send_keys(inicio_evento)
@@ -134,5 +127,33 @@ class criarEvento(PageElement):
         self.find_element(self.inscricao_externa).click()
         self.find_element(self.evento_pago).click()
 
+        #self.find_element(self.btn_enviar).click()
 
+    # ------------ Caso de teste: Trocar responsável ---------------#
+    def ct02_criar_evento(self, nome, descricao, site, email_responsavel, inicio_evento, fim_evento,
+                          inicio_inscricao,
+                          fim_inscricao, funcao1, funcao2, funcao3, nome_responsavel):
+        sleep(1)
+        self.find_element(self.nome).send_keys(nome)
+        self.find_element(self.descricao).send_keys(descricao)
+        self.find_element(self.site).send_keys(site)
+        self.find_element(self.email_responsavel).send_keys(email_responsavel)
 
+        self.preenche_responsavel(nome_responsavel)
+
+        # CERTIFICADO
+        self.preenche_certificado(funcao1, funcao2, funcao3)
+        # FIM CERTIFICADO
+
+        self.find_element(self.inicio_evento).send_keys(inicio_evento)
+        self.find_element(self.fim_evento).send_keys(fim_evento)
+        self.find_element(self.inicio_inscricao).send_keys(inicio_inscricao)
+        self.find_element(self.fim_inscricao).send_keys(fim_inscricao)
+
+        # TIPO DE EVENTO
+        self.find_element(self.btn_tipo_evento).click()
+        self.find_element(self.tipo_evento).click()
+        # FIM TIPO DE EVENTO
+
+        self.find_element(self.inscricao_externa).click()
+        self.find_element(self.evento_pago).click()
