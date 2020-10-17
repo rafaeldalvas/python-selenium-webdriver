@@ -37,7 +37,7 @@ criar_evento.caminho()
 criar_evento.ct02_criar_evento(
     nome               = 'Evento teste ct2',
     descricao          = 'testando responsavel',
-    site               = 'teste.com',
+    site               = 'teste2.com',
     email_responsavel  = 'teste2@teste.com',
     inicio_evento      = '03/01/2021',
     fim_evento         = '10/01/2021',
@@ -49,8 +49,36 @@ criar_evento.ct02_criar_evento(
     nome_responsavel   = 'Raquel Alves da Silva'
 )
 # ------------ Caso de teste: Cancelar transação ---------------#
-
-
-
-
-
+webdriver.get(url)
+criar_evento.caminho()
+criar_evento.ct03_criar_evento(
+    nome        ='Evento teste ct3',
+    descricao   ='testando cancelar criacao'
+)
+# ----- Caso de teste: Campos obrigatórios não preenchidos -----#
+webdriver.get(url)
+criar_evento.caminho()
+criar_evento.ct04_criar_evento(
+    site               = 'teste4.com',
+    email_responsavel  = 'teste4@teste.com',
+    funcao1            = 'Professor',
+    funcao2            = 'Gerente',
+    funcao3            = 'Diretor'
+)
+# --------------- Caso de teste: Data inválida ----------------#
+webdriver.get(url)
+criar_evento.caminho()
+criar_evento.ct01_criar_evento(
+    nome               = 'Evento teste ct2',
+    descricao          = 'testando responsavel',
+    site               = 'teste2.com',
+    email_responsavel  = 'teste2@teste.com',
+    #Datas inferiores a data atual do sistema:
+    inicio_evento      = '03/12/2015',
+    fim_evento         = '10/01/2016',
+    inicio_inscricao   = '02/11/2015',
+    fim_inscricao      = '02/12/2015',
+    funcao1            = 'Professor',
+    funcao2            = 'Gerente',
+    funcao3            = 'Diretor'
+)

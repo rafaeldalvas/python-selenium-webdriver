@@ -53,11 +53,13 @@ class criarEvento(PageElement):
     assinatura3 = (By.CSS_SELECTOR, 'tr[id$="comp-361"] [class="z-combo-item-text"]')
     funcao3 = (By.ID, "zk-comp-260")
 
-    btn_salvar = (By.CSS_SELECTOR, 'table[id$="comp-263!box"] [class="z-button-cm"]')
-    btn_ok = (By.CSS_SELECTOR, 'table[id$="comp-403!box"] [class="z-button-cm"]')
+    btn_salvar = (By.CSS_SELECTOR, 'table[id$="comp-263!box"] [class$="button-cm"]')
+    btn_ok = (By.CSS_SELECTOR, 'table[id$="comp-403!box"] [class$="button-cm"]')
 
     # CONCLUIR
-    btn_enviar = (By.CSS_SELECTOR, 'table[id$="comp-199!box"] [class$="z-button-cm"]')
+    btn_enviar = (By.CSS_SELECTOR, 'table[id$="comp-199!box"] [class$="button-cm"]')
+    # CANCELAR
+    btn_cancelar = (By.CSS_SELECTOR, 'table[id$="comp-201!box"] [class$="button-cm"]')
 
     def caminho(self):
         sleep(1)
@@ -128,6 +130,7 @@ class criarEvento(PageElement):
         self.find_element(self.evento_pago).click()
 
         #self.find_element(self.btn_enviar).click()
+        sleep(1)
 
     # ------------ Caso de teste: Trocar responsável ---------------#
     def ct02_criar_evento(self, nome, descricao, site, email_responsavel, inicio_evento, fim_evento,
@@ -157,3 +160,30 @@ class criarEvento(PageElement):
 
         self.find_element(self.inscricao_externa).click()
         self.find_element(self.evento_pago).click()
+
+        self.find_element(self.btn_enviar).click()
+        sleep(1)
+
+    # ------------ Caso de teste: Cancelar transação ---------------#
+    def ct03_criar_evento(self, nome, descricao):
+        sleep(1)
+        self.find_element(self.nome).send_keys(nome)
+        self.find_element(self.descricao).send_keys(descricao)
+        self.find_element(self.btn_cancelar).click()
+        sleep(1)
+
+    # ----- Caso de teste: Campos obrigatórios não preenchidos -----#
+
+    def ct04_criar_evento(self, site, email_responsavel, funcao1, funcao2, funcao3):
+        sleep(1)
+        self.find_element(self.site).send_keys(site)
+        self.find_element(self.email_responsavel).send_keys(email_responsavel)
+        # CERTIFICADO
+        self.preenche_certificado(funcao1, funcao2, funcao3)
+        # FIM CERTIFICADO
+        self.find_element(self.inscricao_externa).click()
+        self.find_element(self.evento_pago).click()
+        self.find_element(self.btn_enviar).click()
+        sleep(1)
+
+    # --------------- Caso de teste: Data inválida ----------------#
