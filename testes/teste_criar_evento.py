@@ -17,20 +17,20 @@ login_professor.realiza_login(
 criar_evento = criarEvento(webdriver)
 
 # --------- Caso de teste: Criação de evento padrão -------------#
-criar_evento.caminho()
-criar_evento.ct01_criar_evento(
-    nome                = 'Evento teste ct1',
-    descricao           = 'testando evento',
-    site                = 'teste.com.br',
-    email_responsavel   = 'teste@teste.com',
-    inicio_evento       = '22/12/2020',
-    fim_evento          = '01/01/2021',
-    inicio_inscricao    = '20/11/2020',
-    fim_inscricao       = '20/12/2020',
-    funcao1             = 'Professor',
-    funcao2             = 'Gerente',
-    funcao3             = 'Diretor'
-)
+# criar_evento.caminho()
+# criar_evento.ct01_criar_evento(
+#     nome                = 'Evento teste ct1',
+#     descricao           = 'testando evento',
+#     site                = 'teste.com.br',
+#     email_responsavel   = 'teste@teste.com',
+#     inicio_evento       = '22/12/2020',
+#     fim_evento          = '01/01/2021',
+#     inicio_inscricao    = '20/11/2020',
+#     fim_inscricao       = '20/12/2020',
+#     funcao1             = 'Professor',
+#     funcao2             = 'Gerente',
+#     funcao3             = 'Diretor'
+# )
 # ------------ Caso de teste: Trocar responsável ---------------#
 webdriver.get(url)
 criar_evento.caminho()

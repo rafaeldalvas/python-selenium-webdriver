@@ -1,3 +1,4 @@
+from selenium.common.exceptions import UnexpectedAlertPresentException
 from selenium.webdriver.common.by import By
 from utils.config import PageElement
 from time import sleep
@@ -93,8 +94,6 @@ class criarEvento(PageElement):
         sleep(1)
         self.find_element(self.btn_buscar).click()
         sleep(1)
-        # self.sendKeys(Keys.RETURN)
-        sleep(1)
         self.find_element(self.nome_responsavel).send_keys(nome_responsavel)
         self.find_element(self.btn_pesquisar_responsavel).click()
         self.find_element(self.checkbox_responsavel).click()
@@ -104,84 +103,103 @@ class criarEvento(PageElement):
     # --------- Caso de teste: Criação de evento padrão -------------#
     def ct01_criar_evento(self, nome, descricao, site, email_responsavel, inicio_evento, fim_evento, inicio_inscricao,
                           fim_inscricao, funcao1, funcao2, funcao3):
-        sleep(1)
-        self.find_element(self.nome).send_keys(nome)
-        self.find_element(self.descricao).send_keys(descricao)
-        self.find_element(self.site).send_keys(site)
-        self.find_element(self.email_responsavel).send_keys(email_responsavel)
+        try:
+            sleep(1)
+            self.find_element(self.nome).send_keys(nome)
+            self.find_element(self.descricao).send_keys(descricao)
+            self.find_element(self.site).send_keys(site)
+            self.find_element(self.email_responsavel).send_keys(email_responsavel)
 
-        # CERTIFICADO
-        self.preenche_certificado(funcao1, funcao2, funcao3)
-        # FIM CERTIFICADO
+            # CERTIFICADO
+            self.preenche_certificado(funcao1, funcao2, funcao3)
+            # FIM CERTIFICADO
 
-        self.find_element(self.inicio_evento).send_keys(inicio_evento)
-        self.find_element(self.fim_evento).send_keys(fim_evento)
-        self.find_element(self.inicio_inscricao).send_keys(inicio_inscricao)
-        self.find_element(self.fim_inscricao).send_keys(fim_inscricao)
+            self.find_element(self.inicio_evento).send_keys(inicio_evento)
+            self.find_element(self.fim_evento).send_keys(fim_evento)
+            self.find_element(self.inicio_inscricao).send_keys(inicio_inscricao)
+            self.find_element(self.fim_inscricao).send_keys(fim_inscricao)
 
-        # TIPO DE EVENTO
-        self.find_element(self.btn_tipo_evento).click()
-        self.find_element(self.tipo_evento).click()
-        # FIM TIPO DE EVENTO
+            # TIPO DE EVENTO
+            self.find_element(self.btn_tipo_evento).click()
+            self.find_element(self.tipo_evento).click()
+            # FIM TIPO DE EVENTO
 
-        self.find_element(self.inscricao_externa).click()
-        self.find_element(self.evento_pago).click()
+            self.find_element(self.inscricao_externa).click()
+            self.find_element(self.evento_pago).click()
 
-        #self.find_element(self.btn_enviar).click()
-        sleep(1)
+            #self.find_element(self.btn_enviar).click()
+            sleep(1)
+
+            print('ct01 sem erros')
+        except UnexpectedAlertPresentException:
+            print('Erro no ct01')
 
     # ------------ Caso de teste: Trocar responsável ---------------#
     def ct02_criar_evento(self, nome, descricao, site, email_responsavel, inicio_evento, fim_evento,
                           inicio_inscricao,
                           fim_inscricao, funcao1, funcao2, funcao3, nome_responsavel):
-        sleep(1)
-        self.find_element(self.nome).send_keys(nome)
-        self.find_element(self.descricao).send_keys(descricao)
-        self.find_element(self.site).send_keys(site)
-        self.find_element(self.email_responsavel).send_keys(email_responsavel)
+        try:
+            sleep(1)
+            self.find_element(self.nome).send_keys(nome)
+            self.find_element(self.descricao).send_keys(descricao)
+            self.find_element(self.site).send_keys(site)
+            self.find_element(self.email_responsavel).send_keys(email_responsavel)
 
-        self.preenche_responsavel(nome_responsavel)
+            self.preenche_responsavel(nome_responsavel)
 
-        # CERTIFICADO
-        self.preenche_certificado(funcao1, funcao2, funcao3)
-        # FIM CERTIFICADO
+            # CERTIFICADO
+            self.preenche_certificado(funcao1, funcao2, funcao3)
+            # FIM CERTIFICADO
 
-        self.find_element(self.inicio_evento).send_keys(inicio_evento)
-        self.find_element(self.fim_evento).send_keys(fim_evento)
-        self.find_element(self.inicio_inscricao).send_keys(inicio_inscricao)
-        self.find_element(self.fim_inscricao).send_keys(fim_inscricao)
+            self.find_element(self.inicio_evento).send_keys(inicio_evento)
+            self.find_element(self.fim_evento).send_keys(fim_evento)
+            self.find_element(self.inicio_inscricao).send_keys(inicio_inscricao)
+            self.find_element(self.fim_inscricao).send_keys(fim_inscricao)
 
-        # TIPO DE EVENTO
-        self.find_element(self.btn_tipo_evento).click()
-        self.find_element(self.tipo_evento).click()
-        # FIM TIPO DE EVENTO
+            # TIPO DE EVENTO
+            self.find_element(self.btn_tipo_evento).click()
+            self.find_element(self.tipo_evento).click()
+            # FIM TIPO DE EVENTO
 
-        self.find_element(self.inscricao_externa).click()
-        self.find_element(self.evento_pago).click()
+            self.find_element(self.inscricao_externa).click()
+            self.find_element(self.evento_pago).click()
 
-        self.find_element(self.btn_enviar).click()
-        sleep(1)
+            #self.find_element(self.btn_enviar).click()
+            sleep(1)
+
+            print('ct02 sem erros')
+        except UnexpectedAlertPresentException:
+            print('Erro no ct02')
 
     # ------------ Caso de teste: Cancelar transação ---------------#
     def ct03_criar_evento(self, nome, descricao):
-        sleep(1)
-        self.find_element(self.nome).send_keys(nome)
-        self.find_element(self.descricao).send_keys(descricao)
-        self.find_element(self.btn_cancelar).click()
-        sleep(1)
+        try:
+            sleep(1)
+            self.find_element(self.nome).send_keys(nome)
+            self.find_element(self.descricao).send_keys(descricao)
+            self.find_element(self.btn_cancelar).click()
+            sleep(1)
+
+            print('ct03 sem erros')
+        except UnexpectedAlertPresentException:
+            print('Erro no ct03')
 
     # ----- Caso de teste: Campos obrigatórios não preenchidos -----#
-
     def ct04_criar_evento(self, site, email_responsavel, funcao1, funcao2, funcao3):
-        sleep(1)
-        self.find_element(self.site).send_keys(site)
-        self.find_element(self.email_responsavel).send_keys(email_responsavel)
-        # CERTIFICADO
-        self.preenche_certificado(funcao1, funcao2, funcao3)
-        # FIM CERTIFICADO
-        self.find_element(self.inscricao_externa).click()
-        self.find_element(self.evento_pago).click()
-        self.find_element(self.btn_enviar).click()
-        sleep(1)
+        try:
+            sleep(1)
+            self.find_element(self.site).send_keys(site)
+            self.find_element(self.email_responsavel).send_keys(email_responsavel)
+            # CERTIFICADO
+            self.preenche_certificado(funcao1, funcao2, funcao3)
+            # FIM CERTIFICADO
+            self.find_element(self.inscricao_externa).click()
+            self.find_element(self.evento_pago).click()
+            #self.find_element(self.btn_enviar).click()
+            sleep(1)
+
+            print('Erro no ct04: Evento criado com campos obrigatorios em branco')
+        except UnexpectedAlertPresentException:
+            print('ct04 sem erros: Sistema reportou os campos obrigatorios nao preenchidos')
 
     # --------------- Caso de teste: Data inválida ----------------#

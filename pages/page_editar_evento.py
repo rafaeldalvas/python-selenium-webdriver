@@ -160,11 +160,11 @@ class editarEvento(PageElement):
         self.find_element(self.descricao).send_keys(descricao)
         self.find_element(self.btn_cancelar).click()
 
-# --------- Caso de teste: Nenhum evento selecionado ao editar -------------#
+# -- Caso de teste: Nenhum evento selecionado ao editar ---#
     def ct_10_editar_evento(self, ct_10):
         self.caminho(False, ct_10)
 
-# --------- Caso de teste: Campos obrigatórios não preenchidos -------------#
+# -- Caso de teste: Campos obrigatórios não preenchidos ---#
     def ct_11_editar_evento(self):
         self.find_element(self.nome).send_keys('')
         self.find_element(self.descricao).send_keys('')
