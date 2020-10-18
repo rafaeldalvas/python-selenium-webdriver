@@ -68,7 +68,7 @@ class editarEvento(PageElement):
 
 
 
-    def caminho(self, fluxo_normal = True):
+    def caminho(self, ct_08 = False, ct_10 = False):
         sleep(1)
         self.find_element(self.calendario).click()
         sleep(1)
@@ -78,10 +78,11 @@ class editarEvento(PageElement):
         sleep(1)
         self.find_element(self.radio_evento).click()
         sleep(1)
-        if fluxo_normal is True:
+        if ct_10 is False:
             self.find_element(self.radio_selec_evento).click()
         sleep(2)
-        self.find_element(self.btn_editar).click()
+        if ct_08 is False:
+            self.find_element(self.btn_editar).click()
 
     def preenche_certificado(self, funcao1, funcao2, funcao3):
         self.find_element(self.btn_editar_certificado).click()
@@ -160,8 +161,8 @@ class editarEvento(PageElement):
         self.find_element(self.btn_cancelar).click()
 
 # --------- Caso de teste: Nenhum evento selecionado ao editar -------------#
-    def ct_10_editar_evento(self, nome, descricao,):
-        self.caminho(False)
+    def ct_10_editar_evento(self):
+        self.caminho(False, True)
 
 # --------- Caso de teste: Campos obrigatórios não preenchidos -------------#
     def ct_11_editar_evento(self):
