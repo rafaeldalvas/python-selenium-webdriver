@@ -203,3 +203,26 @@ class criarEvento(PageElement):
             print('ct04 sem erros: Sistema reportou os campos obrigatorios nao preenchidos')
 
     # --------------- Caso de teste: Data inválida ----------------#
+    def ct05_criar_evento(self, nome, descricao, inicio_evento, fim_evento, inicio_inscricao,
+                          fim_inscricao):
+        try:
+            sleep(1)
+            self.find_element(self.nome).send_keys(nome)
+            self.find_element(self.descricao).send_keys(descricao)
+
+            self.find_element(self.inicio_evento).send_keys(inicio_evento)
+            self.find_element(self.fim_evento).send_keys(fim_evento)
+            self.find_element(self.inicio_inscricao).send_keys(inicio_inscricao)
+            self.find_element(self.fim_inscricao).send_keys(fim_inscricao)
+
+            # TIPO DE EVENTO
+            self.find_element(self.btn_tipo_evento).click()
+            self.find_element(self.tipo_evento).click()
+            # FIM TIPO DE EVENTO
+
+            #self.find_element(self.btn_enviar).click()
+            sleep(1)
+
+            print('Erro no ct05: Evento criado com datas inválidas')
+        except UnexpectedAlertPresentException:
+            print('Erro no ct05')
