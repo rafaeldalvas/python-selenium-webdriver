@@ -45,7 +45,7 @@ editar_evento.ct_09_editar_evento(
 )
 
 # --------- Caso de teste: Nenhum evento selecionado ao editar -------------#
-editar_evento.ct_10_editar_evento()
+editar_evento.ct_10_editar_evento(True)
 
 # --------- Caso de teste: Campos obrigatórios não preenchidos -------------#
 editar_evento.caminho()

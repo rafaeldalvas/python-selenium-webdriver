@@ -154,15 +154,15 @@ class editarEvento(PageElement):
         self.find_element(self.btn_excluir).click()
 
 # --------- Caso de teste: Cancelar transação -------------#
-    def ct_09_editar_evento(self, nome, descricao,):
+    def ct_09_editar_evento(self, nome, descricao):
         sleep(1)
         self.find_element(self.nome).send_keys(nome)
         self.find_element(self.descricao).send_keys(descricao)
         self.find_element(self.btn_cancelar).click()
 
 # --------- Caso de teste: Nenhum evento selecionado ao editar -------------#
-    def ct_10_editar_evento(self):
-        self.caminho(False, True)
+    def ct_10_editar_evento(self, ct_10):
+        self.caminho(False, ct_10)
 
 # --------- Caso de teste: Campos obrigatórios não preenchidos -------------#
     def ct_11_editar_evento(self):
