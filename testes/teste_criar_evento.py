@@ -48,7 +48,7 @@ criar_evento.ct02_criar_evento(
     funcao3            = 'Diretor',
     nome_responsavel   = 'Raquel Alves da Silva'
 )
-# ------------ Caso de teste: Cancelar transação ---------------#
+# # ------------ Caso de teste: Cancelar transação ---------------#
 webdriver.get(url)
 criar_evento.caminho()
 criar_evento.ct03_criar_evento(

@@ -1,7 +1,11 @@
-from selenium.common.exceptions import UnexpectedAlertPresentException
+from selenium.common.exceptions import UnexpectedAlertPresentException, TimeoutException
+from selenium.webdriver.common.alert import Alert
 from selenium.webdriver.common.by import By
+from selenium.webdriver.support.wait import WebDriverWait
+from selenium.webdriver.support import expected_conditions, wait
 from utils.config import PageElement
 from time import sleep
+
 
 class criarEvento(PageElement):
     # CAMINHO
@@ -22,7 +26,7 @@ class criarEvento(PageElement):
     fim_inscricao = (By.ID, 'zk-comp-182!real')
     # COMBOBOX TIPO EVENTO
     btn_tipo_evento = (By.ID, 'zk-comp-185!btn')
-    tipo_evento = (By.ID, 'zk-comp-213') # Selecionar - Escola
+    tipo_evento = (By.ID, 'zk-comp-213')  # Selecionar - Escola
     # FIM COMBOBOX
     inscricao_externa = (By.ID, 'zk-comp-189!real')
     evento_pago = (By.ID, 'zk-comp-195!real')
@@ -131,12 +135,13 @@ class criarEvento(PageElement):
             self.find_element(self.inscricao_externa).click()
             self.find_element(self.evento_pago).click()
 
-            #self.find_element(self.btn_enviar).click()
+            # self.find_element(self.btn_enviar).click()
             sleep(1)
 
-            print('CT_01 sem erros: o evento foi criado com sucesso')
-        except UnexpectedAlertPresentException:
-            print('CT_01 reportou um erro: o evento não foi criado')
+            print('\n CT_01 sem erros: o evento foi criado com sucesso')
+
+        except UnexpectedAlertPresentException as e:
+            print("\n [!] CT_01 reportou erro: " + str(e))
 
     # ------------ Caso de teste: Trocar responsável ---------------#
     def ct02_criar_evento(self, nome, descricao, site, email_responsavel, inicio_evento, fim_evento,
@@ -172,12 +177,13 @@ class criarEvento(PageElement):
             self.find_element(self.inscricao_externa).click()
             self.find_element(self.evento_pago).click()
 
-            #self.find_element(self.btn_enviar).click()
+            # self.find_element(self.btn_enviar).click()
             sleep(1)
 
-            print('CT_02 sem erros: a troca de responsável foi feita com sucesso')
-        except UnexpectedAlertPresentException:
-            print('CT_02 reportou erro: não foi possível efetuar a troca de responsável')
+            print('\n CT_02 sem erros: a troca de responsável foi feita com sucesso')
+
+        except UnexpectedAlertPresentException as e:
+            print("\n [!] CT_02 reportou erro: " + str(e))
 
     # ------------ Caso de teste: Cancelar transação ---------------#
     def ct03_criar_evento(self, nome, descricao):
@@ -188,9 +194,10 @@ class criarEvento(PageElement):
             self.find_element(self.btn_cancelar).click()
             sleep(1)
 
-            print('CT_03 sem erros: o sistema permitiu o cancelamento da transação')
-        except UnexpectedAlertPresentException:
-            print('CT_03 reportou erro: o sistema não conseguiu cancelar a transação')
+            print('\n CT_03 sem erros: evento cancelado com sucesso')
+
+        except UnexpectedAlertPresentException as e:
+            print("\n [!] CT_03 reportou erro: " + str(e))
 
     # ----- Caso de teste: Campos obrigatórios não preenchidos -----#
     def ct04_criar_evento(self, site, email_responsavel, funcao1, funcao2, funcao3):
@@ -203,12 +210,13 @@ class criarEvento(PageElement):
             # FIM CERTIFICADO
             self.find_element(self.inscricao_externa).click()
             self.find_element(self.evento_pago).click()
-            #self.find_element(self.btn_enviar).click()
+            self.find_element(self.btn_enviar).click()
             sleep(1)
 
-            print('CT_04 reportou erro: Evento criado com campos obrigatorios em branco')
-        except UnexpectedAlertPresentException:
-            print('CT_04 sem erros: Sistema reportou os campos obrigatorios nao preenchidos')
+
+            print('\n [!] CT_04 reportou erro: Evento criado com campos obrigatorios nao preenchidos')
+        except UnexpectedAlertPresentException as e:
+            print("\n CT_04 reportou erro: " + str(e))
 
     # --------------- Caso de teste: Data inválida ----------------#
     def ct05_criar_evento(self, nome, descricao, inicio_evento, fim_evento, inicio_inscricao,
@@ -232,9 +240,9 @@ class criarEvento(PageElement):
             self.find_element(self.tipo_evento).click()
             # FIM TIPO DE EVENTO
 
-            #self.find_element(self.btn_enviar).click()
+            # self.find_element(self.btn_enviar).click()
             sleep(1)
 
-            print('Erro no CT_05: Evento criado com datas inválidas')
-        except UnexpectedAlertPresentException:
-            print('Erro no CT_05')
+            print('\n [!] CT_04 reportou erro: Evento criado com datas inválidas')
+        except UnexpectedAlertPresentException as e:
+            print("\n CT_04 reportou erro: " + str(e))
