@@ -114,9 +114,13 @@ class criarEvento(PageElement):
             self.preenche_certificado(funcao1, funcao2, funcao3)
             # FIM CERTIFICADO
 
+            self.find_element(self.inicio_evento).clear()
             self.find_element(self.inicio_evento).send_keys(inicio_evento)
+            self.find_element(self.fim_evento).clear()
             self.find_element(self.fim_evento).send_keys(fim_evento)
+            self.find_element(self.inicio_inscricao).clear()
             self.find_element(self.inicio_inscricao).send_keys(inicio_inscricao)
+            self.find_element(self.fim_inscricao).clear()
             self.find_element(self.fim_inscricao).send_keys(fim_inscricao)
 
             # TIPO DE EVENTO
@@ -151,9 +155,13 @@ class criarEvento(PageElement):
             self.preenche_certificado(funcao1, funcao2, funcao3)
             # FIM CERTIFICADO
 
+            self.find_element(self.inicio_evento).clear()
             self.find_element(self.inicio_evento).send_keys(inicio_evento)
+            self.find_element(self.fim_evento).clear()
             self.find_element(self.fim_evento).send_keys(fim_evento)
+            self.find_element(self.inicio_inscricao).clear()
             self.find_element(self.inicio_inscricao).send_keys(inicio_inscricao)
+            self.find_element(self.fim_inscricao).clear()
             self.find_element(self.fim_inscricao).send_keys(fim_inscricao)
 
             # TIPO DE EVENTO
@@ -180,7 +188,7 @@ class criarEvento(PageElement):
             self.find_element(self.btn_cancelar).click()
             sleep(1)
 
-            print('ct03 sem erros: o sistema permitiu o cancelamento da transação')
+            print('CT_03 sem erros: o sistema permitiu o cancelamento da transação')
         except UnexpectedAlertPresentException:
             print('CT_03 reportou erro: o sistema não conseguiu cancelar a transação')
 
@@ -200,7 +208,7 @@ class criarEvento(PageElement):
 
             print('CT_04 reportou erro: Evento criado com campos obrigatorios em branco')
         except UnexpectedAlertPresentException:
-            print('ct04 sem erros: Sistema reportou os campos obrigatorios nao preenchidos')
+            print('CT_04 sem erros: Sistema reportou os campos obrigatorios nao preenchidos')
 
     # --------------- Caso de teste: Data inválida ----------------#
     def ct05_criar_evento(self, nome, descricao, inicio_evento, fim_evento, inicio_inscricao,
@@ -210,9 +218,13 @@ class criarEvento(PageElement):
             self.find_element(self.nome).send_keys(nome)
             self.find_element(self.descricao).send_keys(descricao)
 
+            self.find_element(self.inicio_evento).clear()
             self.find_element(self.inicio_evento).send_keys(inicio_evento)
+            self.find_element(self.fim_evento).clear()
             self.find_element(self.fim_evento).send_keys(fim_evento)
+            self.find_element(self.inicio_inscricao).clear()
             self.find_element(self.inicio_inscricao).send_keys(inicio_inscricao)
+            self.find_element(self.fim_inscricao).clear()
             self.find_element(self.fim_inscricao).send_keys(fim_inscricao)
 
             # TIPO DE EVENTO
@@ -223,6 +235,6 @@ class criarEvento(PageElement):
             #self.find_element(self.btn_enviar).click()
             sleep(1)
 
-            print('Erro no ct05: Evento criado com datas inválidas')
+            print('Erro no CT_05: Evento criado com datas inválidas')
         except UnexpectedAlertPresentException:
-            print('Erro no ct05')
+            print('Erro no CT_05')
