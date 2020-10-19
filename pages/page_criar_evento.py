@@ -130,9 +130,9 @@ class criarEvento(PageElement):
             #self.find_element(self.btn_enviar).click()
             sleep(1)
 
-            print('ct01 sem erros')
+            print('CT_01 sem erros: o evento foi criado com sucesso')
         except UnexpectedAlertPresentException:
-            print('Erro no ct01')
+            print('CT_01 reportou um erro: o evento não foi criado')
 
     # ------------ Caso de teste: Trocar responsável ---------------#
     def ct02_criar_evento(self, nome, descricao, site, email_responsavel, inicio_evento, fim_evento,
@@ -167,9 +167,9 @@ class criarEvento(PageElement):
             #self.find_element(self.btn_enviar).click()
             sleep(1)
 
-            print('ct02 sem erros')
+            print('CT_02 sem erros: a troca de responsável foi feita com sucesso')
         except UnexpectedAlertPresentException:
-            print('Erro no ct02')
+            print('CT_02 reportou erro: não foi possível efetuar a troca de responsável')
 
     # ------------ Caso de teste: Cancelar transação ---------------#
     def ct03_criar_evento(self, nome, descricao):
@@ -180,9 +180,9 @@ class criarEvento(PageElement):
             self.find_element(self.btn_cancelar).click()
             sleep(1)
 
-            print('ct03 sem erros')
+            print('ct03 sem erros: o sistema permitiu o cancelamento da transação')
         except UnexpectedAlertPresentException:
-            print('Erro no ct03')
+            print('CT_03 reportou erro: o sistema não conseguiu cancelar a transação')
 
     # ----- Caso de teste: Campos obrigatórios não preenchidos -----#
     def ct04_criar_evento(self, site, email_responsavel, funcao1, funcao2, funcao3):
@@ -198,7 +198,7 @@ class criarEvento(PageElement):
             #self.find_element(self.btn_enviar).click()
             sleep(1)
 
-            print('Erro no ct04: Evento criado com campos obrigatorios em branco')
+            print('CT_04 reportou erro: Evento criado com campos obrigatorios em branco')
         except UnexpectedAlertPresentException:
             print('ct04 sem erros: Sistema reportou os campos obrigatorios nao preenchidos')
 
