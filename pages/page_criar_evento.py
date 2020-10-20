@@ -30,6 +30,7 @@ class criarEvento(PageElement):
     # FIM COMBOBOX
     inscricao_externa = (By.ID, 'zk-comp-189!real')
     evento_pago = (By.ID, 'zk-comp-195!real')
+    alert_tipo = (By.ID, "zk-comp-412")
 
     # FORMUMARIO RESPONSAVEL
     btn_buscar = (By.CSS_SELECTOR, 'table[id$="comp-159!box"] [class$="button-cm"]')
@@ -63,6 +64,10 @@ class criarEvento(PageElement):
     btn_enviar = (By.CSS_SELECTOR, 'table[id$="comp-199!box"] [class$="button-cm"]')
     # CANCELAR
     btn_cancelar = (By.CSS_SELECTOR, 'table[id$="comp-201!box"] [class$="button-cm"]')
+
+    def espera_mensagem(self):
+        element = self.find_element(self.alert_tipo)
+        return bool(element)
 
     def caminho(self):
         sleep(1)
@@ -178,6 +183,7 @@ class criarEvento(PageElement):
             self.find_element(self.evento_pago).click()
 
             # self.find_element(self.btn_enviar).click()
+
             sleep(1)
 
             print('\n CT_02 sem erros: a troca de responsável foi feita com sucesso')
@@ -213,8 +219,11 @@ class criarEvento(PageElement):
             self.find_element(self.btn_enviar).click()
             sleep(1)
 
-
-            print('\n [!] CT_04 reportou erro: Evento criado com campos obrigatorios nao preenchidos')
+            mensagem_erro = self.espera_mensagem()
+            if mensagem_erro is False:
+                print("\n [!] CT_04 reportou erro: Evento criado com campos obrigatorios nao preenchidos")
+            if mensagem_erro is True:
+                print("\n CT_04 reportou erro: O sistema exibiu os campos faltantes")
         except UnexpectedAlertPresentException as e:
             print("\n CT_04 reportou erro: " + str(e))
 
@@ -243,6 +252,6 @@ class criarEvento(PageElement):
             # self.find_element(self.btn_enviar).click()
             sleep(1)
 
-            print('\n [!] CT_04 reportou erro: Evento criado com datas inválidas')
+            print('\n [!] CT_05 reportou erro: Evento criado com datas inválidas')
         except UnexpectedAlertPresentException as e:
-            print("\n CT_04 reportou erro: " + str(e))
+            print("\n CT_05 reportou erro: " + str(e))
