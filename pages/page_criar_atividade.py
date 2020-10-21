@@ -14,4 +14,21 @@ class criarAtividade(PageElement):
     evento = (By.CSS_SELECTOR, 'tr[id$="comp-930"] [class="z-combo-item-text"]')  # EVENTO TESTES DALVAS E JP
     btn_novo = (By.CSS_SELECTOR, '.z-button-cm')
 
-    # FORMULARIO PADRAO
+    # FORMULARIO BASICO
+    combo_tipo = (By.ID, 'zk-comp-155!btn')
+    tipo = (By.CSS_SELECTOR, 'tr[id$="comp-209"] [class="z-combo-item-text"]')
+    tema = (By.ID, 'zk-comp-163')
+    descricao = (By.ID, 'zk-comp-166')
+    vagas = (By.ID, 'zk-comp-169')
+    duracao = (By.ID, 'zk-comp-173')
+    combo_palestrante = (By.ID, 'zk-comp-192!btn')
+    palestrante = (By.CSS_SELECTOR, 'tr[id$="comp-228"] [class="z-combo-item-text"]') #Alberto Duque Portugal
+
+    #DATAS DA ATIVIDADE
+    botao_definir = (By.CSS_SELECTOR, 'table[id$="comp-159!box"] [class$="button-cm"]')
+    sala = (By.ID, 'zk-comp-1110')
+    Data = (By.ID, 'zk-comp-1113!real')
+    hora_inicio = (By.ID, 'zk-comp-1116')
+    hora_fim = (By.ID, 'zk-comp-1119')
+    botao_adicionar = (By.CSS_SELECTOR, 'table[id$="comp-159!box"] [class$="button-cm"]')
+    botao_salvar = (By.CSS_SELECTOR, 'table[id$="comp-159!box"] [class$="button-cm"]')
