@@ -1,4 +1,4 @@
-from selenium.common.exceptions import UnexpectedAlertPresentException, TimeoutException
+from selenium.common.exceptions import UnexpectedAlertPresentException, TimeoutException, NoSuchElementException
 from selenium.webdriver.common.alert import Alert
 from selenium.webdriver.common.by import By
 from selenium.webdriver.common.keys import Keys
@@ -67,8 +67,11 @@ class criarEvento(PageElement):
     btn_cancelar = (By.CSS_SELECTOR, 'table[id$="comp-201!box"] [class$="button-cm"]')
 
     def espera_mensagem(self):
-        element = self.find_element(self.alert_tipo)
-        return bool(element)
+        try:
+            element = self.find_element(self.alert_tipo)
+            return True
+        except NoSuchElementException:
+            return False
 
     def caminho(self):
         sleep(5)
@@ -215,9 +218,13 @@ class criarEvento(PageElement):
             sleep(1)
             self.find_element(self.nome).send_keys(nome)
             self.find_element(self.descricao).send_keys(descricao)
+            self.find_element(self.inicio_evento).clear()
             self.find_element(self.inicio_evento).send_keys(inicio_evento)
+            self.find_element(self.fim_evento).clear()
             self.find_element(self.fim_evento).send_keys(fim_evento)
+            self.find_element(self.inicio_inscricao).clear()
             self.find_element(self.inicio_inscricao).send_keys(inicio_inscricao)
+            self.find_element(self.fim_inscricao).clear()
             self.find_element(self.fim_inscricao).send_keys(fim_inscricao)
             # TIPO DE EVENTO
             self.find_element(self.btn_tipo_evento).click()
