@@ -28,10 +28,11 @@ class criarEvento(PageElement):
     # COMBOBOX TIPO EVENTO
     btn_tipo_evento = (By.ID, 'zk-comp-185!btn')
     tipo_evento = (By.ID, 'zk-comp-213')  # Selecionar - Escola
+    select_tipo_evento = (By.ID, 'zk-comp-185!real')
     # FIM COMBOBOX
     inscricao_externa = (By.ID, 'zk-comp-189!real')
     evento_pago = (By.ID, 'zk-comp-195!real')
-    alert_tipo = (By.ID, "zk-comp-412")
+    alert_tipo = (By.CSS_SELECTOR, 'div[class$="modal-cm-noborder"] div[class="myMultiMessageBox"]')
 
     # FORMUMARIO RESPONSAVEL
     btn_buscar = (By.CSS_SELECTOR, 'table[id$="comp-159!box"] [class$="button-cm"]')
@@ -74,7 +75,7 @@ class criarEvento(PageElement):
             return False
 
     def caminho(self):
-        sleep(5)
+        sleep(2)
         self.find_element(self.calendario).click()
         sleep(1)
         self.find_element(self.admin).click()
@@ -280,7 +281,7 @@ class criarEvento(PageElement):
 
             if erro is False:
                 self.find_element(self.fim_inscricao).send_keys(fim_inscricao)
-                self.find_element(self.btn_tipo_evento).send_keys(Keys.BACKSPACE)
+                self.find_element(self.select_tipo_evento).clear()
                 self.find_element(self.btn_enviar).click()
                 msg = self.espera_mensagem()
                 if msg is True:
