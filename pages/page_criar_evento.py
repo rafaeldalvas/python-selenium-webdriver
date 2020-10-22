@@ -71,7 +71,7 @@ class criarEvento(PageElement):
             return False
 
     def caminho(self):
-        sleep(5)
+        sleep(1)
         self.find_element(self.calendario).click()
         sleep(1)
         self.find_element(self.admin).click()

@@ -1,5 +1,5 @@
 from selenium import webdriver
-from pages.page_criar_evento import criarEvento
+from pages.page_criar_atividade import criarAtividade
 from utils.login import LoginProfessor
 
 webdriver = webdriver.Chrome(r'd:\Downloads\chromedriver_win32\chromedriver.exe')
@@ -14,3 +14,7 @@ login_professor.realiza_login(
     senha = '6kmfDK'
 )
 
+criar_atividade = criarAtividade(webdriver)
+
+# --------- Caso de teste: Criação de atividade padrão -------------#
+criar_atividade.caminho()
