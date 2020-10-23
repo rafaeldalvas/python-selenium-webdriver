@@ -24,7 +24,7 @@ criar_atividade.ct01_criar_atividade(
     vagas       = '30',
     duracao     = '8',
     sala        = '102',
-    data        = '01/01/2021',
+    data        = '12/12/2020',
     hora_inicio = '1000',
     hora_fim    = '1800'
 )

@@ -26,13 +26,16 @@ class criarAtividade(PageElement):
 
     #DATAS DA ATIVIDADE
     botao_definir = (By.CSS_SELECTOR, 'span[id$="comp-187"] [class$="button-cm"]')
-    sala = (By.CSS_SELECTOR, '')
-    hora_inicio = (By.CSS_SELECTOR, 'zk-comp-963')
-    hora_fim = (By.CSS_SELECTOR, 'zk-comp-1119')
-    botao_adicionar = (By.CSS_SELECTOR, 'table[id$="comp-159!box"] [class$="button-cm"]')
-    botao_salvar = (By.CSS_SELECTOR, 'table[id$="comp-159!box"] [class$="button-cm"]')
+    sala = (By.ID, 'zk-comp-957')
+    data = (By.ID, 'zk-comp-960!real')
+    hora_inicio = (By.ID, 'zk-comp-963')
+    hora_fim = (By.ID, 'zk-comp-966')
+    botao_adicionar = (By.CSS_SELECTOR, 'table[id$="comp-967!box"] [class$="button-cm"]')
+    botao_salvar = (By.CSS_SELECTOR, 'table[id$="comp-981!box"] [class$="button-cm"]')
 
     salvar = (By.CSS_SELECTOR, 'table[id$="comp-202!box"] [class$="button-cm"]')
+
+    alert_tipo = (By.CSS_SELECTOR, 'div[class$="modal-cm-noborder"] div[class="myMultiMessageBox"]')
 
     def caminho(self):
         sleep(1)
@@ -50,9 +53,16 @@ class criarAtividade(PageElement):
         sleep(2)
         self.find_element(self.btn_novo).click()
 
+    def espera_mensagem(self):
+        try:
+            element = self.find_element(self.alert_tipo)
+            return True
+        except NoSuchElementException:
+            return False
+
     # --------- Caso de teste: Criação de evento padrão -------------#
     def ct01_criar_atividade(self, tema, descricao, vagas, duracao, sala, data, hora_inicio, hora_fim):
-
+        erro = True
         try:
             sleep(1)
             self.find_element(self.combo_tipo).click()
@@ -61,8 +71,10 @@ class criarAtividade(PageElement):
             self.find_element(self.descricao).send_keys(descricao)
             self.find_element(self.vagas).send_keys(vagas)
             self.find_element(self.duracao).send_keys(duracao)
+
             # DATAS DA ATIVIDADE
             self.find_element(self.botao_definir).click()
+            sleep(1)
             self.find_element(self.sala).send_keys(sala)
             self.find_element(self.data).send_keys(data)
             self.find_element(self.hora_inicio).send_keys(hora_inicio)
@@ -72,10 +84,14 @@ class criarAtividade(PageElement):
             # RESPONSAVEL
             self.find_element(self.combo_palestrante).click()
             self.find_element(self.palestrante).click()
+            # self.find_element(self.salvar).click()
+            msg = self.espera_mensagem()
+            if msg is True:
+                erro = False
 
-            #self.find_element(self.salvar).click()
-
-            print('\n CT_01 sem erros: o evento foi criado com sucesso')
-
+            if erro is False:
+                print("\n [!] CT_04 reportou erro: ") + str(self.find_element(self.alert_tipo).text)
+            else:
+                print("\n ")
         except UnexpectedAlertPresentException as e:
             print("\n [!] CT_01 reportou erro: " + str(e))
