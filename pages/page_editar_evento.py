@@ -136,7 +136,7 @@ class editarEvento(PageElement):
         self.find_element(self.btn_confirma_responsavel).click()
 
     # --------- Caso de teste: Edição de evento padrão -------------#
-    def ct_07_editar_evento(self,nome, descricao, site, email_responsavel, inicio_evento, fim_evento, inicio_inscricao,
+    def ct_06_editar_evento(self,nome, descricao, site, email_responsavel, inicio_evento, fim_evento, inicio_inscricao,
                           fim_inscricao, funcao1, funcao2, funcao3, nome_responsavel):
 
         try:
@@ -169,49 +169,49 @@ class editarEvento(PageElement):
             self.find_element(self.evento_pago_externo).click()
 
             #self.find_element(self.btn_enviar).click()
-            print('\n CT_07 sem erros: o evento foi editado com sucesso')
+            print('\n CT_06 sem erros: o evento foi editado com sucesso')
 
         except UnexpectedAlertPresentException as e:
-            print("\n [!] CT_07 reportou erro: " + str(e))
+            print("\n [!] CT_06 reportou erro: " + str(e))
 
 # --------- Caso de teste: Exclusão de eventos -------------#
-    def ct_08_editar_evento(self):
+    def ct_07_editar_evento(self):
         try:
             self.find_element(self.btn_excluir).click()
             sleep(1)
             self.find_element(self.confirm_excluir).click()
-            print('\n CT_08 sem erros: o evento foi excluído com sucesso')
+            print('\n CT_07 sem erros: o evento foi excluído com sucesso')
+
+        except UnexpectedAlertPresentException as e:
+            print("\n [!] CT_07 reportou erro: " + str(e))
+
+# --------- Caso de teste: Cancelar transação -------------#
+    def ct_08_editar_evento(self):
+        try:
+            sleep(1)
+            self.find_element(self.btn_cancelar).click()
+            print('\n CT_08 sem erros: A operação foi cancelada com sucesso')
 
         except UnexpectedAlertPresentException as e:
             print("\n [!] CT_08 reportou erro: " + str(e))
 
-# --------- Caso de teste: Cancelar transação -------------#
-    def ct_09_editar_evento(self):
-        try:
-            sleep(1)
-            self.find_element(self.btn_cancelar).click()
-            print('\n CT_09 sem erros: A operação foi cancelada com sucesso')
-
-        except UnexpectedAlertPresentException as e:
-            print("\n [!] CT_09 reportou erro: " + str(e))
-
 # -- Caso de teste: Nenhum evento selecionado ao editar ---#
-    def ct_10_editar_evento(self):
+    def ct_9_editar_evento(self):
         try:
             sleep(1)
             msg = self.espera_mensagem()
             if msg is True:
-                print("\n CT_10 reportou erro: O sistema pediu para selecionar um evento")
+                print("\n CT_09 reportou erro: O sistema pediu para selecionar um evento")
                 sleep(1)
                 self.find_element(self.click_ok).click()
             else:
-                 print("\n [!] CT_10 reportou erro: Houve acesso ao formulário sem selecionar um evento")
+                 print("\n [!] CT_09 reportou erro: Houve acesso ao formulário sem selecionar um evento")
         except UnexpectedAlertPresentException as e:
             print("\n [!] CT_09 reportou erro: " + str(e))
 
 
 # -- Caso de teste: Campos obrigatórios não preenchidos ---#
-    def ct_11_editar_evento(self, nome, descricao, inicio_evento, fim_evento, inicio_inscricao, fim_inscricao, nome_responsavel):
+    def ct_10_editar_evento(self, nome, descricao, inicio_evento, fim_evento, inicio_inscricao, fim_inscricao, nome_responsavel):
         erro = True
         sleep(1)
         try:
@@ -273,12 +273,12 @@ class editarEvento(PageElement):
                 self.preenche_responsavel(nome_responsavel)
 
             if erro is False:
-                print("\n CT_11 reportou erro: O sistema exibiu os campos faltantes")
+                print("\n CT_10 reportou erro: O sistema exibiu os campos faltantes")
             else:
-                print("\n [!] CT_11 reportou erro: Evento editado com campos obrigatorios nao preenchidos")
+                print("\n [!] CT_10 reportou erro: Evento editado com campos obrigatorios nao preenchidos")
 
         except UnexpectedAlertPresentException as e:
-            print("\n CT_04 reportou erro: " + str(e))
+            print("\n CT_10 reportou erro: " + str(e))
 
 
 
