@@ -18,7 +18,7 @@ criar_atividade = criarAtividade(webdriver)
 
 # --------- Caso de teste: Criação de atividade padrão -------------#
 criar_atividade.caminho()
-criar_atividade.ct01_criar_atividade(
+criar_atividade.ct11_criar_atividade(
     tema        = 'ativividade teste',
     descricao   = 'teste nova atividade',
     vagas       = '30',
@@ -27,4 +27,33 @@ criar_atividade.ct01_criar_atividade(
     data        = '12/12/2020',
     hora_inicio = '1000',
     hora_fim    = '1800'
+)
+# ------------- Caso de teste: Cancelar transação ----------------#
+webdriver.get(url)
+criar_atividade.caminho()
+criar_atividade.ct12_criar_atividade()
+
+# --------------- Caso de teste: Data incoerente -----------------#
+webdriver.get(url)
+criar_atividade.caminho()
+criar_atividade.ct13_criar_atividade(
+    tema        = 'teste datas invalidas',
+    vagas       = '30',
+    duracao     = '8',
+    sala        = '102',
+    data        = '12/12/2017',
+    hora_inicio = '1000',
+    hora_fim    = '1800'
+)
+# --------------- Caso de teste: Hora incoerente -----------------#
+webdriver.get(url)
+criar_atividade.caminho()
+criar_atividade.ct14_criar_atividade(
+    tema        = 'teste datas invalidas',
+    vagas       = '30',
+    duracao     = '1',
+    sala        = '102',
+    data        = '12/12/2017',
+    hora_inicio = '0800',
+    hora_fim    = '2200'
 )

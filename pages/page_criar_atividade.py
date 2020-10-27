@@ -1,4 +1,5 @@
-from selenium.common.exceptions import UnexpectedAlertPresentException, NoSuchElementException
+from selenium.common.exceptions import UnexpectedAlertPresentException, NoSuchElementException, \
+    ElementClickInterceptedException
 from selenium.webdriver.common.by import By
 from selenium.webdriver.common.keys import Keys
 from utils.config import PageElement
@@ -36,6 +37,9 @@ class criarAtividade(PageElement):
     salvar = (By.CSS_SELECTOR, 'table[id$="comp-202!box"] [class$="button-cm"]')
 
     alert_tipo = (By.CSS_SELECTOR, 'div[class$="modal-cm-noborder"] div[class="myMultiMessageBox"]')
+    alert_texto = (By.CSS_SELECTOR, '#zk-comp-990')
+    ok_alert = (By.CSS_SELECTOR, 'table[id$="!box"] > tbody > tr:nth-child(2) > td.z-button-cm')
+
 
     def caminho(self):
         sleep(1)
@@ -50,7 +54,7 @@ class criarAtividade(PageElement):
         self.find_element(self.combo_atividade).click()
         sleep(1)
         self.find_element(self.evento).click()
-        sleep(2)
+        sleep(1)
         self.find_element(self.btn_novo).click()
 
     def espera_mensagem(self):
@@ -60,9 +64,9 @@ class criarAtividade(PageElement):
         except NoSuchElementException:
             return False
 
-    # --------- Caso de teste: Criação de evento padrão -------------#
-    def ct01_criar_atividade(self, tema, descricao, vagas, duracao, sala, data, hora_inicio, hora_fim):
-        erro = True
+    # --------- Casos de teste: Criação de evento padrão -------------#
+
+    def ct11_criar_atividade(self, tema, descricao, vagas, duracao, sala, data, hora_inicio, hora_fim):
         try:
             sleep(1)
             self.find_element(self.combo_tipo).click()
@@ -81,17 +85,103 @@ class criarAtividade(PageElement):
             self.find_element(self.hora_fim).send_keys(hora_fim)
             self.find_element(self.botao_adicionar).click()
             self.find_element(self.botao_salvar).click()
+            sleep(1)
             # RESPONSAVEL
             self.find_element(self.combo_palestrante).click()
             self.find_element(self.palestrante).click()
             # self.find_element(self.salvar).click()
+            sleep(1)
             msg = self.espera_mensagem()
-            if msg is True:
-                erro = False
 
-            if erro is False:
-                print("\n [!] CT_04 reportou erro: ") + str(self.find_element(self.alert_tipo).text)
-            else:
-                print("\n ")
+            print("\n CT_11 sem erros: atividade criada com sucesso!")
+
         except UnexpectedAlertPresentException as e:
-            print("\n [!] CT_01 reportou erro: " + str(e))
+            print("\n [!] CT_11 reportou erro: " + str(e))
+
+        except ElementClickInterceptedException:
+            print("\n [!] CT_11 reportou erro: " + self.find_element(self.alert_texto).text)
+            sleep(1)
+            self.find_element(self.ok_alert).click()
+
+    # ------------- Caso de teste: Cancelar transação ----------------#
+
+    def ct12_criar_atividade(self):
+        try:
+            sleep(1)
+            self.find_element(self.combo_tipo).click()
+            self.find_element(self.tipo).click()
+
+            print("\n CT_12 sem erros: atividade cancelada com sucesso!")
+
+        except UnexpectedAlertPresentException as e:
+            print("\n [!] CT_12 reportou erro: " + str(e))
+
+        except ElementClickInterceptedException:
+            print("\n [!] CT_12 reportou erro: " + self.find_element(self.alert_texto).text)
+            sleep(1)
+            self.find_element(self.ok_alert).click()
+
+    # --------------- Caso de teste: Data incoerente -----------------#
+    def ct13_criar_atividade(self, tema, vagas, duracao, sala, data, hora_inicio, hora_fim):
+        try:
+            sleep(1)
+            self.find_element(self.combo_tipo).click()
+            self.find_element(self.tipo).click()
+            self.find_element(self.tema).send_keys(tema)
+            self.find_element(self.vagas).send_keys(vagas)
+            self.find_element(self.duracao).send_keys(duracao)
+
+            # DATAS DA ATIVIDADE
+            self.find_element(self.botao_definir).click()
+            sleep(1)
+            self.find_element(self.sala).send_keys(sala)
+            self.find_element(self.data).send_keys(data)
+            self.find_element(self.hora_inicio).send_keys(hora_inicio)
+            self.find_element(self.hora_fim).send_keys(hora_fim)
+            self.find_element(self.botao_adicionar).click()
+            self.find_element(self.botao_salvar).click()
+            # self.find_element(self.salvar).click()
+            msg = self.espera_mensagem()
+
+            print("\n [!] CT_13 sem erros: atividade criada com sucesso!")
+
+        except UnexpectedAlertPresentException as e:
+            print("\n CT_13 reportou erro: " + str(e))
+
+        except ElementClickInterceptedException:
+            print("\n CT_13 reportou erro: " + self.find_element(self.alert_texto).text)
+            sleep(1)
+            self.find_element(self.ok_alert).click()
+
+# --------------- Caso de teste: Hora incoerente -----------------#
+
+    def ct14_criar_atividade(self, tema, vagas, duracao, sala, data, hora_inicio, hora_fim):
+        try:
+            sleep(1)
+            self.find_element(self.combo_tipo).click()
+            self.find_element(self.tipo).click()
+            self.find_element(self.tema).send_keys(tema)
+            self.find_element(self.vagas).send_keys(vagas)
+            self.find_element(self.duracao).send_keys(duracao)
+
+            # DATAS DA ATIVIDADE
+            self.find_element(self.botao_definir).click()
+            sleep(1)
+            self.find_element(self.sala).send_keys(sala)
+            self.find_element(self.data).send_keys(data)
+            self.find_element(self.hora_inicio).send_keys(hora_inicio)
+            self.find_element(self.hora_fim).send_keys(hora_fim)
+            self.find_element(self.botao_adicionar).click()
+            self.find_element(self.botao_salvar).click()
+            # self.find_element(self.salvar).click()
+            msg = self.espera_mensagem()
+
+            print("\n [!] CT_14 sem erros: atividade criada com sucesso!")
+
+        except UnexpectedAlertPresentException as e:
+            print("\n CT_14 reportou erro: " + str(e))
+
+        except ElementClickInterceptedException:
+            print("\n CT_14 reportou erro: " + self.find_element(self.alert_texto).text)
+            sleep(1)
+            self.find_element(self.ok_alert).click()

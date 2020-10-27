@@ -78,3 +78,5 @@ criar_evento.ct05_criar_evento(
     inicio_inscricao   = '02/11/2015',
     fim_inscricao      = '02/12/2015',
 )
+
+
