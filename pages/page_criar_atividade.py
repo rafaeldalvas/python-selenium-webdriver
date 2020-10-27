@@ -5,6 +5,7 @@ from selenium.webdriver.common.keys import Keys
 from utils.config import PageElement
 from time import sleep
 
+
 class criarAtividade(PageElement):
     # CAMINHO
     calendario = (By.CSS_SELECTOR, "i.fa-calendar")
@@ -23,23 +24,28 @@ class criarAtividade(PageElement):
     vagas = (By.ID, 'zk-comp-169')
     duracao = (By.ID, 'zk-comp-173')
     combo_palestrante = (By.ID, 'zk-comp-192!btn')
-    palestrante = (By.CSS_SELECTOR, 'tr[id$="comp-228"] [class="z-combo-item-text"]') #Alberto Duque Portugal
+    palestrante = (By.CSS_SELECTOR, 'tr[id$="comp-228"] [class="z-combo-item-text"]')  #Alcione de Paiva Oliveira
+    btn_add_palestrante = (By.ID, 'zk-comp-194!hvig')
 
-    #DATAS DA ATIVIDADE
-    botao_definir = (By.CSS_SELECTOR, 'span[id$="comp-187"] [class$="button-cm"]')
-    sala = (By.ID, 'zk-comp-957')
-    data = (By.ID, 'zk-comp-960!real')
-    hora_inicio = (By.ID, 'zk-comp-963')
-    hora_fim = (By.ID, 'zk-comp-966')
-    botao_adicionar = (By.CSS_SELECTOR, 'table[id$="comp-967!box"] [class$="button-cm"]')
-    botao_salvar = (By.CSS_SELECTOR, 'table[id$="comp-981!box"] [class$="button-cm"]')
+    # DATAS DA ATIVIDADE
+    btn_definir = (By.CSS_SELECTOR, 'span[id$="comp-187"] [class$="button-cm"]')
+    sala = (By.XPATH, '/html/body/div[6]/div[2]/div[1]/div/div/div/div[1]/div[2]/table/tbody[2]/tr[2]/td[2]/div/input')
+    data = (By.XPATH, '/html/body/div[6]/div[2]/div[1]/div/div/div/div[1]/div[2]/table/tbody[2]/tr[3]/td['
+                      '2]/div/span/input')
+    hora_inicio = (By.XPATH, '/html/body/div[6]/div[2]/div[1]/div/div/div/div[1]/div[2]/table/tbody[2]/tr[4]/td['
+                             '2]/div/input')
+    hora_fim = (By.XPATH, '/html/body/div[6]/div[2]/div[1]/div/div/div/div[1]/div[2]/table/tbody[2]/tr[5]/td['
+                          '2]/div/input')
+    btn_adicionar = (By.XPATH, '/html/body/div[6]/div[2]/div[1]/div/div/div/span/table/tbody/tr[2]/td[2]')
+    btn_salvar_datas = (By.XPATH, '/html/body/div[6]/div[2]/div[1]/div/div/div/hbox/span[1]/table/tbody/tr[2]/td[2]')
 
-    salvar = (By.CSS_SELECTOR, 'table[id$="comp-202!box"] [class$="button-cm"]')
+    btn_salvar = (By.CSS_SELECTOR, 'table[id$="comp-202!box"] [class$="button-cm"]')
+    btn_cancelar = (By.CSS_SELECTOR, 'table[id$="comp-204!box"] [class$="button-cm"]')
 
     alert_tipo = (By.CSS_SELECTOR, 'div[class$="modal-cm-noborder"] div[class="myMultiMessageBox"]')
-    alert_texto = (By.CSS_SELECTOR, '#zk-comp-990')
-    ok_alert = (By.CSS_SELECTOR, 'table[id$="!box"] > tbody > tr:nth-child(2) > td.z-button-cm')
-
+    alert_texto = (By.CSS_SELECTOR, 'div[class="z-messagebox"] span[class="word-wrap z-label"]')
+    btn_ok_alert = (By.XPATH, '/html/body/div[6]/div[2]/div[1]/div/div/div/div/div[2]/div/table['
+                              '2]/tbody/tr/td/span/table/tbody/tr[2]/td[2]')
 
     def caminho(self):
         sleep(1)
@@ -77,31 +83,36 @@ class criarAtividade(PageElement):
             self.find_element(self.duracao).send_keys(duracao)
 
             # DATAS DA ATIVIDADE
-            self.find_element(self.botao_definir).click()
+            self.find_element(self.btn_definir).click()
             sleep(1)
             self.find_element(self.sala).send_keys(sala)
+            self.find_element(self.data).clear()
             self.find_element(self.data).send_keys(data)
             self.find_element(self.hora_inicio).send_keys(hora_inicio)
             self.find_element(self.hora_fim).send_keys(hora_fim)
-            self.find_element(self.botao_adicionar).click()
-            self.find_element(self.botao_salvar).click()
+            self.find_element(self.btn_adicionar).click()
+            self.find_element(self.btn_salvar_datas).click()
             sleep(1)
             # RESPONSAVEL
             self.find_element(self.combo_palestrante).click()
             self.find_element(self.palestrante).click()
-            # self.find_element(self.salvar).click()
+            self.find_element(self.btn_add_palestrante).click()
+            self.find_element(self.btn_salvar).click()
             sleep(1)
             msg = self.espera_mensagem()
-
-            print("\n CT_11 sem erros: atividade criada com sucesso!")
+            if msg is True:
+                print("\n [!] CT_11 reportou erro: " + self.find_element(self.alert_texto).text)
+                self.find_element(self.btn_ok_alert).click()
+            else:
+                print("\n CT_11 sem erros: atividade criada com sucesso!")
 
         except UnexpectedAlertPresentException as e:
             print("\n [!] CT_11 reportou erro: " + str(e))
 
         except ElementClickInterceptedException:
             print("\n [!] CT_11 reportou erro: " + self.find_element(self.alert_texto).text)
-            sleep(1)
-            self.find_element(self.ok_alert).click()
+            sleep(3)
+            self.find_element(self.btn_ok_alert).click()
 
     # ------------- Caso de teste: Cancelar transação ----------------#
 
@@ -110,8 +121,13 @@ class criarAtividade(PageElement):
             sleep(1)
             self.find_element(self.combo_tipo).click()
             self.find_element(self.tipo).click()
-
-            print("\n CT_12 sem erros: atividade cancelada com sucesso!")
+            self.find_element(self.btn_cancelar).click()
+            msg = self.espera_mensagem()
+            if msg is True:
+                print("\n [!] CT_12 reportou erro: " + self.find_element(self.alert_texto).text)
+                self.find_element(self.btn_ok_alert).click()
+            else:
+                print("\n CT_12 sem erros: atividade cancelada com sucesso!")
 
         except UnexpectedAlertPresentException as e:
             print("\n [!] CT_12 reportou erro: " + str(e))
@@ -119,7 +135,7 @@ class criarAtividade(PageElement):
         except ElementClickInterceptedException:
             print("\n [!] CT_12 reportou erro: " + self.find_element(self.alert_texto).text)
             sleep(1)
-            self.find_element(self.ok_alert).click()
+            self.find_element(self.btn_ok_alert).click()
 
     # --------------- Caso de teste: Data incoerente -----------------#
     def ct13_criar_atividade(self, tema, vagas, duracao, sala, data, hora_inicio, hora_fim):
@@ -132,28 +148,31 @@ class criarAtividade(PageElement):
             self.find_element(self.duracao).send_keys(duracao)
 
             # DATAS DA ATIVIDADE
-            self.find_element(self.botao_definir).click()
+            self.find_element(self.btn_definir).click()
             sleep(1)
             self.find_element(self.sala).send_keys(sala)
+            self.find_element(self.data).clear()
             self.find_element(self.data).send_keys(data)
             self.find_element(self.hora_inicio).send_keys(hora_inicio)
             self.find_element(self.hora_fim).send_keys(hora_fim)
-            self.find_element(self.botao_adicionar).click()
-            self.find_element(self.botao_salvar).click()
-            # self.find_element(self.salvar).click()
+            self.find_element(self.btn_adicionar).click()
+            self.find_element(self.btn_salvar_datas).click()
+            self.find_element(self.btn_salvar).click()
             msg = self.espera_mensagem()
-
-            print("\n [!] CT_13 sem erros: atividade criada com sucesso!")
+            if msg is True:
+                print("\n CT_13 reportou erro: " + self.find_element(self.alert_texto).text)
+                self.find_element(self.btn_ok_alert).click()
+            else:
+                print("\n [!] CT_13 sem erros: atividade criada com sucesso!")
 
         except UnexpectedAlertPresentException as e:
             print("\n CT_13 reportou erro: " + str(e))
 
         except ElementClickInterceptedException:
             print("\n CT_13 reportou erro: " + self.find_element(self.alert_texto).text)
-            sleep(1)
-            self.find_element(self.ok_alert).click()
+            self.find_element(self.btn_ok_alert).click()
 
-# --------------- Caso de teste: Hora incoerente -----------------#
+    # --------------- Caso de teste: Hora incoerente -----------------#
 
     def ct14_criar_atividade(self, tema, vagas, duracao, sala, data, hora_inicio, hora_fim):
         try:
@@ -165,18 +184,22 @@ class criarAtividade(PageElement):
             self.find_element(self.duracao).send_keys(duracao)
 
             # DATAS DA ATIVIDADE
-            self.find_element(self.botao_definir).click()
+            self.find_element(self.btn_definir).click()
             sleep(1)
             self.find_element(self.sala).send_keys(sala)
+            self.find_element(self.data).clear()
             self.find_element(self.data).send_keys(data)
             self.find_element(self.hora_inicio).send_keys(hora_inicio)
             self.find_element(self.hora_fim).send_keys(hora_fim)
-            self.find_element(self.botao_adicionar).click()
-            self.find_element(self.botao_salvar).click()
-            # self.find_element(self.salvar).click()
+            self.find_element(self.btn_adicionar).click()
+            self.find_element(self.btn_salvar_datas).click()
+            self.find_element(self.btn_salvar).click()
             msg = self.espera_mensagem()
-
-            print("\n [!] CT_14 sem erros: atividade criada com sucesso!")
+            if msg is True:
+                print("\n CT_14 reportou erro: " + self.find_element(self.alert_texto).text)
+                self.find_element(self.btn_ok_alert).click()
+            else:
+                print("\n [!] CT_14 sem erros: atividade criada com sucesso!")
 
         except UnexpectedAlertPresentException as e:
             print("\n CT_14 reportou erro: " + str(e))
@@ -184,4 +207,4 @@ class criarAtividade(PageElement):
         except ElementClickInterceptedException:
             print("\n CT_14 reportou erro: " + self.find_element(self.alert_texto).text)
             sleep(1)
-            self.find_element(self.ok_alert).click()
+            self.find_element(self.btn_ok_alert).click()

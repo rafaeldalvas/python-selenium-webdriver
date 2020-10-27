@@ -19,11 +19,11 @@ criar_atividade = criarAtividade(webdriver)
 # --------- Caso de teste: Criação de atividade padrão -------------#
 criar_atividade.caminho()
 criar_atividade.ct11_criar_atividade(
-    tema        = 'ativividade teste',
+    tema        = 'ativividade teste ct11',
     descricao   = 'teste nova atividade',
     vagas       = '30',
     duracao     = '8',
-    sala        = '102',
+    sala        = '101',
     data        = '12/12/2020',
     hora_inicio = '1000',
     hora_fim    = '1800'
@@ -37,7 +37,7 @@ criar_atividade.ct12_criar_atividade()
 webdriver.get(url)
 criar_atividade.caminho()
 criar_atividade.ct13_criar_atividade(
-    tema        = 'teste datas invalidas',
+    tema        = 'teste datas invalidas ct13',
     vagas       = '30',
     duracao     = '8',
     sala        = '102',
@@ -49,11 +49,11 @@ criar_atividade.ct13_criar_atividade(
 webdriver.get(url)
 criar_atividade.caminho()
 criar_atividade.ct14_criar_atividade(
-    tema        = 'teste datas invalidas',
+    tema        = 'teste datas invalidas ct14',
     vagas       = '30',
     duracao     = '1',
-    sala        = '102',
-    data        = '12/12/2017',
+    sala        = '103',
+    data        = '12/12/2020',
     hora_inicio = '0800',
     hora_fim    = '2200'
 )
