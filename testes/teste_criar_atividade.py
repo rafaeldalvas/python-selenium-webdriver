@@ -38,6 +38,7 @@ webdriver.get(url)
 criar_atividade.caminho()
 criar_atividade.ct13_criar_atividade(
     tema        = 'teste datas invalidas ct13',
+    descricao   = 'teste data incoerente',
     vagas       = '30',
     duracao     = '8',
     sala        = '102',
@@ -50,6 +51,7 @@ webdriver.get(url)
 criar_atividade.caminho()
 criar_atividade.ct14_criar_atividade(
     tema        = 'teste datas invalidas ct14',
+    descricao   = 'teste hora incoerente',
     vagas       = '30',
     duracao     = '1',
     sala        = '103',
@@ -57,3 +59,4 @@ criar_atividade.ct14_criar_atividade(
     hora_inicio = '0800',
     hora_fim    = '2200'
 )
+# ------------- Caso de teste: Campos obrigatórios ---------------#
