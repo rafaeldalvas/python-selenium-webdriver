@@ -29,9 +29,11 @@ class criarAtividade(PageElement):
     combo_palestrante = (By.ID, 'zk-comp-192!btn')
     palestrante = (By.CSS_SELECTOR, 'tr[id$="comp-228"] [class="z-combo-item-text"]')  # Alcione de Paiva Oliveira
     btn_add_palestrante = (By.ID, 'zk-comp-194!hvig')
+    btn_excluir_palestrante = (By.ID, 'table[id$="comp-970!box"] [class$="button-cm"]')
 
     # DATAS DA ATIVIDADE
     btn_definir = (By.CSS_SELECTOR, 'span[id$="comp-187"] [class$="button-cm"]')
+    local = (By.XPATH, '/html/body/div[5]/div[2]/div[1]/div/div/div/div[1]/div[2]/table/tbody[2]/tr[1]/td[2]/div/input')
     sala = (By.XPATH, '/html/body/div[6]/div[2]/div[1]/div/div/div/div[1]/div[2]/table/tbody[2]/tr[2]/td[2]/div/input')
     data = (By.XPATH, '/html/body/div[6]/div[2]/div[1]/div/div/div/div[1]/div[2]/table/tbody[2]/tr[3]/td['
                       '2]/div/span/input')
@@ -41,6 +43,8 @@ class criarAtividade(PageElement):
                           '2]/div/input')
     btn_adicionar = (By.XPATH, '/html/body/div[6]/div[2]/div[1]/div/div/div/span/table/tbody/tr[2]/td[2]')
     btn_salvar_datas = (By.XPATH, '/html/body/div[6]/div[2]/div[1]/div/div/div/hbox/span[1]/table/tbody/tr[2]/td[2]')
+    btn_excluir_datas = (By.XPATH, '/html/body/div[5]/div[2]/div[1]/div/div/div/div[2]/div[2]/table/tbody[2]/tr/td['
+                                   '6]/div/span/table/tbody/tr[2]/td[2]')
 
     btn_salvar = (By.CSS_SELECTOR, 'table[id$="comp-202!box"] [class$="button-cm"]')
     btn_cancelar = (By.CSS_SELECTOR, 'table[id$="comp-204!box"] [class$="button-cm"]')
@@ -220,7 +224,7 @@ class criarAtividade(PageElement):
             self.find_element(self.btn_ok_alert).click()
 
     # ------------- Caso de teste: Campos obrigatórios ---------------#
-    def ct15_criar_atividade(self, tema, descricao, vagas, duracao, sala, data, hora_inicio, hora_fim):
+    def ct15_criar_atividade(self, tema, descricao, vagas, duracao, local, sala, data, hora_inicio, hora_fim):
         erro = True
         try:
             sleep(1)
@@ -243,6 +247,8 @@ class criarAtividade(PageElement):
             sleep(1)
             self.find_element(self.btn_salvar_datas).click()
             sleep(1)
+
+            self.find_element(self.tema).claer()
             self.find_element(self.btn_salvar).click()
             msg = self.espera_mensagem()
             if msg is True:
@@ -258,12 +264,98 @@ class criarAtividade(PageElement):
 
             if erro is False:
                 self.find_element(self.descricao).send_keys(descricao)
-                self.find_element(self.inicio_evento).clear()
+                self.find_element(self.vagas).clear()
                 self.find_element(self.btn_salvar).click()
                 msg = self.espera_mensagem()
                 if msg is True:
                     erro = False
 
+            if erro is False:
+                self.find_element(self.vagas).send_keys(vagas)
+                self.find_element(self.duracao).clear()
+                self.find_element(self.btn_salvar).click()
+                msg = self.espera_mensagem()
+                if msg is True:
+                    erro = False
+
+            if erro is False:
+                self.find_element(self.duracao).send_keys(duracao)
+                self.find_element(self.vagas).clear()
+                self.find_element(self.btn_salvar).click()
+                msg = self.espera_mensagem()
+                if msg is True:
+                    erro = False
+
+            if erro is False:
+                self.find_element(self.descricao).send_keys(duracao)
+                self.find_element(self.btn_definir).click()
+                self.find_element(self.sala).send_keys(sala)
+                self.find_element(self.data).clear()
+                self.find_element(self.data).send_keys(data)
+                self.find_element(self.hora_inicio).send_keys(hora_inicio)
+                self.find_element(self.hora_fim).send_keys(hora_fim)
+                self.find_element(self.local).clear()
+                self.find_element(self.btn_salvar_datas).click()
+                msg = self.espera_mensagem()
+                if msg is True:
+                    erro = False
+
+            if erro is False:
+                self.find_element(self.local).send_keys(local)
+                self.find_element(self.sala).clear()
+                self.find_element(self.btn_salvar_datas).click()
+                msg = self.espera_mensagem()
+                if msg is True:
+                    erro = False
+
+            if erro is False:
+                self.find_element(self.sala).send_keys(sala)
+                self.find_element(self.data).clear()
+                self.find_element(self.btn_salvar_datas).click()
+                msg = self.espera_mensagem()
+                if msg is True:
+                    erro = False
+
+            if erro is False:
+                self.find_element(self.data).send_keys(data)
+                self.find_element(self.hora_inicio).clear()
+                self.find_element(self.btn_salvar_datas).click()
+                msg = self.espera_mensagem()
+                if msg is True:
+                    erro = False
+
+            if erro is False:
+                self.find_element(self.hora_inicio).send_keys(hora_inicio)
+                self.find_element(self.hora_fim).clear()
+                self.find_element(self.btn_salvar_datas).click()
+                msg = self.espera_mensagem()
+                if msg is True:
+                    erro = False
+
+            if erro is False:
+                self.find_element(self.hora_fim).send_keys(hora_fim)
+                self.find_element(self.hora_inicio).clear()
+                self.find_element(self.btn_salvar_datas).click()
+                msg = self.espera_mensagem()
+                if msg is True:
+                    erro = False
+
+            if erro is False:
+                self.find_element(self.hora_inicio).send_keys(hora_inicio)
+                self.find_element(self.btn_excluir_datas).click()
+                self.find_element(self.btn_salvar_datas).click()
+                self.find_element(self.btn_adicionar).click()
+                self.find_element(self.btn_salvar).click()
+                msg = self.espera_mensagem()
+                if msg is True:
+                    erro = False
+
+            if erro is False:
+                self.find_element(self.btn_excluir_palestrante).clear()
+                self.find_element(self.btn_salvar).click()
+                msg = self.espera_mensagem()
+                if msg is True:
+                    erro = False
 
             if erro is False:
                 print("\n CT_15 reportou erro: O sistema exibiu os campos faltantes")
