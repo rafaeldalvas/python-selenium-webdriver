@@ -66,6 +66,7 @@ class cadastrarPalestrante(PageElement):
         sleep(2)
         self.find_element(self.btn_novo).click()
 
+    # ------------ Caso de teste: Cadastro de palestrante padrão ---------------#
     def ct22_cadastrar_palestrante(self, nome, email, cpf, rg, pis, resumo_curriculo, link_lates, telefone, endereco,
                                    agencia, conta, valor_participacao, valor_transporte, valor_alimentacao,
                                    valor_hotel):
@@ -97,6 +98,7 @@ class cadastrarPalestrante(PageElement):
         except UnexpectedAlertPresentException as e:
             print("\n [!] CT_22 reportou erro: " + str(e))
 
+    # ------------ Caso de teste: Caracteres inválidos ---------------#
     def ct23_cadastrar_palestrante(self, nome, email, cpf, rg, pis, telefone, agencia, conta, valor_participacao,
                                    valor_transporte, valor_alimentacao, valor_hotel):
         try:
@@ -130,3 +132,67 @@ class cadastrarPalestrante(PageElement):
                 print("\n CT_23 reportou erro: Não houve criação do palestrante com campos preenchidos incorretamente")
             else:
                 print("\n [!] CT_23 reportou erro: " + str(e))
+
+    # ------------ Caso de teste: Campo obrigatório vazio ---------------#
+    def ct24_cadastrar_palestrante(self, nome, email, cpf):
+        erro = False
+        try:
+            sleep(1)
+            self.find_element(self.nome).send_keys(nome)
+            self.find_element(self.email).send_keys(email)
+            self.find_element(self.cpf).send_keys(cpf)
+
+            self.find_element(self.nome).clear()
+            self.find_element(self.salvar).click()
+
+            msg = self.espera_mensagem()
+            if msg is True:
+                if self.find_element(self.alert_texto).text == 'Palestrante salvo com sucesso':
+                    erro = True
+
+            if erro is False:
+                self.find_element(self.nome).send_keys(nome)
+                self.find_element(self.email).clear()
+                self.find_element(self.salvar).click()
+                msg = self.espera_mensagem()
+                if msg is True:
+                    if self.find_element(self.alert_texto).text == 'Palestrante salvo com sucesso':
+                        erro = True
+
+            if erro is False:
+                self.find_element(self.email).send_keys(email)
+                self.find_element(self.cpf).clear()
+                self.find_element(self.salvar).click()
+                msg = self.espera_mensagem()
+                if msg is True:
+                    if self.find_element(self.alert_texto).text == 'Palestrante salvo com sucesso':
+                        erro = True
+
+            if erro is False:
+                print("\n CT_24 reportou erro: O sistema exibiu os campos faltantes")
+            else:
+                self.find_element(self.btn_ok_alert).click()
+                print("\n [!] CT_24 reportou erro: Palestrante cadastrado com campos obrigatorios nao preenchidos")
+
+        except UnexpectedAlertPresentException as e:
+            print("\n [!] CT_23 reportou erro: " + str(e))
+
+    # ------------ Caso de teste: CPF inválido ---------------#
+    def ct25_cadastrar_palestrante(self, nome, email, cpf):
+        try:
+            sleep(1)
+            self.find_element(self.nome).send_keys(nome)
+            self.find_element(self.email).send_keys(email)
+            self.find_element(self.cpf).send_keys(cpf)
+            self.find_element(self.salvar).click()
+
+            msg = self.espera_mensagem()
+            if msg is True:
+                if self.find_element(self.alert_texto).text == 'Palestrante salvo com sucesso':
+                    self.find_element(self.btn_ok_alert).click()
+                    print("\n [!] CT_25 reportou erro: Palestrante cadastrado com CPF inválido")
+                else:
+                    print("\n CT_25 reportou erro: O sistema não permitiu um CPF inválido")
+        except UnexpectedAlertPresentException as e:
+                    print("\n [!] CT_23 reportou erro: " + str(e))
+
