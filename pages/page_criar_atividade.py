@@ -16,7 +16,7 @@ class criarAtividade(PageElement):
     cadastro_atividade = (By.ID, 'zk-comp-112')
     radio_atividade = (By.ID, 'zk-comp-116!real')
     combo_atividade = (By.ID, "zk-comp-125!btn")  # COMBO BOX
-    evento = (By.CSS_SELECTOR, 'tr[id$="comp-937"] [class="z-combo-item-text"]')  # EVENTO TESTES DALVAS E JP
+    evento = (By.XPATH, '/html/body/div[3]/table/tbody/tr[2]/td[2]')  # EVENTO TESTES DALVAS E JP
     btn_novo = (By.CSS_SELECTOR, '.z-button-cm')
 
     # FORMULARIO BASICO
@@ -106,7 +106,7 @@ class criarAtividade(PageElement):
             self.find_element(self.combo_palestrante).click()
             self.find_element(self.palestrante).click()
             self.find_element(self.btn_add_palestrante).click()
-            # self.find_element(self.btn_salvar).click()
+            self.find_element(self.btn_salvar).click()
             sleep(1)
             msg = self.espera_mensagem()
             if msg is True:
@@ -247,8 +247,12 @@ class criarAtividade(PageElement):
             sleep(1)
             self.find_element(self.btn_salvar_datas).click()
             sleep(1)
+            # RESPONSAVEL
+            self.find_element(self.combo_palestrante).click()
+            self.find_element(self.palestrante).click()
+            self.find_element(self.btn_add_palestrante).click()
 
-            self.find_element(self.tema).claer()
+            self.find_element(self.tema).clear()
             self.find_element(self.btn_salvar).click()
             msg = self.espera_mensagem()
             if msg is True:
@@ -295,7 +299,7 @@ class criarAtividade(PageElement):
                 self.find_element(self.hora_inicio).send_keys(hora_inicio)
                 self.find_element(self.hora_fim).send_keys(hora_fim)
                 self.find_element(self.local).clear()
-                self.find_element(self.btn_salvar_datas).click()
+                self.find_element(self.btn_adicionar).click()
                 msg = self.espera_mensagem()
                 if msg is True:
                     erro = False
@@ -357,10 +361,23 @@ class criarAtividade(PageElement):
                 if msg is True:
                     erro = False
 
+                if erro is False:
+                    self.find_element(self.combo_tipo).send_keys(Keys.BACKSPACE)
+                    self.find_element(self.combo_palestrante).click()
+                    self.find_element(self.palestrante).click()
+                    self.find_element(self.btn_add_palestrante).click()
+                    self.find_element(self.btn_salvar).click()
+                    msg = self.espera_mensagem()
+                    if msg is True:
+                        erro = False
+
             if erro is False:
-                print("\n CT_15 reportou erro: O sistema exibiu os campos faltantes")
+                print("\n CT_13 reportou erro: " + self.find_element(self.alert_texto).text)
             else:
                 print("\n [!] CT_15 reportou erro: Evento criado com campos obrigatorios nao preenchidos")
 
         except UnexpectedAlertPresentException as e:
             print("\n CT_15 reportou erro: " + str(e))
+
+        except ElementClickInterceptedException:
+            print("\n CT_14 reportou erro: " + self.find_element(self.alert_texto).text)
