@@ -1,5 +1,9 @@
-from selenium.common.exceptions import UnexpectedAlertPresentException, NoSuchElementException
+from selenium.common.exceptions import UnexpectedAlertPresentException, NoSuchElementException, TimeoutException, \
+    ElementClickInterceptedException
 from selenium.webdriver.common.by import By
+from selenium.webdriver.support import expected_conditions
+from selenium.webdriver.support.wait import WebDriverWait
+
 from utils.config import PageElement
 from time import sleep
 
@@ -64,23 +68,23 @@ class editarEvento(PageElement):
 
     # EXCLUIR EVENTO
     btn_excluir = (By.CSS_SELECTOR, 'table[id$="zk-comp-136!box"] [class$="z-button-cm"]')
-    # confirm_excluir = (By.CSS_SELECTOR, 'table[id$="zk-comp-229!box"] [class$="z-button-cm"]') #ESSE É O VERDADEIRO, CRIEI O DE BAIXO PRA N FICAR EXCLUINDO NOSSOS EVENTOS *******MUDAR DEPOIS*******
-    confirm_excluir = (By.CSS_SELECTOR, 'table[id$="zk-comp-230!box"] [class$="z-button-cm"]')
+    confirm_excluir = (By.CSS_SELECTOR, 'table[id$="zk-comp-229!box"] [class$="z-button-cm"]')
 
     # CANCELAR
     btn_cancelar = (By.CSS_SELECTOR, 'table[id$="comp-201!box"] [class$="button-cm"]')
 
-    # JANELA DE AVISO
-    alert_tipo = (By.CSS_SELECTOR, 'div[class$="modal-cm-noborder"]')
-    click_ok = (By.CSS_SELECTOR, 'table[id$="zk-comp-229!box"] [class$="z-button-cm"]')
-
-
+    # ALERT
+    alert_tipo = (By.CSS_SELECTOR, 'div[class="z-separator-hor-bar"]')
+    alert_texto = (By.XPATH, '//*/div[2]/div[1]/div/div/div/div/div[2]/div/table[1]/tbody/tr/td[3]/div/span')
+    btn_ok_alert = (By.XPATH, '//*/div[2]/div[1]/div/div/div/div/div[2]/div/table[2]/tbody/tr/td/span/table/tbody/tr[''2]/td[2]')
 
     def espera_mensagem(self):
         try:
-            self.find_element(self.alert_tipo)
-            return True
-        except NoSuchElementException:
+            alert_tipo = WebDriverWait(self.webdriver, poll_frequency=0.2, timeout=10)
+            alert_tipo.until(expected_conditions.visibility_of_element_located(self.alert_tipo))
+            if alert_tipo is not None:
+                return True
+        except TimeoutException:
             return False
 
     def clicarMain(self):
@@ -141,9 +145,13 @@ class editarEvento(PageElement):
 
         try:
             sleep(1)
+            self.find_element(self.nome).clear()
             self.find_element(self.nome).send_keys(nome)
+            self.find_element(self.descricao).clear()
             self.find_element(self.descricao).send_keys(descricao)
+            self.find_element(self.site).clear()
             self.find_element(self.site).send_keys(site)
+            self.find_element(self.email_responsavel).clear()
             self.find_element(self.email_responsavel).send_keys(email_responsavel)
 
             # CERTIFICADO
@@ -154,9 +162,13 @@ class editarEvento(PageElement):
             self.preenche_responsavel(nome_responsavel) # DA ERRO DE JS AQUI
             # FIM RESPONSAVEL
 
+            self.find_element(self.inicio_evento).clear()
             self.find_element(self.inicio_evento).send_keys(inicio_evento)
+            self.find_element(self.fim_evento).clear()
             self.find_element(self.fim_evento).send_keys(fim_evento)
+            self.find_element(self.inicio_inscricao).clear()
             self.find_element(self.inicio_inscricao).send_keys(inicio_inscricao)
+            self.find_element(self.fim_inscricao).clear()
             self.find_element(self.fim_inscricao).send_keys(fim_inscricao)
 
             # TIPO DE EVENTO
@@ -168,11 +180,21 @@ class editarEvento(PageElement):
             self.find_element(self.evento_pago_aluno).click()
             self.find_element(self.evento_pago_externo).click()
 
-            #self.find_element(self.btn_enviar).click()
-            print('\n CT_06 sem erros: o evento foi editado com sucesso')
-
+            self.find_element(self.btn_enviar).click()
+            sleep(1)
+            msg = self.espera_mensagem()
+            if msg is True:
+                if self.find_element(self.alert_texto).text == 'Evento salvo com sucesso':
+                    print('\n CT_06 sem erros: o evento foi editado com sucesso')
+                else:
+                    print("\n [!] CT_06 reportou erro: Não houve edição do evento")
+                self.find_element(self.btn_ok_alert).click()
         except UnexpectedAlertPresentException as e:
             print("\n [!] CT_06 reportou erro: " + str(e))
+
+        except ElementClickInterceptedException:
+            print("\n [!] CT_06 reportou erro: " + self.find_element(self.alert_texto).text)
+            self.find_element(self.btn_ok_alert).click()
 
 # --------- Caso de teste: Exclusão de eventos -------------#
     def ct_07_editar_evento(self):
@@ -180,10 +202,23 @@ class editarEvento(PageElement):
             self.find_element(self.btn_excluir).click()
             sleep(1)
             self.find_element(self.confirm_excluir).click()
-            print('\n CT_07 sem erros: o evento foi excluído com sucesso')
+            sleep(1)
+            msg = self.espera_mensagem()
+            if msg is True:
+                if self.find_element(self.alert_texto).text == 'Evento excluído com sucesso':
+                    print('\n CT_07 sem erros: o evento foi excluído com sucesso')
+                else:
+                    print("\n [!] CT_07 reportou erro: Não houve exclusão do evento")
+                self.find_element(self.btn_ok_alert).click()
+
 
         except UnexpectedAlertPresentException as e:
             print("\n [!] CT_07 reportou erro: " + str(e))
+
+        except ElementClickInterceptedException:
+            print("\n [!] CT_07 reportou erro: " + self.find_element(self.alert_texto).text)
+            self.find_element(self.btn_ok_alert).click()
+
 
 # --------- Caso de teste: Cancelar transação -------------#
     def ct_08_editar_evento(self):
@@ -203,9 +238,9 @@ class editarEvento(PageElement):
             if msg is True:
                 print("\n CT_09 reportou erro: O sistema pediu para selecionar um evento")
                 sleep(1)
-                self.find_element(self.click_ok).click()
             else:
                  print("\n [!] CT_09 reportou erro: Houve acesso ao formulário sem selecionar um evento")
+            self.find_element(self.btn_ok_alert).click()
         except UnexpectedAlertPresentException as e:
             print("\n [!] CT_09 reportou erro: " + str(e))
 
@@ -218,8 +253,10 @@ class editarEvento(PageElement):
             self.find_element(self.nome).clear()
             self.find_element(self.btn_enviar).click()
             msg = self.espera_mensagem()
+
             if msg is True:
-                erro = False
+                if self.find_element(self.alert_texto).text != 'Evento salvo com sucesso':
+                    erro = False
 
             if erro is False:
                 self.find_element(self.nome).send_keys(nome)
@@ -227,7 +264,8 @@ class editarEvento(PageElement):
                 self.find_element(self.btn_enviar).click()
                 msg = self.espera_mensagem()
                 if msg is True:
-                    erro = False
+                    if self.find_element(self.alert_texto).text != 'Evento salvo com sucesso':
+                        erro = False
 
             if erro is False:
                 self.find_element(self.descricao).send_keys(descricao)
@@ -235,7 +273,8 @@ class editarEvento(PageElement):
                 self.find_element(self.btn_enviar).click()
                 msg = self.espera_mensagem()
                 if msg is True:
-                    erro = False
+                    if self.find_element(self.alert_texto).text != 'Evento salvo com sucesso':
+                        erro = False
 
             if erro is False:
                 self.find_element(self.inicio_evento).send_keys(inicio_evento)
@@ -243,7 +282,8 @@ class editarEvento(PageElement):
                 self.find_element(self.btn_enviar).click()
                 msg = self.espera_mensagem()
                 if msg is True:
-                    erro = False
+                    if self.find_element(self.alert_texto).text != 'Evento salvo com sucesso':
+                        erro = False
 
             if erro is False:
                 self.find_element(self.fim_evento).send_keys(fim_evento)
@@ -251,7 +291,8 @@ class editarEvento(PageElement):
                 self.find_element(self.btn_enviar).click()
                 msg = self.espera_mensagem()
                 if msg is True:
-                    erro = False
+                    if self.find_element(self.alert_texto).text != 'Evento salvo com sucesso':
+                        erro = False
 
             if erro is False:
                 self.find_element(self.inicio_inscricao).send_keys(inicio_inscricao)
@@ -259,7 +300,8 @@ class editarEvento(PageElement):
                 self.find_element(self.btn_enviar).click()
                 msg = self.espera_mensagem()
                 if msg is True:
-                    erro = False
+                    if self.find_element(self.alert_texto).text != 'Evento salvo com sucesso':
+                        erro = False
 
             if erro is False:
                 self.find_element(self.fim_inscricao).send_keys(fim_inscricao)
@@ -267,7 +309,8 @@ class editarEvento(PageElement):
                 self.find_element(self.btn_enviar).click()
                 msg = self.espera_mensagem()
                 if msg is True:
-                    erro = False
+                    if self.find_element(self.alert_texto).text != 'Evento salvo com sucesso':
+                        erro = False
 
             if erro is False:
                 self.preenche_responsavel(nome_responsavel)
@@ -280,7 +323,6 @@ class editarEvento(PageElement):
         except UnexpectedAlertPresentException as e:
             print("\n CT_10 reportou erro: " + str(e))
 
-
-
-
-        #self.find_element(self.btn_enviar).click()
+        except ElementClickInterceptedException:
+            print("\n [!] CT_10 reportou erro: " + self.find_element(self.alert_texto).text)
+            self.find_element(self.btn_ok_alert).click()

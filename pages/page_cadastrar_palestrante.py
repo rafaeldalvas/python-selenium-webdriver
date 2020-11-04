@@ -42,8 +42,7 @@ class cadastrarPalestrante(PageElement):
     # ALERT
     alert_tipo = (By.CSS_SELECTOR, 'div[class="z-separator-hor-bar"]')
     alert_texto = (By.XPATH, '//*/div[2]/div[1]/div/div/div/div/div[2]/div/table[1]/tbody/tr/td[3]/div/span')
-    btn_ok_alert = (
-    By.XPATH, '//*/div[2]/div[1]/div/div/div/div/div[2]/div/table[2]/tbody/tr/td/span/table/tbody/tr[''2]/td[2]')
+    btn_ok_alert = (By.XPATH, '//*/div[2]/div[1]/div/div/div/div/div[2]/div/table[2]/tbody/tr/td/span/table/tbody/tr[''2]/td[2]')
 
     def espera_mensagem(self):
         try:
