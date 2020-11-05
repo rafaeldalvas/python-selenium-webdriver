@@ -17,11 +17,15 @@ class editarAtividade(PageElement):
     radio_atividade = (By.ID, 'zk-comp-116!real')
     combo_atividade = (By.ID, "zk-comp-125!btn")  # COMBO BOX
     evento = (By.XPATH, '/html/body/div[3]/table/tbody/tr[2]/td[2]')  # EVENTO TESTES DALVAS E JP
-    btn_novo = (By.CSS_SELECTOR, '.z-button-cm')
+    atividade = (By.XPATH, '/html/body/div[1]/div/div/div/div[2]/div[2]/div/div[2]/div['
+                           '1]/div/div/div/div/div/div/div/div/div[2]/div/div/div/div/div[1]/div[2]/div['
+                           '1]/div/div/div/table/tbody/tr[1]/td/div/div[2]/table/tbody[2]/tr[6]/td['
+                           '1]/div/input')  # atividade teste
+    btn_editar = (By.CSS_SELECTOR, '#zk-comp-137\!box > tbody > tr:nth-child(2) > td.z-button-cm')
 
     # FORMULARIO BASICO
     combo_tipo = (By.ID, 'zk-comp-155!btn')
-    tipo = (By.CSS_SELECTOR, 'tr[id$="comp-209"] [class="z-combo-item-text"]')
+    tipo = (By.CSS_SELECTOR, 'tr[id$="comp-216"] [class="z-combo-item-text"]')
     tema = (By.ID, 'zk-comp-163')
     descricao = (By.ID, 'zk-comp-166')
     vagas = (By.ID, 'zk-comp-169')
@@ -29,7 +33,7 @@ class editarAtividade(PageElement):
     combo_palestrante = (By.ID, 'zk-comp-192!btn')
     palestrante = (By.CSS_SELECTOR, 'tr[id$="comp-228"] [class="z-combo-item-text"]')  # Alcione de Paiva Oliveira
     btn_add_palestrante = (By.ID, 'zk-comp-194!hvig')
-    btn_excluir_palestrante = (By.ID, 'table[id$="comp-970!box"] [class$="button-cm"]')
+    btn_excluir_palestrante = (By.CSS_SELECTOR, 'table[id$="comp-983!box"] [class$="button-cm"]')
 
     # DATAS DA ATIVIDADE
     btn_definir = (By.CSS_SELECTOR, 'span[id$="comp-187"] [class$="button-cm"]')
@@ -43,7 +47,7 @@ class editarAtividade(PageElement):
                           '2]/div/input')
     btn_adicionar = (By.XPATH, '/html/body/div[6]/div[2]/div[1]/div/div/div/span/table/tbody/tr[2]/td[2]')
     btn_salvar_datas = (By.XPATH, '/html/body/div[6]/div[2]/div[1]/div/div/div/hbox/span[1]/table/tbody/tr[2]/td[2]')
-    btn_excluir_datas = (By.XPATH, '/html/body/div[5]/div[2]/div[1]/div/div/div/div[2]/div[2]/table/tbody[2]/tr/td['
+    btn_excluir_datas = (By.XPATH, '/html/body/div[6]/div[2]/div[1]/div/div/div/div[2]/div[2]/table/tbody[2]/tr/td['
                                    '6]/div/span/table/tbody/tr[2]/td[2]')
 
     btn_salvar = (By.CSS_SELECTOR, 'table[id$="comp-202!box"] [class$="button-cm"]')
@@ -68,7 +72,9 @@ class editarAtividade(PageElement):
         sleep(1)
         self.find_element(self.evento).click()
         sleep(1)
-        self.find_element(self.btn_novo).click()
+        self.find_element(self.atividade).click()
+        sleep(1)
+        self.find_element(self.btn_editar).click()
 
     def espera_mensagem(self):
         try:
@@ -78,3 +84,78 @@ class editarAtividade(PageElement):
                 return True
         except TimeoutException:
             return False
+
+    # -------- Casos de teste: Edição de atividade padrão ------------#
+    def ct16_criar_atividade(self, tema, descricao, vagas, duracao, sala, data, hora_inicio, hora_fim):
+        try:
+            sleep(1)
+            self.find_element(self.combo_tipo).click()
+            self.find_element(self.tipo).click()
+            self.find_element(self.tema).clear()
+            self.find_element(self.tema).send_keys(tema)
+            self.find_element(self.descricao).clear()
+            self.find_element(self.descricao).send_keys(descricao)
+            self.find_element(self.vagas).clear()
+            self.find_element(self.vagas).send_keys(vagas)
+            self.find_element(self.duracao).clear()
+            self.find_element(self.duracao).send_keys(duracao)
+
+            # DATAS DA ATIVIDADE
+            self.find_element(self.btn_definir).click()
+            sleep(2)
+            self.find_element(self.btn_excluir_datas).click()
+            sleep(1)
+            self.find_element(self.sala).clear()
+            self.find_element(self.sala).send_keys(sala)
+            self.find_element(self.data).clear()
+            self.find_element(self.data).clear()
+            self.find_element(self.data).send_keys(data)
+            self.find_element(self.hora_inicio).clear()
+            self.find_element(self.hora_inicio).send_keys(hora_inicio)
+            self.find_element(self.hora_fim).clear()
+            self.find_element(self.hora_fim).send_keys(hora_fim)
+            self.find_element(self.btn_adicionar).click()
+            sleep(1)
+            self.find_element(self.btn_salvar_datas).click()
+            sleep(2)
+            # RESPONSAVEL
+            self.find_element(self.btn_excluir_palestrante).click()
+            sleep(2)
+            self.find_element(self.combo_palestrante).click()
+            self.find_element(self.palestrante).click()
+            self.find_element(self.btn_add_palestrante).click()
+            self.find_element(self.btn_salvar).click()
+            sleep(1)
+            msg = self.espera_mensagem()
+            if msg is True:
+                txt = self.find_element(self.alert_texto).text
+                if txt == "Atividade salva com sucesso":
+                    print("\n CT_16 sem erros: " + txt)
+                    self.find_element(self.btn_ok_alert).click()
+                else:
+                    print("\n [!] CT_16 reportou erro: " + txt)
+                    self.find_element(self.btn_ok_alert).click()
+            else:
+                print("\n CT_16 sem erros: atividade editada com sucesso!")
+
+        except UnexpectedAlertPresentException as e:
+            print("\n [!] CT_16 reportou erro: " + str(e))
+
+        except ElementClickInterceptedException:
+            print("\n [!] CT_16 reportou erro: " + self.find_element(self.alert_texto).text)
+            self.find_element(self.btn_ok_alert).click()
+
+    # ----------- Casos de teste: Exclusão de atividade --------------#
+    # def ct17_criar_atividade(self):
+
+    # -------------- Casos de teste: Cancelar edição -----------------#
+    # def ct18_criar_atividade(self):
+
+    # --- Casos de teste: Nenhuma atividade selecionada ao editar ----#
+    # def ct19_criar_atividade(self):
+
+    # ----- Casos de teste: Campos obrigatórios não preenchidos ------#
+    # def ct20_criar_atividade(self, tema, descricao, vagas, duracao, local, sala, data, hora_inicio, hora_fim):
+
+    # ---------------- Casos de teste: Data inválida -----------------#
+    # def ct21_criar_atividade(self, tema, descricao, vagas, duracao, sala, data, hora_inicio, hora_fim):

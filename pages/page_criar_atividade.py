@@ -29,7 +29,7 @@ class criarAtividade(PageElement):
     combo_palestrante = (By.ID, 'zk-comp-192!btn')
     palestrante = (By.CSS_SELECTOR, 'tr[id$="comp-228"] [class="z-combo-item-text"]')  # Alcione de Paiva Oliveira
     btn_add_palestrante = (By.ID, 'zk-comp-194!hvig')
-    btn_excluir_palestrante = (By.ID, 'table[id$="comp-970!box"] [class$="button-cm"]')
+    btn_excluir_palestrante = (By.CSS_SELECTOR, 'table[id$="comp-970!box"] [class$="button-cm"]')
 
     # DATAS DA ATIVIDADE
     btn_definir = (By.CSS_SELECTOR, 'span[id$="comp-187"] [class$="button-cm"]')
