@@ -93,7 +93,7 @@ class criarAtividade(PageElement):
 
             # DATAS DA ATIVIDADE
             self.find_element(self.btn_definir).click()
-            sleep(1)
+            sleep(3)
             self.find_element(self.sala).send_keys(sala)
             self.find_element(self.data).clear()
             self.find_element(self.data).send_keys(data)
@@ -226,6 +226,7 @@ class criarAtividade(PageElement):
     # ------------- Caso de teste: Campos obrigatórios ---------------#
     def ct15_criar_atividade(self, tema, descricao, vagas, duracao, local, sala, data, hora_inicio, hora_fim):
         erro = True
+        txt = "Atividade salva com sucesso"
         try:
             sleep(1)
             self.find_element(self.combo_tipo).click()
@@ -264,7 +265,8 @@ class criarAtividade(PageElement):
                 self.find_element(self.btn_salvar).click()
                 msg = self.espera_mensagem()
                 if msg is True:
-                    erro = False
+                    if self.find_element(self.alert_texto).text != txt:
+                        erro = False
 
             if erro is False:
                 self.find_element(self.descricao).send_keys(descricao)
@@ -272,7 +274,8 @@ class criarAtividade(PageElement):
                 self.find_element(self.btn_salvar).click()
                 msg = self.espera_mensagem()
                 if msg is True:
-                    erro = False
+                    if self.find_element(self.alert_texto).text != txt:
+                        erro = False
 
             if erro is False:
                 self.find_element(self.vagas).send_keys(vagas)
@@ -280,7 +283,8 @@ class criarAtividade(PageElement):
                 self.find_element(self.btn_salvar).click()
                 msg = self.espera_mensagem()
                 if msg is True:
-                    erro = False
+                    if self.find_element(self.alert_texto).text != txt:
+                        erro = False
 
             if erro is False:
                 self.find_element(self.duracao).send_keys(duracao)
@@ -288,7 +292,8 @@ class criarAtividade(PageElement):
                 self.find_element(self.btn_salvar).click()
                 msg = self.espera_mensagem()
                 if msg is True:
-                    erro = False
+                    if self.find_element(self.alert_texto).text != txt:
+                        erro = False
 
             if erro is False:
                 self.find_element(self.descricao).send_keys(duracao)
@@ -302,7 +307,8 @@ class criarAtividade(PageElement):
                 self.find_element(self.btn_adicionar).click()
                 msg = self.espera_mensagem()
                 if msg is True:
-                    erro = False
+                    if self.find_element(self.alert_texto).text != txt:
+                        erro = False
 
             if erro is False:
                 self.find_element(self.local).send_keys(local)
@@ -310,7 +316,8 @@ class criarAtividade(PageElement):
                 self.find_element(self.btn_salvar_datas).click()
                 msg = self.espera_mensagem()
                 if msg is True:
-                    erro = False
+                    if self.find_element(self.alert_texto).text != txt:
+                        erro = False
 
             if erro is False:
                 self.find_element(self.sala).send_keys(sala)
@@ -318,7 +325,8 @@ class criarAtividade(PageElement):
                 self.find_element(self.btn_salvar_datas).click()
                 msg = self.espera_mensagem()
                 if msg is True:
-                    erro = False
+                    if self.find_element(self.alert_texto).text != txt:
+                        erro = False
 
             if erro is False:
                 self.find_element(self.data).send_keys(data)
@@ -326,7 +334,8 @@ class criarAtividade(PageElement):
                 self.find_element(self.btn_salvar_datas).click()
                 msg = self.espera_mensagem()
                 if msg is True:
-                    erro = False
+                    if self.find_element(self.alert_texto).text != txt:
+                        erro = False
 
             if erro is False:
                 self.find_element(self.hora_inicio).send_keys(hora_inicio)
@@ -334,7 +343,8 @@ class criarAtividade(PageElement):
                 self.find_element(self.btn_salvar_datas).click()
                 msg = self.espera_mensagem()
                 if msg is True:
-                    erro = False
+                    if self.find_element(self.alert_texto).text != txt:
+                        erro = False
 
             if erro is False:
                 self.find_element(self.hora_fim).send_keys(hora_fim)
@@ -342,7 +352,8 @@ class criarAtividade(PageElement):
                 self.find_element(self.btn_salvar_datas).click()
                 msg = self.espera_mensagem()
                 if msg is True:
-                    erro = False
+                    if self.find_element(self.alert_texto).text != txt:
+                        erro = False
 
             if erro is False:
                 self.find_element(self.hora_inicio).send_keys(hora_inicio)
@@ -352,14 +363,16 @@ class criarAtividade(PageElement):
                 self.find_element(self.btn_salvar).click()
                 msg = self.espera_mensagem()
                 if msg is True:
-                    erro = False
+                    if self.find_element(self.alert_texto).text != txt:
+                        erro = False
 
             if erro is False:
                 self.find_element(self.btn_excluir_palestrante).clear()
                 self.find_element(self.btn_salvar).click()
                 msg = self.espera_mensagem()
                 if msg is True:
-                    erro = False
+                    if self.find_element(self.alert_texto).text != txt:
+                        erro = False
 
                 if erro is False:
                     self.find_element(self.combo_tipo).send_keys(Keys.BACKSPACE)
@@ -369,7 +382,8 @@ class criarAtividade(PageElement):
                     self.find_element(self.btn_salvar).click()
                     msg = self.espera_mensagem()
                     if msg is True:
-                        erro = False
+                        if self.find_element(self.alert_texto).text != txt:
+                            erro = False
 
             if erro is False:
                 print("\n CT_13 reportou erro: " + self.find_element(self.alert_texto).text)
@@ -380,4 +394,4 @@ class criarAtividade(PageElement):
             print("\n CT_15 reportou erro: " + str(e))
 
         except ElementClickInterceptedException:
-            print("\n CT_14 reportou erro: " + self.find_element(self.alert_texto).text)
+            print("\n CT_15 reportou erro: " + self.find_element(self.alert_texto).text)

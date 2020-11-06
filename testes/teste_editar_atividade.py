@@ -17,8 +17,9 @@ login_professor.realiza_login(
 editar_atividade = editarAtividade(webdriver)
 
 # -------- Casos de teste: Edição de atividade padrão ------------#
+webdriver.get(url)
 editar_atividade.caminho()
-editar_atividade.ct16_criar_atividade(
+editar_atividade.ct16_editar_atividade(
     tema        = 'ativividade teste ct11',
     descricao   = 'teste nova atividade',
     vagas       = '30',
@@ -29,6 +30,10 @@ editar_atividade.ct16_criar_atividade(
     hora_fim    = '1800'
 )
 # ----------- Casos de teste: Exclusão de atividade --------------#
+webdriver.get(url)
+editar_atividade.caminho(True)
+editar_atividade.ct17_editar_atividade()
+
 # -------------- Casos de teste: Cancelar edição -----------------#
 # --- Casos de teste: Nenhuma atividade selecionada ao editar ----#
 # ----- Casos de teste: Campos obrigatórios não preenchidos ------#
