@@ -21,4 +21,10 @@ webdriver.get(url)
 certificado_palestrante.caminho()
 certificado_palestrante.ct37_certificado_palestrante()
 # ---------- Casos de teste: Evento não selecionado --------------#
+webdriver.get(url)
+certificado_palestrante.caminho()
+certificado_palestrante.ct38_certificado_palestrante()
 # --------- Casos de teste: Atividade não especificada -----------#
+webdriver.get(url)
+certificado_palestrante.caminho()
+certificado_palestrante.ct39_certificado_palestrante()
