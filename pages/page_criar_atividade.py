@@ -386,7 +386,7 @@ class criarAtividade(PageElement):
                             erro = False
 
             if erro is False:
-                print("\n CT_13 reportou erro: " + self.find_element(self.alert_texto).text)
+                print("\n CT_15 reportou erro: " + self.find_element(self.alert_texto).text)
             else:
                 print("\n [!] CT_15 reportou erro: Evento criado com campos obrigatorios nao preenchidos")
 
