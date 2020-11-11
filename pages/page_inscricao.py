@@ -10,12 +10,13 @@ class inscricao(PageElement):
     #CAMINHO
     calendario = (By.CSS_SELECTOR, "i.fa-calendar")
     menu_evento = (By.CSS_SELECTOR, "a[href$='inicial.zul?pag=listaEventos']")
-    mais_info = (By.CLASS_NAME, "z-button")
+    mais_info = (By.ID, "zk-comp-137!box")
+    skip = (By.ID, "zk-comp-137!tb_l")
     atividade = (By.CLASS_NAME, "z-button-cm")
     main = (By.CSS_SELECTOR, "a[href$='inicial.zul']")
 
     # CASOS DE TESTE
-    inscrever = (By.ID, "zk-comp-158!box")
+    inscrever_se = (By.ID, "zk-comp-158!box")
 
 
     # ALERT
@@ -44,7 +45,33 @@ class inscricao(PageElement):
         sleep(1)
         self.find_element(self.mais_info).click()
         sleep(1)
+        self.find_element(self.skip).click()
+        sleep(1)
         self.find_element(self.atividade).click()
+
+# ------------ Caso de teste: Inscrição padrão  ---------------#
+    def ct40_inscricao(self):
+        try:
+            sleep(1)
+            self.find_element(self.inscrever_se).click()
+            msg = self.espera_mensagem()
+            if msg is True:
+                self.find_element(self.btn_ok_alert).click()
+                sleep(5)
+                msgConfirmacao = self.espera_mensagem()
+                if msgConfirmacao is True and self.find_element(self.alert_texto).text.find('Inscrição solicitada!') != -1:
+                    print('\n CT_40 sem erros: a inscrição foi solicitada com sucesso')
+                    self.find_element(self.btn_ok_alert).click()
+                else:
+                    print("\n [!] CT_40 reportou erro: a inscrição não foi solicitada")
+        except UnexpectedAlertPresentException as e:
+            print("\n [!] CT_40 reportou erro: " + str(e))
+
+
+
+
+
+
 
 
 
