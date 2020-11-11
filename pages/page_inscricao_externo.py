@@ -14,10 +14,9 @@ class inscricaoExterno(PageElement):
     evento = (By.CSS_SELECTOR, 'table[id$="comp-99!box"] [class$="button-cm"]')
     evento_ct51 = (By.CSS_SELECTOR, 'table[id$="comp-113!box"] [class$="button-cm"]')
 
-    proxima_pagina = (By.CLASS_NAME, 'z-paging-next')
     ultima_pagina = (By.CLASS_NAME, 'z-paging-last')
-    atividade = (By.XPATH, '//*/div/div[1]/div[2]/div[1]/div/div/div/div[3]/div[2]/table/tbody[2]/tr[5]/td['
-                           '3]/div/table/tbody/tr/td/span/table/tbody/tr[2]/td[2]')
+    atividade = (By.XPATH, '//*/div/div/section/div/div[1]/div[2]/div[1]/div/div/div/div[3]/div[2]/table/tbody[2]/tr['
+                           '1]/td[5]/div/table/tbody/tr/td/span/table/tbody/tr[2]/td[2]')
     atividade_ct51 = (By.XPATH, '//*/div/div/section/div/div[1]/div[2]/div[1]/div/div/div/div[3]/div[2]/table/tbody['
                                 '2]/tr[1]/td[5]/div/table/tbody/tr/td/span/table/tbody/tr[2]/td[2]')
     # FORMULARIO-1
@@ -58,7 +57,7 @@ class inscricaoExterno(PageElement):
     def ct50_inscricao_externo(self, cpf, nome, email, telefone, celular):
         txt = "Inscrição solicitada!"
         try:
-            self.find_element(self.proxima_pagina).click()
+            self.find_element(self.ultima_pagina).click()
             sleep(1)
             self.find_element(self.atividade).click()
             sleep(1)
@@ -123,7 +122,7 @@ class inscricaoExterno(PageElement):
     # --------------- Casos de teste: CPF inválido -------------------#
     def ct52_inscricao_externo(self, cpf, nome, email):
         try:
-            self.find_element(self.proxima_pagina).click()
+            self.find_element(self.ultima_pagina).click()
             sleep(1)
             self.find_element(self.atividade).click()
             sleep(1)
@@ -149,7 +148,7 @@ class inscricaoExterno(PageElement):
     # -------------- Casos de teste: Email inválido ------------------#
     def ct53_inscricao_externo(self, cpf, nome, email):
         try:
-            self.find_element(self.proxima_pagina).click()
+            self.find_element(self.ultima_pagina).click()
             sleep(1)
             self.find_element(self.atividade).click()
             sleep(1)
@@ -173,6 +172,82 @@ class inscricaoExterno(PageElement):
             self.find_element(self.btn_ok_alert).click()
 
     # - Casos de teste: Campos obrigatórios no primeiro formulário ---#
-    # def ct54_inscricao_externo(self):
+    def ct54_inscricao_externo(self, cpf, nome, email):
+        erro = True
+        try:
+            self.find_element(self.ultima_pagina).click()
+            sleep(1)
+            self.find_element(self.atividade).click()
+            sleep(1)
+            self.find_element(self.nome).send_keys(nome)
+            self.find_element(self.email).send_keys(email)
+            self.find_element(self.confirmar).click()
+            sleep(1)
+            msg = self.espera_mensagem()
+            if msg is True:
+                erro = False
+
+            if erro is False:
+                self.find_element(self.cpf).send_keys(cpf)
+                self.find_element(self.email).clear()
+                self.find_element(self.confirmar).click()
+                msg = self.espera_mensagem()
+                if msg is True:
+                    erro = False
+
+            if erro is False:
+                self.find_element(self.email).send_keys(email)
+                self.find_element(self.nome).clear()
+                self.find_element(self.confirmar).click()
+                msg = self.espera_mensagem()
+                if msg is True:
+                    erro = False
+
+            if erro is False:
+                print("\n CT_54 reportou erro: " + self.find_element(self.alert_texto).text)
+            else:
+                print("\n [!] CT_54 sem erros: Inscrição prosseguiu para o próximo formulário")
+
+        except UnexpectedAlertPresentException as e:
+            print("\n CT_54 reportou erro: " + str(e))
+
+        except ElementClickInterceptedException:
+            print("\n CT_54 reportou erro: " + self.find_element(self.alert_texto).text)
+
     # -- Casos de teste: Campos obrigatórios no segundo formulário ---#
-    # def ct55_inscricao_externo(self):
+    def ct55_inscricao_externo(self, cpf, nome, email, telefone, celular):
+        erro = True
+        try:
+            self.find_element(self.ultima_pagina).click()
+            sleep(1)
+            self.find_element(self.atividade).click()
+            sleep(1)
+            self.find_element(self.cpf).send_keys(cpf)
+            self.find_element(self.nome).send_keys(nome)
+            self.find_element(self.email).send_keys(email)
+            self.find_element(self.confirmar).click()
+            sleep(1)
+            self.find_element(self.telefone).send_keys(telefone)
+            self.find_element(self.concluir).click()
+            msg = self.espera_mensagem()
+            if msg is True:
+                erro = False
+
+            if erro is False:
+                self.find_element(self.celular).send_keys(celular)
+                self.find_element(self.telefone).clear()
+                self.find_element(self.concluir).click()
+                msg = self.espera_mensagem()
+                if msg is True:
+                    erro = False
+
+            if erro is False:
+                print("\n CT_55 reportou erro: " + self.find_element(self.alert_texto).text)
+            else:
+                print("\n [!] CT_55 sem erros: Inscrição prosseguiu para o próximo formulário")
+
+        except UnexpectedAlertPresentException as e:
+            print("\n CT_55 reportou erro: " + str(e))
+
+        except ElementClickInterceptedException:
+            print("\n CT_55 reportou erro: " + self.find_element(self.alert_texto).text)
