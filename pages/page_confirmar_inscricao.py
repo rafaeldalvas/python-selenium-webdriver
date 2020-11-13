@@ -192,6 +192,48 @@ class confirmarInscricao(PageElement):
             self.find_element(self.btn_ok_alert).click()
 
     # ------------ Casos de teste: Campo evento vazio ----------------#
-    # def ct48_confirmar_inscricao(self):
+    def ct48_confirmar_inscricao(self):
+        try:
+            self.find_element(self.todas_inscricoes).click()
+            sleep(1)
+            msg = self.espera_mensagem()
+            if msg is True:
+                txt = self.find_element(self.alert_texto).text
+                if txt == "Selecione um evento!":
+                    print("\n CT_48 sem erros: " + txt)
+                    self.find_element(self.btn_ok_alert).click()
+                else:
+                    print("\n [!] CT_48 reportou erro: " + txt)
+                    self.find_element(self.btn_ok_alert).click()
+
+        except UnexpectedAlertPresentException as e:
+            print("\n [!] CT_48 reportou erro: " + str(e))
+
+        except ElementClickInterceptedException:
+            print("\n [!] CT_48 reportou erro: " + self.find_element(self.alert_texto).text)
+            self.find_element(self.btn_ok_alert).click()
+
     # ----------- Casos de teste: Campo atividade vazio --------------#
-    # def ct49_confirmar_inscricao(self):
+    def ct49_confirmar_inscricao(self):
+        try:
+            self.find_element(self.combo_evento).click()
+            sleep(1)
+            self.find_element(self.evento).click()
+            self.find_element(self.todas_inscricoes).click()
+            sleep(1)
+            msg = self.espera_mensagem()
+            if msg is True:
+                txt = self.find_element(self.alert_texto).text
+                if txt == "Selecione uma atividade!":
+                    print("\n CT_49 sem erros: " + txt)
+                    self.find_element(self.btn_ok_alert).click()
+                else:
+                    print("\n [!] CT_49 reportou erro: " + txt)
+                    self.find_element(self.btn_ok_alert).click()
+
+        except UnexpectedAlertPresentException as e:
+            print("\n [!] CT_49 reportou erro: " + str(e))
+
+        except ElementClickInterceptedException:
+            print("\n [!] CT_49 reportou erro: " + self.find_element(self.alert_texto).text)
+            self.find_element(self.btn_ok_alert).click()
