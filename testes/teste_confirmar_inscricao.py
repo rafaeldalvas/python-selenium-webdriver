@@ -18,6 +18,7 @@ confirmar_inscricao = confirmarInscricao(webdriver)
 
 # ---------- Casos de teste: Evento não selecionado --------------#
 confirmar_inscricao.caminho()
+confirmar_inscricao.ct44_confirmar_inscricao()
 # -------- Casos de teste: Confirmar inscrição padrão ------------#
 # ----------- Casos de teste: Ver todas inscrições ---------------#
 # -------- Casos de teste: Ver relatório de inscritos ------------#
