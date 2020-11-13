@@ -23,8 +23,13 @@ class confirmarInscricao(PageElement):
     checkbox_presente = (By.XPATH, '/html/body/div[1]/div/div/div/div[2]/div[2]/div/div[2]/div['
                                    '1]/div/div/div/div/div/div/div/div/div[2]/div[2]/div[1]/div/div/div/div/div['
                                    '2]/table/tbody[2]/tr[2]/td[1]/div/span/input')
-    confirmar_selecionados =(By.CSS_SELECTOR, 'table[id$="comp-142!box"] [class$="button-cm"]')
-    concluir = (By.CSS_SELECTOR, 'table[id$="comp-197!box"] [class$="button-cm"]')
+    checkbox_todos = (By.XPATH, '/html/body/div[1]/div/div/div/div[2]/div[2]/div/div[2]/div['
+                                '1]/div/div/div/div/div/div/div/div/div[2]/div[2]/div[1]/div/div/div/div/div['
+                                '1]/table/tbody[2]/tr/th[1]/div/span/input')
+    confirmar_selecionados = (By.CSS_SELECTOR, 'table[id$="comp-142!box"] [class$="button-cm"]')
+    concluir = (By.XPATH, '//*/div[1]/div/div/div/div/div[2]/div/table[2]/tbody/tr/td[1]/span/table/tbody/tr[2]/td[2]')
+    relatorio_inscritos = (By.CSS_SELECTOR, 'table[id$="comp-131!box"] [class$="button-cm"]')
+    relatorio_inscritos_efetivados = (By.CSS_SELECTOR, 'table[id$="comp-133!box"] [class$="button-cm"]')
 
     alert_tipo = (By.CSS_SELECTOR, 'div[class="z-separator-hor-bar"]')
     alert_texto = (By.XPATH, '//*/div[2]/div[1]/div/div/div/div/div[2]/div/table[1]/tbody/tr/td[3]/div/span')
@@ -89,11 +94,103 @@ class confirmarInscricao(PageElement):
             self.find_element(self.btn_ok_alert).click()
 
     # ----------- Casos de teste: Ver todas inscrições ---------------#
-    # def ct45_confirmar_inscricao(self):
+    def ct45_confirmar_inscricao(self):
+        try:
+            self.find_element(self.combo_evento).click()
+            sleep(1)
+            self.find_element(self.evento).click()
+            self.find_element(self.combo_atividade).click()
+            sleep(1)
+            self.find_element(self.atividade).click()
+            self.find_element(self.todas_inscricoes).click()
+            sleep(1)
+            self.find_element(self.checkbox_todos).click()
+            sleep(1)
+            self.find_element(self.confirmar_selecionados).click()
+            sleep(1)
+            self.find_element(self.concluir).click()
+            sleep(1)
+            msg = self.espera_mensagem()
+            if msg is True:
+                txt = self.find_element(self.alert_texto).text
+                if txt == "As inscrições selecionadas foram confirmadas.":
+                    print("\n CT_45 sem erros: " + txt)
+                    self.find_element(self.btn_ok_alert).click()
+                else:
+                    print("\n [!] CT_45 reportou erro: " + txt)
+                    self.find_element(self.btn_ok_alert).click()
+
+        except UnexpectedAlertPresentException as e:
+            print("\n [!] CT_45 reportou erro: " + str(e))
+
+        except ElementClickInterceptedException:
+            print("\n [!] CT_45 reportou erro: " + self.find_element(self.alert_texto).text)
+            self.find_element(self.btn_ok_alert).click()
+
     # -------- Casos de teste: Ver relatório de inscritos ------------#
-    # def ct46_confirmar_inscricao(self):
+    def ct46_confirmar_inscricao(self):
+        try:
+            self.find_element(self.combo_evento).click()
+            sleep(1)
+            self.find_element(self.evento).click()
+            self.find_element(self.combo_atividade).click()
+            sleep(1)
+            self.find_element(self.atividade).click()
+            sleep(1)
+            self.find_element(self.relatorio_inscritos).click()
+            sleep(1)
+            msg = self.espera_mensagem()
+            original_window = self.webdriver.current_window_handle
+            if msg is True:
+                txt = self.find_element(self.alert_texto).text
+                print("\n [!] CT_46 reportou erro: " + txt)
+                self.find_element(self.btn_ok_alert).click()
+            else:
+                if len(self.webdriver.window_handles) != 1:
+                    print("\n CT_46 sem erros: relatório gerado com sucesso!")
+                    self.webdriver.switch_to.window(original_window)
+                else:
+                    print("\n [!] CT_46 sem erros: o relatório não foi gerado")
+
+        except UnexpectedAlertPresentException as e:
+            print("\n [!] CT_46 reportou erro: " + str(e))
+
+        except ElementClickInterceptedException:
+            print("\n [!] CT_46 reportou erro: " + self.find_element(self.alert_texto).text)
+            self.find_element(self.btn_ok_alert).click()
+
     # ----- Casos de teste: Ver relatório de inscritos efetivados ----#
-    # def ct47_confirmar_inscricao(self):
+    def ct47_confirmar_inscricao(self):
+        try:
+            self.find_element(self.combo_evento).click()
+            sleep(1)
+            self.find_element(self.evento).click()
+            self.find_element(self.combo_atividade).click()
+            sleep(1)
+            self.find_element(self.atividade).click()
+            sleep(1)
+            self.find_element(self.relatorio_inscritos_efetivados).click()
+            sleep(1)
+            msg = self.espera_mensagem()
+            original_window = self.webdriver.current_window_handle
+            if msg is True:
+                txt = self.find_element(self.alert_texto).text
+                print("\n [!] CT_47 reportou erro: " + txt)
+                self.find_element(self.btn_ok_alert).click()
+            else:
+                if len(self.webdriver.window_handles) != 1:
+                    print("\n CT_47 sem erros: relatório gerado com sucesso!")
+                    self.webdriver.switch_to.window(original_window)
+                else:
+                    print("\n [!] CT_47 sem erros: o relatório não foi gerado")
+
+        except UnexpectedAlertPresentException as e:
+            print("\n [!] CT_47 reportou erro: " + str(e))
+
+        except ElementClickInterceptedException:
+            print("\n [!] CT_47 reportou erro: " + self.find_element(self.alert_texto).text)
+            self.find_element(self.btn_ok_alert).click()
+
     # ------------ Casos de teste: Campo evento vazio ----------------#
     # def ct48_confirmar_inscricao(self):
     # ----------- Casos de teste: Campo atividade vazio --------------#
