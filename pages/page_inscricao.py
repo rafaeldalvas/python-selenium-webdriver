@@ -19,6 +19,9 @@ class inscricao(PageElement):
     # CASOS DE TESTE
     inscrever_se = (By.ID, "zk-comp-158!box")
     inscritos = (By.ID, "zk-comp-162!box")
+    inscrever_se_ativdade1 = (By.ID, "zk-comp-12933!box")
+    inscrever_se_ativdade2 = (By.ID, "zk-comp-12978!box")
+    voltar = (By.ID, "zk-comp-164!box")
 
 
     # ALERT
@@ -100,6 +103,31 @@ class inscricao(PageElement):
                 print('\n [!] CT_42 reportou erro: a lista de inscritos não foi exibida')
         except UnexpectedAlertPresentException as e:
             print("\n [!] CT_42 reportou erro: " + str(e))
+
+# ------------ Horário indisponível  ---------------#
+    def ct43_inscricao(self):
+        try:
+            sleep(1)
+            self.find_element(self.inscrever_se_ativdade1).click()
+            msg = self.espera_mensagem()
+            if msg is True:
+                self.find_element(self.btn_ok_alert).click()
+            self.find_element(self.voltar).click()
+
+            self.find_element(self.inscrever_se_ativdade2).click()
+            msg = self.espera_mensagem()
+            if msg is True:
+                self.find_element(self.btn_ok_alert).click()
+                sleep(5)
+                msgConfirmacao = self.espera_mensagem()
+                if msgConfirmacao is True and self.find_element(self.alert_texto).text.find('Inscrição solicitada!') != -1:
+                    print('\n CT_43 reportou erro: o sistema não permitiu a inscrição do usuário')
+                else:
+                    print("\n [!] CT_43 reportou erro: a inscrição foi solicitada sendo que o usuário não possui horário disponível")
+        except UnexpectedAlertPresentException as e:
+            print("\n [!] CT_43 reportou erro: " + str(e))
+
+
 
 
 
