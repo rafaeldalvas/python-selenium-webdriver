@@ -10,13 +10,15 @@ class inscricao(PageElement):
     #CAMINHO
     calendario = (By.CSS_SELECTOR, "i.fa-calendar")
     menu_evento = (By.CSS_SELECTOR, "a[href$='inicial.zul?pag=listaEventos']")
-    mais_info = (By.ID, "zk-comp-137!box")
+    mais_info = (By.ID, "zk-comp-151!box")
+    mais_info_vencida = (By.ID, "zk-comp-137!box")
     skip = (By.ID, "zk-comp-137!tb_l")
     atividade = (By.CLASS_NAME, "z-button-cm")
     main = (By.CSS_SELECTOR, "a[href$='inicial.zul']")
 
     # CASOS DE TESTE
     inscrever_se = (By.ID, "zk-comp-158!box")
+    inscritos = (By.ID, "zk-comp-162!box")
 
 
     # ALERT
@@ -37,13 +39,16 @@ class inscricao(PageElement):
         sleep(1)
         self.find_element(self.main).click()
 
-    def caminho(self):
+    def caminho(self, noPrazo = False, vencida = False):
         sleep(2)
         self.find_element(self.calendario).click()
         sleep(1)
         self.find_element(self.menu_evento).click()
         sleep(1)
-        self.find_element(self.mais_info).click()
+        if noPrazo is True:
+            self.find_element(self.mais_info).click()
+        elif vencida is True:
+            self.find_element(self.mais_info_vencida).click()
         sleep(1)
         self.find_element(self.skip).click()
         sleep(1)
@@ -66,6 +71,28 @@ class inscricao(PageElement):
                     print("\n [!] CT_40 reportou erro: a inscrição não foi solicitada")
         except UnexpectedAlertPresentException as e:
             print("\n [!] CT_40 reportou erro: " + str(e))
+
+# ------------ Prazo para inscrição vencido  ---------------#
+    def ct41_inscricao(self):
+        try:
+            sleep(1)
+            self.find_element(self.inscrever_se).click()
+            msg = self.espera_mensagem()
+            if msg is True:
+                self.find_element(self.btn_ok_alert).click()
+                sleep(5)
+                msgConfirmacao = self.espera_mensagem()
+                if msgConfirmacao is True and self.find_element(self.alert_texto).text.find('Inscrição solicitada!') != -1:
+                    print('\n [!] CT_41 reportou erro: a inscrição foi solicitada após o vencimento do prazo')
+                else:
+                    print("\n [!] CT_41 reportou erro: a inscrição não foi solicitada")
+        except UnexpectedAlertPresentException as e:
+            print("\n [!] CT_41 reportou erro: " + str(e))
+
+
+
+
+
 
 
 
