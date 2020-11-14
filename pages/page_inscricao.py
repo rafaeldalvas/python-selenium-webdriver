@@ -89,6 +89,17 @@ class inscricao(PageElement):
         except UnexpectedAlertPresentException as e:
             print("\n [!] CT_41 reportou erro: " + str(e))
 
+# ------------ Ver Inscritos  ---------------#
+    def ct42_inscricao(self):
+        try:
+            sleep(1)
+            url = self.webdriver.current_url
+            if url.find('pag=listaInscritos') > 0:
+                print('\n CT_42 sem erros: a lista de inscritos foi exibida')
+            else:
+                print('\n [!] CT_42 reportou erro: a lista de inscritos não foi exibida')
+        except UnexpectedAlertPresentException as e:
+            print("\n [!] CT_42 reportou erro: " + str(e))
 
 
 
