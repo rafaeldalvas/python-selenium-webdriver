@@ -62,6 +62,7 @@ class inscricao(PageElement):
         try:
             sleep(1)
             self.find_element(self.inscrever_se).click()
+            sleep(5)
             msg = self.espera_mensagem()
             if msg is True:
                 self.find_element(self.btn_ok_alert).click()
@@ -80,6 +81,7 @@ class inscricao(PageElement):
         try:
             sleep(1)
             self.find_element(self.inscrever_se).click()
+            sleep(5)
             msg = self.espera_mensagem()
             if msg is True:
                 self.find_element(self.btn_ok_alert).click()
@@ -88,13 +90,18 @@ class inscricao(PageElement):
                 if msgConfirmacao is True and self.find_element(self.alert_texto).text.find('Inscrição solicitada!') != -1:
                     print('\n [!] CT_41 reportou erro: a inscrição foi solicitada após o vencimento do prazo')
                 else:
-                    print("\n [!] CT_41 reportou erro: a inscrição não foi solicitada")
+                    print("\n CT_41 reportou erro: a inscrição não foi solicitada")
         except UnexpectedAlertPresentException as e:
             print("\n [!] CT_41 reportou erro: " + str(e))
+        except NoSuchElementException as e:
+            print("\n CT_41 reportou erro: a inscrição não foi solicitada")
+
 
 # ------------ Ver Inscritos  ---------------#
     def ct42_inscricao(self):
         try:
+            sleep(1)
+            self.find_element(self.inscritos).click()
             sleep(1)
             url = self.webdriver.current_url
             if url.find('pag=listaInscritos') > 0:
@@ -126,6 +133,8 @@ class inscricao(PageElement):
                     print("\n [!] CT_43 reportou erro: a inscrição foi solicitada sendo que o usuário não possui horário disponível")
         except UnexpectedAlertPresentException as e:
             print("\n [!] CT_43 reportou erro: " + str(e))
+        except NoSuchElementException as e:
+            print("\n CT_43 reportou erro: usuário já inscrito na atividade")
 
 
 
