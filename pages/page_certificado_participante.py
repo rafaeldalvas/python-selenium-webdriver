@@ -24,13 +24,6 @@ class certificadoParticipante(PageElement):
     alert_texto = (By.XPATH, '//*/div[2]/div[1]/div/div/div/div/div[2]/div/table[1]/tbody/tr/td[3]/div/span')
     btn_ok_alert = (By.XPATH, '//*/div[2]/div[1]/div/div/div/div/div[2]/div/table[2]/tbody/tr/td/span/table/tbody/tr[''2]/td[2]')
 
-
-
-    def logout(self):
-        self.find_element(self.dropdownLogout).click()
-        sleep(1)
-        self.find_element(self.logout).click()
-
     def espera_mensagem(self):
         try:
             alert_tipo = WebDriverWait(self.webdriver, poll_frequency=0.2, timeout=10)
@@ -43,6 +36,11 @@ class certificadoParticipante(PageElement):
     def clicarMain(self):
         sleep(1)
         self.find_element(self.main).click()
+
+    def logout(self):
+        self.find_element(self.dropdownLogout).click()
+        sleep(1)
+        self.find_element(self.logout).click()
 
     def caminho(self):
         sleep(1)
