@@ -24,6 +24,8 @@ class certificadoParticipante(PageElement):
     alert_texto = (By.XPATH, '//*/div[2]/div[1]/div/div/div/div/div[2]/div/table[1]/tbody/tr/td[3]/div/span')
     btn_ok_alert = (By.XPATH, '//*/div[2]/div[1]/div/div/div/div/div[2]/div/table[2]/tbody/tr/td/span/table/tbody/tr[''2]/td[2]')
 
+
+
     def logout(self):
         self.find_element(self.dropdownLogout).click()
         sleep(1)
@@ -41,6 +43,12 @@ class certificadoParticipante(PageElement):
     def clicarMain(self):
         sleep(1)
         self.find_element(self.main).click()
+
+    def caminho(self):
+        sleep(1)
+        self.find_element(self.calendario).click()
+        sleep(1)
+        self.find_element(self.emissao).click()
 
 # ------------ Geração de certificado padrão  ---------------#
     def ct50_certificado_participante(self):
