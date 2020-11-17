@@ -13,6 +13,8 @@ class certificadoPalestranteExterno(PageElement):
     certificado_palestrante = (By.CSS_SELECTOR, "a[href$='janelaCPF.zul?op=1']")
     cpf = (By.ID, 'zk-comp-46') # valido: 83239472600 / invalido: 33332506080
     confirmar = (By.ID, 'zk-comp-49')
+    palestra = (By.CSS_SELECTOR, '#zk-comp-105\!cell > img')
+    gerar = (By.CSS_SELECTOR, 'table[id$="comp-104!box"] [class$="button-cm"]')
 
     alert_tipo = (By.CSS_SELECTOR, 'div[class="z-separator-hor-bar"]')
     alert_texto = (By.XPATH, '//*/div[2]/div[1]/div/div/div/div/div[2]/div/table[1]/tbody/tr/td[3]/div/span')
@@ -33,11 +35,35 @@ class certificadoPalestranteExterno(PageElement):
         except TimeoutException:
             return False
 
-
     # --------- Casos de teste: Geração de certificado padrão --------#
     def ct58_certificado_palestrante_externo(self, cpf):
-        self.find_element(self.cpf).send_keys(cpf)
-        self.find_element(self.confirmar).click()
+        try:
+            self.find_element(self.cpf).send_keys(cpf)
+            self.find_element(self.confirmar).click()
+            sleep(1)
+            self.find_element(self.palestra).click()
+            sleep(1)
+            self.find_element(self.gerar).click()
+            sleep(1)
+            msg = self.espera_mensagem()
+            original_window = self.webdriver.current_window_handle
+            if msg is True:
+                txt = self.find_element(self.alert_texto).text
+                print("\n [!] CT_58 reportou erro: " + txt)
+                self.find_element(self.btn_ok_alert).click()
+            else:
+                if len(self.webdriver.window_handles) != 1:
+                    print("\n CT_58 sem erros: certificado gerado com sucesso!")
+                    self.webdriver.switch_to.window(original_window)
+                else:
+                    print("\n [!] CT_58 sem erros: o certificado não foi gerado")
+
+        except UnexpectedAlertPresentException as e:
+            print("\n [!] CT_58 reportou erro: " + str(e))
+
+        except ElementClickInterceptedException:
+            print("\n [!] CT_58 reportou erro: " + self.find_element(self.alert_texto).text)
+            self.find_element(self.btn_ok_alert).click()
 
     # --------- Casos de teste: Palestrante sem eventos --------------#
     # def ct59_certificado_palestrante_externo(self):
