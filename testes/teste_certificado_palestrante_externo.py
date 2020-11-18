@@ -14,5 +14,20 @@ certificado_palestrante_externo.ct58_certificado_palestrante_externo(
     cpf = '83239472600'
 )
 # --------- Casos de teste: Palestrante sem eventos --------------#
+webdriver.get(url)
+certificado_palestrante_externo.caminho()
+certificado_palestrante_externo.ct59_certificado_palestrante_externo(
+    cpf = '62126930050'
+)
 # --------------- Casos de teste: CPF inválido -------------------#
+webdriver.get(url)
+certificado_palestrante_externo.caminho()
+certificado_palestrante_externo.ct60_certificado_palestrante_externo(
+    cpf = '99999999999'
+)
 # ------------ Casos de teste: CPF não cadastrado ----------------#
+webdriver.get(url)
+certificado_palestrante_externo.caminho()
+certificado_palestrante_externo.ct61_certificado_palestrante_externo(
+    cpf = '33332506080'
+)
