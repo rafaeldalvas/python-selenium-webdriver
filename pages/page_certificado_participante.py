@@ -13,7 +13,15 @@ class certificadoParticipante(PageElement):
     main = (By.CSS_SELECTOR, "a[href$='inicial.zul']")
     dropdownLogout = (By.ID, "kMenu")
     logout = (By.ID, "zk-comp-102")
+    admin = (By.CSS_SELECTOR, "a[href$='admEvento/inicial.zul?']")
+    admin_inscricao = (By.CSS_SELECTOR, "a[href$='inicial.zul?pag=admInscricao']")
 
+    # FECHAR ATIVIDADE
+    admin = (By.CSS_SELECTOR, "a[href$='admEvento/inicial.zul?']")
+    controle_presenca = (By.ID, "zk-comp-116")
+    mais_infos = (By.ID, "zk-comp-124!box")
+    evento = (By.ID, "zk-comp-12952!box")
+    reabrir = (By.ID, "zk-comp-135!box")
 
     # CERTIFICADO
     dropdownCertificado = (By.ID, "zk-comp-148!cell")
@@ -37,16 +45,23 @@ class certificadoParticipante(PageElement):
         sleep(1)
         self.find_element(self.main).click()
 
-    def logout(self):
-        self.find_element(self.dropdownLogout).click()
-        sleep(1)
-        self.find_element(self.logout).click()
-
     def caminho(self):
         sleep(1)
         self.find_element(self.calendario).click()
         sleep(1)
         self.find_element(self.emissao).click()
+
+    def tiraInscricao(self):
+        self.find_element(self.inscrever_se).click()
+        sleep(1)
+        self.find_element(self.inscritos).click()
+        sleep(1)
+        self.find_element(self.inscrever_se_ativdade1).click()
+        sleep(1)
+        self.find_element(self.inscrever_se_ativdade2).click()
+        sleep(1)
+        self.find_element(self.voltar).click()
+        sleep(1)
 
 # ------------ Geração de certificado padrão  ---------------#
     def ct50_certificado_participante(self):
@@ -68,6 +83,32 @@ class certificadoParticipante(PageElement):
                     print("\n [!] CT_50 reportou erro: o certificado não foi gerado")
         except UnexpectedAlertPresentException as e:
             print("\n [!] CT_50 reportou erro: " + str(e))
+
+# ------------ Usuário sem certificado disponível  ---------------#
+    def ct51_certificado_participante(self):
+        try:
+            sleep(1)
+            self.find_element(self.dropdownCertificado).click()
+            self.find_element(self.gerar).click()
+            msg = self.espera_mensagem()
+            if msg is True:
+                if self.find_element(self.alert_texto).text.find('Sem certificado para o participante') != -1:
+                    print("\n CT_51 reportou erro: o sistema informou que não existe certificado para o participante")
+                else:
+                    print("\n [!] O sistema reportou erro: " + self.find_element(self.alert_texto).text)
+            else:
+                print("\n [!] O sistema reportou erro: não foi informado que o usuário não possui certificado para gerar")
+        except UnexpectedAlertPresentException as e:
+            print("\n [!] CT_06 reportou erro: " + str(e))
+        except ElementClickInterceptedException:
+            print("\n [!] CT_06 reportou erro: " + self.find_element(self.alert_texto).text)
+            self.find_element(self.btn_ok_alert).click()
+
+
+
+
+
+
 
 
 
