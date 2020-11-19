@@ -48,14 +48,14 @@ criar_evento.ct02_criar_evento(
     funcao3            = 'Diretor',
     nome_responsavel   = 'Raquel Alves da Silva'
 )
-# # ------------ Caso de teste: Cancelar transação ---------------#
+# ------------- Caso de teste: Cancelar transação ---------------#
 webdriver.get(url)
 criar_evento.caminho()
 criar_evento.ct03_criar_evento(
     nome        ='Evento teste ct3',
     descricao   ='testando cancelar criacao'
 )
-# ----- Caso de teste: Campos obrigatórios não preenchidos -----#
+# ----- Caso de teste: Campos obrigatórios não preenchidos ------#
 webdriver.get(url)
 criar_evento.caminho()
 criar_evento.ct04_criar_evento(
@@ -66,8 +66,7 @@ criar_evento.ct04_criar_evento(
     inicio_inscricao    = '20/11/2020',
     fim_inscricao       = '20/12/2020',
 )
-
-# --------------- Caso de teste: Data inválida ----------------#
+# ---------------- Caso de teste: Data inválida -----------------#
 webdriver.get(url)
 criar_evento.caminho()
 criar_evento.ct05_criar_evento(
