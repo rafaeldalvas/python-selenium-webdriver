@@ -1,9 +1,5 @@
-from selenium.common.exceptions import UnexpectedAlertPresentException, TimeoutException, NoSuchElementException
-from selenium.webdriver.common.alert import Alert
+from selenium.common.exceptions import UnexpectedAlertPresentException, NoSuchElementException
 from selenium.webdriver.common.by import By
-from selenium.webdriver.common.keys import Keys
-from selenium.webdriver.support.wait import WebDriverWait
-from selenium.webdriver.support import expected_conditions, wait
 from utils.config import PageElement
 from time import sleep
 
