@@ -3,17 +3,20 @@ Projeto para artigo de TCC: Um estudo de caso para testes automatizados com Pyth
 
 ## Pré-requisitos
 * Python 3.9
-* Chrome (última versão)
+* Google Chrome (última versão)
 
 ## Configurar o ambiente
 * Instalar o selenium:
-```sh
+```bash
 pip install selenium
 ``` 
 * Baixar o driver do
 [Chrome](https://sites.google.com/a/chromium.org/chromedriver/downloads).
 
-* Mover o chromedriver.exe para a segunte paste:
-```sh
+* Mover o chromedriver.exe para o seguinte diretório:
+```bash
 C:\Python39\Scripts
 ``` 
+## Autores
+>[@rafaeldalvas](github.com/rafaeldalvas) <br>
+>[@joaobonetti](github.com/joaobonetti)
