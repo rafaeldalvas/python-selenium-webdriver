@@ -14,7 +14,6 @@ class inscricao(PageElement):
     mais_info_vencida = (By.ID, "zk-comp-137!box")
     skip = (By.ID, "zk-comp-137!tb_l")
     atividade = (By.CLASS_NAME, "z-button-cm")
-    main = (By.CSS_SELECTOR, "a[href$='inicial.zul']")
 
     # CASOS DE TESTE
     inscrever_se = (By.ID, "zk-comp-158!box")
@@ -37,10 +36,6 @@ class inscricao(PageElement):
                 return True
         except TimeoutException:
             return False
-
-    def clicarMain(self):
-        sleep(1)
-        self.find_element(self.main).click()
 
     def caminho(self, noPrazo = False, vencida = False):
         sleep(2)

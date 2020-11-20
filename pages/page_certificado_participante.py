@@ -10,7 +10,6 @@ class certificadoParticipante(PageElement):
     #CAMINHO
     calendario = (By.CSS_SELECTOR, "i.fa-calendar")
     emissao = (By.CSS_SELECTOR, "a[href$='inicial.zul?pag=relatorioEventosParticipados']")
-    main = (By.CSS_SELECTOR, "a[href$='inicial.zul']")
     dropdownLogout = (By.ID, "kMenu")
     logout = (By.ID, "zk-comp-102")
     admin = (By.CSS_SELECTOR, "a[href$='admEvento/inicial.zul?']")
@@ -40,10 +39,6 @@ class certificadoParticipante(PageElement):
                 return True
         except TimeoutException:
             return False
-
-    def clicarMain(self):
-        sleep(1)
-        self.find_element(self.main).click()
 
     def caminho(self):
         sleep(1)

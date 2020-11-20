@@ -11,7 +11,6 @@ class editarPalestrante(PageElement):
     # CAMINHO
     calendario = (By.CSS_SELECTOR, "i.fa-calendar")
     admin = (By.CSS_SELECTOR, "a[href$='admEvento/inicial.zul?']")
-    main = (By.CSS_SELECTOR, "a[href$='inicial.zul']")
     cadastro_palestrante = (By.ID, 'zk-comp-112')
     radio_palestrante = (By.ID, 'zk-comp-118!real')
     seleciona_palestrante = (By.CSS_SELECTOR, 'div[id$="zk-comp-124!body"]')
@@ -56,10 +55,6 @@ class editarPalestrante(PageElement):
                 return True
         except TimeoutException:
             return False
-
-    def clicarMain(self):
-        sleep(1)
-        self.find_element(self.main).click()
 
     def caminho(self, ct29 = False):
         sleep(2)

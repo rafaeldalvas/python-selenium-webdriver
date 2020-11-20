@@ -12,7 +12,6 @@ class editarEvento(PageElement):
     sleep(2)
     calendario = (By.CSS_SELECTOR, "i.fa-calendar")
     admin = (By.CSS_SELECTOR, "a[href$='admEvento/inicial.zul?']")
-    main = (By.CSS_SELECTOR, "a[href$='inicial.zul']")
     cadastro_evento = (By.ID, 'zk-comp-112')
     radio_evento = (By.ID, 'zk-comp-114!real')
     radio_selec_evento = (By.CSS_SELECTOR, 'div.z-list-cell-cnt input')
@@ -86,11 +85,6 @@ class editarEvento(PageElement):
                 return True
         except TimeoutException:
             return False
-
-    def clicarMain(self):
-        sleep(1)
-        self.find_element(self.main).click()
-
 
     def caminho(self, ct_08 = False, ct_10 = False):
         sleep(1)

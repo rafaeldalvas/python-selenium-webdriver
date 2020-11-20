@@ -24,7 +24,7 @@ sleep(1)
 certificadoParticipante.ct50_certificado_participante()
 
 # ------------ Caso de teste: Geração de certificado padrão ---------------#
-editar_palestrante.clicarMain()
+webdriver.get(url)
 sleep(1)
 editar_palestrante.tiraInscricao()
 sleep(1)
