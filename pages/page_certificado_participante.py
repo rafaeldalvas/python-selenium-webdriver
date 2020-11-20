@@ -78,6 +78,9 @@ class certificadoParticipante(PageElement):
                     print("\n [!] CT_50 reportou erro: o certificado não foi gerado")
         except UnexpectedAlertPresentException as e:
             print("\n [!] CT_50 reportou erro: " + str(e))
+        except ElementClickInterceptedException:
+            print("\n [!] CT_50 reportou erro: " + self.find_element(self.alert_texto).text)
+            self.find_element(self.btn_ok_alert).click()
 
 # ------------ Usuário sem certificado disponível  ---------------#
     def ct51_certificado_participante(self):
@@ -90,13 +93,13 @@ class certificadoParticipante(PageElement):
                 if self.find_element(self.alert_texto).text.find('Sem certificado para o participante') != -1:
                     print("\n CT_51 reportou erro: o sistema informou que não existe certificado para o participante")
                 else:
-                    print("\n [!] O sistema reportou erro: " + self.find_element(self.alert_texto).text)
+                    print("\n [!] CT_51 sistema reportou erro: " + self.find_element(self.alert_texto).text)
             else:
-                print("\n [!] O sistema reportou erro: não foi informado que o usuário não possui certificado para gerar")
+                print("\n [!] CT_51 sistema reportou erro: não foi informado que o usuário não possui certificado para gerar")
         except UnexpectedAlertPresentException as e:
-            print("\n [!] CT_06 reportou erro: " + str(e))
+            print("\n [!] CT_51 reportou erro: " + str(e))
         except ElementClickInterceptedException:
-            print("\n [!] CT_06 reportou erro: " + self.find_element(self.alert_texto).text)
+            print("\n [!] CT_51 reportou erro: " + self.find_element(self.alert_texto).text)
             self.find_element(self.btn_ok_alert).click()
 
 

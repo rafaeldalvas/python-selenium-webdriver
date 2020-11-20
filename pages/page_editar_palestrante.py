@@ -115,12 +115,16 @@ class editarPalestrante(PageElement):
 
             msg = self.espera_mensagem()
             if msg is True:
+                if self.find_element(self.alert_texto).text == 'Palestrante salvo com sucesso':
+                    print('\n CT_27 sem erros: o palestrante foi cadastrado com sucesso')
+                else:
+                    print("\n [!] CT_27 reportou erro: " + self.find_element(self.alert_texto).text)
                 self.find_element(self.btn_ok_alert).click()
-
-            print('\n CT_27 sem erros: o palestrante foi cadastrado com sucesso')
-
         except UnexpectedAlertPresentException as e:
             print("\n [!] CT_27 reportou erro: " + str(e))
+        except ElementClickInterceptedException:
+            print("\n CT_27 reportou erro: " + self.find_element(self.alert_texto).text)
+            self.find_element(self.btn_ok_alert).click()
 
     # ------------ Caso de teste: Cancelar edição ---------------#
     def ct_28_editar_palestrante(self):
@@ -138,13 +142,19 @@ class editarPalestrante(PageElement):
             sleep(1)
             msg = self.espera_mensagem()
             if msg is True:
-                print("\n CT_29 reportou erro: O sistema pediu para selecionar um palestrante")
-                sleep(1)
+                if self.find_element(self.alert_texto).text == 'Selecione um palestrante':
+                    print("\n CT_29 reportou erro: O sistema pediu para selecionar um palestrante")
+                else:
+                    print("\n [!] CT_29 reportou erro: " + self.find_element(self.alert_texto).text)
+                self.find_element(self.btn_ok_alert).click()
             else:
                  print("\n [!] CT_29 reportou erro: Houve acesso ao formulário sem selecionar um palestrante")
             self.find_element(self.btn_ok_alert).click()
         except UnexpectedAlertPresentException as e:
             print("\n [!] CT_29 reportou erro: " + str(e))
+        except ElementClickInterceptedException:
+            print("\n CT_19 reportou erro: " + self.find_element(self.alert_texto).text)
+            self.find_element(self.btn_ok_alert).click()
 
     # ------------ Caso de teste: Caracteres inválidos ---------------#
     def ct_30_editar_palestrante(self, cpf, rg, pis, telefone, agencia, conta):

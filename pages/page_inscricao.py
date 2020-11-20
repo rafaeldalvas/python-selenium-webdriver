@@ -63,13 +63,19 @@ class inscricao(PageElement):
                 self.find_element(self.btn_ok_alert).click()
                 sleep(5)
                 msgConfirmacao = self.espera_mensagem()
-                if msgConfirmacao is True and self.find_element(self.alert_texto).text.find('Inscrição solicitada!') != -1:
-                    print('\n CT_40 sem erros: a inscrição foi solicitada com sucesso')
+                if msgConfirmacao is True:
+                    if self.find_element(self.alert_texto).text.find('Inscrição solicitada!') != -1:
+                        print('\n CT_40 sem erros: a inscrição foi solicitada com sucesso')
+                    else:
+                        print("\n [!] CT_40 reportou erro: " + self.find_element(self.alert_texto).text)
                     self.find_element(self.btn_ok_alert).click()
                 else:
                     print("\n [!] CT_40 reportou erro: a inscrição não foi solicitada")
         except UnexpectedAlertPresentException as e:
             print("\n [!] CT_40 reportou erro: " + str(e))
+        except ElementClickInterceptedException:
+            print("\n CT_19 reportou erro: " + self.find_element(self.alert_texto).text)
+            self.find_element(self.btn_ok_alert).click()
 
 # ------------ Prazo para inscrição vencido  ---------------#
     def ct41_inscricao(self):
@@ -82,8 +88,10 @@ class inscricao(PageElement):
                 self.find_element(self.btn_ok_alert).click()
                 sleep(5)
                 msgConfirmacao = self.espera_mensagem()
-                if msgConfirmacao is True and self.find_element(self.alert_texto).text.find('Inscrição solicitada!') != -1:
-                    print('\n [!] CT_41 reportou erro: a inscrição foi solicitada após o vencimento do prazo')
+                if msgConfirmacao is True:
+                    if self.find_element(self.alert_texto).text.find('Inscrição solicitada!') != -1:
+                        print('\n [!] CT_41 reportou erro: a inscrição foi solicitada após o vencimento do prazo')
+                    self.find_element(self.btn_ok_alert).click()
                 else:
                     print("\n CT_41 reportou erro: a inscrição não foi solicitada")
         except UnexpectedAlertPresentException as e:
@@ -122,8 +130,10 @@ class inscricao(PageElement):
                 self.find_element(self.btn_ok_alert).click()
                 sleep(5)
                 msgConfirmacao = self.espera_mensagem()
-                if msgConfirmacao is True and self.find_element(self.alert_texto).text.find('Inscrição solicitada!') != -1:
-                    print('\n CT_43 reportou erro: o sistema não permitiu a inscrição do usuário')
+                if msgConfirmacao is True:
+                    if self.find_element(self.alert_texto).text.find('Inscrição solicitada!') != -1:
+                        print('\n CT_43 reportou erro: o sistema não permitiu a inscrição do usuário')
+                        self.find_element(self.btn_ok_alert).click()
                 else:
                     print("\n [!] CT_43 reportou erro: a inscrição foi solicitada sendo que o usuário não possui horário disponível")
         except UnexpectedAlertPresentException as e:

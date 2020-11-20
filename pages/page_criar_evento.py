@@ -1,4 +1,5 @@
-from selenium.common.exceptions import UnexpectedAlertPresentException, TimeoutException, NoSuchElementException
+from selenium.common.exceptions import UnexpectedAlertPresentException, TimeoutException, NoSuchElementException, \
+    ElementClickInterceptedException
 from selenium.webdriver.common.alert import Alert
 from selenium.webdriver.common.by import By
 from selenium.webdriver.common.keys import Keys
@@ -66,6 +67,11 @@ class criarEvento(PageElement):
     btn_enviar = (By.CSS_SELECTOR, 'table[id$="comp-199!box"] [class$="button-cm"]')
     # CANCELAR
     btn_cancelar = (By.CSS_SELECTOR, 'table[id$="comp-201!box"] [class$="button-cm"]')
+
+    # ALERT
+    alert_tipo_window = (By.CSS_SELECTOR, 'div[class="z-separator-hor-bar"]')
+    alert_texto = (By.XPATH, '//*/div[2]/div[1]/div/div/div/div/div[2]/div/table[1]/tbody/tr/td[3]/div/span')
+    btn_ok_alert = (By.XPATH, '//*/div[2]/div[1]/div/div/div/div/div[2]/div/table[2]/tbody/tr/td/span/table/tbody/tr[''2]/td[2]')
 
     def espera_mensagem(self):
         try:
@@ -147,13 +153,20 @@ class criarEvento(PageElement):
             self.find_element(self.inscricao_externa).click()
             self.find_element(self.evento_pago).click()
 
-            # self.find_element(self.btn_enviar).click()
-            sleep(1)
+            self.find_element(self.btn_enviar).click()
 
-            print('\n CT_01 sem erros: o evento foi criado com sucesso')
-
+            msg = self.espera_mensagem()
+            if msg is True:
+                if self.find_element(self.alert_texto).text.find('Evento salvo com sucesso') > -1:
+                    print('\n CT_01 sem erros: o evento foi criado com sucesso')
+                else:
+                    print("\n [!] CT_01 reportou erro: " + self.find_element(self.alert_texto).text)
+                self.find_element(self.btn_ok_alert).click()
         except UnexpectedAlertPresentException as e:
             print("\n [!] CT_01 reportou erro: " + str(e))
+        except ElementClickInterceptedException:
+            print("\n [!] CT_01 reportou erro: " + self.find_element(self.alert_texto).text)
+            self.find_element(self.btn_ok_alert).click()
 
     # ------------ Caso de teste: Trocar responsável ---------------#
     def ct02_criar_evento(self, nome, descricao, site, email_responsavel, inicio_evento, fim_evento,
@@ -189,14 +202,19 @@ class criarEvento(PageElement):
             self.find_element(self.inscricao_externa).click()
             self.find_element(self.evento_pago).click()
 
-            # self.find_element(self.btn_enviar).click()
-
-            sleep(1)
-
-            print('\n CT_02 sem erros: a troca de responsável foi feita com sucesso')
-
+            self.find_element(self.btn_enviar).click()
+            msg = self.espera_mensagem()
+            if msg is True:
+                if self.find_element(self.alert_texto).text.find('Evento salvo com sucesso') > -1:
+                    print('\n CT_02 sem erros: a troca de responsável foi feita com sucesso')
+                else:
+                    print("\n [!] CT_02 reportou erro: " + self.find_element(self.alert_texto).text)
+                self.find_element(self.btn_ok_alert).click()
         except UnexpectedAlertPresentException as e:
             print("\n [!] CT_02 reportou erro: " + str(e))
+        except ElementClickInterceptedException:
+            print("\n [!] CT_02 reportou erro: " + self.find_element(self.alert_texto).text)
+            self.find_element(self.btn_ok_alert).click()
 
     # ------------ Caso de teste: Cancelar transação ---------------#
     def ct03_criar_evento(self, nome, descricao):
@@ -294,6 +312,9 @@ class criarEvento(PageElement):
 
         except UnexpectedAlertPresentException as e:
             print("\n CT_04 reportou erro: " + str(e))
+        except ElementClickInterceptedException:
+            print("\n [!] CT_04 reportou erro: " + self.find_element(self.alert_texto).text)
+            self.find_element(self.btn_ok_alert).click()
 
     # --------------- Caso de teste: Data inválida ----------------#
     def ct05_criar_evento(self, nome, descricao, inicio_evento, fim_evento, inicio_inscricao,
@@ -319,7 +340,17 @@ class criarEvento(PageElement):
 
             # self.find_element(self.btn_enviar).click()
             sleep(1)
-
-            print('\n [!] CT_05 reportou erro: Evento criado com datas inválidas')
+            msg = self.espera_mensagem()
+            if msg is True:
+                if self.find_element(self.alert_texto).text.find('Evento salvo com sucesso') > -1:
+                    print('\n [!] CT_05 reportou erro: Evento criado com datas inválidas')
+                elif self.find_element(self.alert_texto).text.find('Evento com data inválida') > -1:
+                    print("\n CT_05 reportou erro: o sistema informou que as data são inválidas")
+                else:
+                    print("\n [!] CT_05 reportou erro: " + self.find_element(self.alert_texto).text)
+                self.find_element(self.btn_ok_alert).click()
         except UnexpectedAlertPresentException as e:
             print("\n CT_05 reportou erro: " + str(e))
+        except ElementClickInterceptedException:
+            print("\n [!] CT_05 reportou erro: " + self.find_element(self.alert_texto).text)
+            self.find_element(self.btn_ok_alert).click()

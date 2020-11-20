@@ -230,13 +230,18 @@ class editarEvento(PageElement):
             sleep(1)
             msg = self.espera_mensagem()
             if msg is True:
-                print("\n CT_09 reportou erro: O sistema pediu para selecionar um evento")
-                sleep(1)
+                if self.find_element(self.alert_texto).text == 'Selecione um evento':
+                    print("\n CT_09 reportou erro: O sistema pediu para selecionar um evento")
+                else:
+                    print("\n [!] CT_09 reportou erro: " + self.find_element(self.alert_texto).text)
+                self.find_element(self.btn_ok_alert).click()
             else:
                  print("\n [!] CT_09 reportou erro: Houve acesso ao formulário sem selecionar um evento")
-            self.find_element(self.btn_ok_alert).click()
         except UnexpectedAlertPresentException as e:
             print("\n [!] CT_09 reportou erro: " + str(e))
+        except ElementClickInterceptedException:
+            print("\n CT_19 reportou erro: " + self.find_element(self.alert_texto).text)
+            self.find_element(self.btn_ok_alert).click()
 
 
 # -- Caso de teste: Campos obrigatórios não preenchidos ---#

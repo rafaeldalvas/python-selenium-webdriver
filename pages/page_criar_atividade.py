@@ -109,7 +109,7 @@ class criarAtividade(PageElement):
             self.find_element(self.btn_salvar).click()
             sleep(1)
             msg = self.espera_mensagem()
-            if msg is True:
+            if msg is True and self.find_element(self.alert_texto).text.find('Atividade salva com sucesso') != -1:
                 print("\n [!] CT_11 reportou erro: " + self.find_element(self.alert_texto).text)
                 self.find_element(self.btn_ok_alert).click()
             else:
@@ -168,14 +168,14 @@ class criarAtividade(PageElement):
             self.find_element(self.btn_salvar).click()
             msg = self.espera_mensagem()
             if msg is True:
-                print("\n CT_13 reportou erro: " + self.find_element(self.alert_texto).text)
-                self.find_element(self.btn_ok_alert).click()
-            else:
-                print("\n [!] CT_13 sem erros: atividade criada com sucesso!")
-
+                txt = self.find_element(self.alert_texto).text
+                if txt == "Atividade salva com sucesso":
+                    print("\n [!] CT_13 sem erros: atividade criada com sucesso!")
+                else:
+                    print("\n CT_13 reportou erro: " + self.find_element(self.alert_texto).text)
+                    self.find_element(self.btn_ok_alert).click()
         except UnexpectedAlertPresentException as e:
             print("\n CT_13 reportou erro: " + str(e))
-
         except ElementClickInterceptedException:
             print("\n CT_13 reportou erro: " + self.find_element(self.alert_texto).text)
             self.find_element(self.btn_ok_alert).click()

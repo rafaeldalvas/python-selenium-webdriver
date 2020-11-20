@@ -240,7 +240,10 @@ class editarAtividade(PageElement):
         try:
             msg = self.espera_mensagem()
             if msg is True:
-                print("\n CT_19 reportou erro: " + self.find_element(self.alert_texto).text)
+                if self.find_element(self.alert_texto).text == 'Selecione uma atividade':
+                    print("\n CT_19 reportou erro: o sistema pediu para selecionar uma atividade")
+                else:
+                    print("\n [!] CT_19 reportou erro: " + self.find_element(self.alert_texto).text)
                 self.find_element(self.btn_ok_alert).click()
             else:
                 print("\n [!] CT_19 sem erros: sistema não reportou erros!")
