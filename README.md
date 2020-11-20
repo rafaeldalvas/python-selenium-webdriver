@@ -13,7 +13,7 @@ pip install selenium
 * Baixar o driver do
 [Chrome](https://sites.google.com/a/chromium.org/chromedriver/downloads).
 
-* Mover o driver.exe para a segunte paste:
+* Mover o chromedriver.exe para a segunte paste:
 ```sh
 C:\Python39\Scripts
 ``` 
