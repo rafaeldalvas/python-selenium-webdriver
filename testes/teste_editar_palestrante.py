@@ -14,7 +14,7 @@ login_professor.realiza_login()
 
 editar_palestrante = editarPalestrante(webdriver)
 
-# ------------ Caso de teste: Edição de palestrante padrão ---------------#
+# -------- Caso de teste: Edição de palestrante padrão ----------#
 webdriver.get(url)
 editar_palestrante.ct27_editar_palestrante(
     nome                = 'Samuel',
@@ -33,25 +33,16 @@ editar_palestrante.ct27_editar_palestrante(
     valor_alimentacao   = '900',
     valor_hotel         = '1400',
 )
-
-# ------------ Caso de teste: Cancelar edição ---------------#
-sleep(1)
-webdriver.get(url)
-sleep(1)
+# --------------- Caso de teste: Cancelar edição -----------------#
 webdriver.get(url)
 editar_palestrante.ct_28_editar_palestrante()
 
-# ------------ Caso de teste: Palestrante não selecionado ---------------#
-sleep(1)
+# --------- Caso de teste: Palestrante não selecionado -----------#
 webdriver.get(url)
-sleep(1)
 editar_palestrante.caminho(True)
 editar_palestrante.ct_29_editar_palestrante()
 
 # ------------ Caso de teste: Caracteres inválidos ---------------#
-sleep(1)
-webdriver.get(url)
-sleep(1)
 webdriver.get(url)
 editar_palestrante.ct_30_editar_palestrante(
     cpf                 = 'CPF',
@@ -61,21 +52,13 @@ editar_palestrante.ct_30_editar_palestrante(
     agencia             = 'AGENCIA',
     conta               = 'CONTA'
 )
-
-# ------------ Caso de teste: Campos obrigatórios em branco ---------------#
-sleep(1)
-webdriver.get(url)
-sleep(1)
+# ------- Caso de teste: Campos obrigatórios em branco -----------#
 webdriver.get(url)
 editar_palestrante.ct_31_editar_palestrante(
     nome                = 'Arthur',
     email               = 'Arthur@email.com',
 )
-
-# ------------ Caso de teste: CPF inválido ---------------#
-sleep(1)
-webdriver.get(url)
-sleep(1)
+# ---------------- Caso de teste: CPF inválido -------------------#
 webdriver.get(url)
 editar_palestrante.ct_32_editar_palestrante(
     cpf = '999.999.999-99'

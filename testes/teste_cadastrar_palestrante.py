@@ -13,7 +13,7 @@ login_professor.realiza_login()
 
 cadastrar_palestrante = cadastrarPalestrante(webdriver)
 
-# --------- Caso de teste: Cadastro de palestrante padrão -------------#
+# ------- Caso de teste: Cadastro de palestrante padrão ----------#
 cadastrar_palestrante.caminho()
 cadastrar_palestrante.ct22_cadastrar_palestrante(
     nome                = 'Gabriel',
@@ -32,7 +32,7 @@ cadastrar_palestrante.ct22_cadastrar_palestrante(
     valor_alimentacao   = '500',
     valor_hotel         = '800',
 )
-# --------- Caso de teste: Caracteres inválidos -------------#
+# ------------ Caso de teste: Caracteres inválidos ---------------#
 webdriver.get(url)
 cadastrar_palestrante.caminho()
 cadastrar_palestrante.ct23_cadastrar_palestrante(
@@ -49,7 +49,7 @@ cadastrar_palestrante.ct23_cadastrar_palestrante(
     valor_alimentacao   = 'testealimentacao',
     valor_hotel         = 'testehotel',
 )
-# --------- Caso de teste: Campo obrigatório vazio -------------#
+# ---------- Caso de teste: Campo obrigatório vazio --------------#
 webdriver.get(url)
 cadastrar_palestrante.caminho()
 cadastrar_palestrante.ct24_cadastrar_palestrante(
@@ -57,7 +57,7 @@ cadastrar_palestrante.ct24_cadastrar_palestrante(
     email               = 'rafaela@email.com',
     cpf                 = '271.471.130-80'
 )
-# --------- Caso de teste: Caracteres inválidos -------------#
+# ------------ Caso de teste: Caracteres inválidos ---------------#
 webdriver.get(url)
 cadastrar_palestrante.caminho()
 cadastrar_palestrante.ct25_cadastrar_palestrante(

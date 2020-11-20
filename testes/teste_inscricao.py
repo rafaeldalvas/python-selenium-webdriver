@@ -15,28 +15,19 @@ login_professor.realiza_login()
 
 inscricao = inscricao(webdriver)
 
-# ------------ Caso de teste: Inscrição padrão  ---------------#
+# ------------- Caso de teste: Inscrição padrão  -----------------#
 inscricao.caminho(True)
 inscricao.ct40_inscricao()
-
-# ------------ Prazo para inscrição vencido  ---------------#
-sleep(1)
+# ---------------- Prazo para inscrição vencido  -----------------#
 webdriver.get(url)
-sleep(1)
 inscricao.caminho(False, True)
 inscricao.ct41_inscricao()
-
-# ------------ Ver Inscritos  ---------------#
-sleep(1)
+# ------------------------ Ver Inscritos  ------------------------#
 webdriver.get(url)
-sleep(1)
 inscricao.caminho(True)
 inscricao.ct42_inscricao()
-
-# ------------ Horário indisponível  ---------------#
-sleep(1)
+# ------------------- Horário indisponível  ----------------------#
 webdriver.get(url)
-sleep(1)
 inscricao.caminho(True)
 inscricao.ct43_inscricao()
 
