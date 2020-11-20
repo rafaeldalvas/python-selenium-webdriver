@@ -9,10 +9,7 @@ webdriver.get(url)
 
 login_professor = LoginProfessor(webdriver)
 
-login_professor.realiza_login(
-    login = 'testes.professor',
-    senha = '6kmfDK'
-)
+login_professor.realiza_login()
 
 editar_atividade = editarAtividade(webdriver)
 
@@ -76,4 +73,5 @@ editar_atividade.ct22_editar_atividade(
     hora_inicio = '0800',
     hora_fim    = '0900'
 )
+
 webdriver.close()

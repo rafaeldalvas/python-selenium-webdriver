@@ -9,10 +9,7 @@ webdriver.get(url)
 
 login_professor = LoginProfessor(webdriver)
 
-login_professor.realiza_login(
-    login = 'testes.professor',
-    senha = '6kmfDK'
-)
+login_professor.realiza_login()
 
 editar_evento = editarEvento(webdriver)
 
@@ -33,22 +30,22 @@ editar_evento.ct_06_editar_evento(
     nome_responsavel='Raquel Alves da Silva')
 
 # --------- Caso de teste: Exclusão de evento -------------#
-editar_evento.clicarMain()
+webdriver.get(url)
 editar_evento.caminho(True)
 editar_evento.ct_07_editar_evento()
 
 # --------- Caso de teste: Cancelar transação -------------#
-editar_evento.clicarMain()
+webdriver.get(url)
 editar_evento.caminho()
 editar_evento.ct_08_editar_evento()
 
 # --------- Caso de teste: Nenhum evento selecionado ao editar -------------#
-editar_evento.clicarMain()
+webdriver.get(url)
 editar_evento.caminho(False, True)
 editar_evento.ct_9_editar_evento()
 
 # --------- Caso de teste: Campos obrigatórios não preenchidos -------------#
-editar_evento.clicarMain()
+webdriver.get(url)
 editar_evento.caminho()
 editar_evento.ct_10_editar_evento(
     nome='Evento teste ct07 Alt',

@@ -10,15 +10,12 @@ webdriver.get(url)
 
 login_professor = LoginProfessor(webdriver)
 
-login_professor.realiza_login(
-    login = 'testes.professor',
-    senha = '6kmfDK'
-)
+login_professor.realiza_login()
 
 editar_palestrante = editarPalestrante(webdriver)
 
 # ------------ Caso de teste: Edição de palestrante padrão ---------------#
-editar_palestrante.caminho()
+webdriver.get(url)
 editar_palestrante.ct27_editar_palestrante(
     nome                = 'Samuel',
     email               = 'samuel@email.com',
@@ -39,23 +36,23 @@ editar_palestrante.ct27_editar_palestrante(
 
 # ------------ Caso de teste: Cancelar edição ---------------#
 sleep(1)
-editar_palestrante.clicarMain()
+webdriver.get(url)
 sleep(1)
-editar_palestrante.caminho()
+webdriver.get(url)
 editar_palestrante.ct_28_editar_palestrante()
 
 # ------------ Caso de teste: Palestrante não selecionado ---------------#
 sleep(1)
-editar_palestrante.clicarMain()
+webdriver.get(url)
 sleep(1)
 editar_palestrante.caminho(True)
 editar_palestrante.ct_29_editar_palestrante()
 
 # ------------ Caso de teste: Caracteres inválidos ---------------#
 sleep(1)
-editar_palestrante.clicarMain()
+webdriver.get(url)
 sleep(1)
-editar_palestrante.caminho()
+webdriver.get(url)
 editar_palestrante.ct_30_editar_palestrante(
     cpf                 = 'CPF',
     rg                  = 'RG',
@@ -67,9 +64,9 @@ editar_palestrante.ct_30_editar_palestrante(
 
 # ------------ Caso de teste: Campos obrigatórios em branco ---------------#
 sleep(1)
-editar_palestrante.clicarMain()
+webdriver.get(url)
 sleep(1)
-editar_palestrante.caminho()
+webdriver.get(url)
 editar_palestrante.ct_31_editar_palestrante(
     nome                = 'Arthur',
     email               = 'Arthur@email.com',
@@ -77,9 +74,9 @@ editar_palestrante.ct_31_editar_palestrante(
 
 # ------------ Caso de teste: CPF inválido ---------------#
 sleep(1)
-editar_palestrante.clicarMain()
+webdriver.get(url)
 sleep(1)
-editar_palestrante.caminho()
+webdriver.get(url)
 editar_palestrante.ct_32_editar_palestrante(
     cpf = '999.999.999-99'
 )

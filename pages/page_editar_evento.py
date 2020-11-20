@@ -11,7 +11,6 @@ class editarEvento(PageElement):
     # CAMINHO
     calendario = (By.CSS_SELECTOR, "i.fa-calendar")
     admin = (By.CSS_SELECTOR, "a[href$='admEvento/inicial.zul?']")
-    main = (By.CSS_SELECTOR, "a[href$='inicial.zul']")
     cadastro_evento = (By.ID, 'zk-comp-112')
     radio_evento = (By.ID, 'zk-comp-114!real')
     radio_selec_evento = (By.CSS_SELECTOR, 'div.z-list-cell-cnt input')
@@ -85,11 +84,6 @@ class editarEvento(PageElement):
                 return True
         except TimeoutException:
             return False
-
-    def clicarMain(self):
-        sleep(1)
-        self.find_element(self.main).click()
-
 
     def caminho(self, ct_08 = False, ct_10 = False):
         sleep(2)
@@ -234,13 +228,18 @@ class editarEvento(PageElement):
             sleep(1)
             msg = self.espera_mensagem()
             if msg is True:
-                print("\n CT_09 reportou erro: O sistema pediu para selecionar um evento")
-                sleep(1)
+                if self.find_element(self.alert_texto).text == 'Selecione um evento':
+                    print("\n CT_09 reportou erro: O sistema pediu para selecionar um evento")
+                else:
+                    print("\n [!] CT_09 reportou erro: " + self.find_element(self.alert_texto).text)
+                self.find_element(self.btn_ok_alert).click()
             else:
                  print("\n [!] CT_09 reportou erro: Houve acesso ao formulário sem selecionar um evento")
-            self.find_element(self.btn_ok_alert).click()
         except UnexpectedAlertPresentException as e:
             print("\n [!] CT_09 reportou erro: " + str(e))
+        except ElementClickInterceptedException:
+            print("\n CT_19 reportou erro: " + self.find_element(self.alert_texto).text)
+            self.find_element(self.btn_ok_alert).click()
 
 # -- Caso de teste: Campos obrigatórios não preenchidos ---#
     def ct_10_editar_evento(self, nome, descricao, inicio_evento, fim_evento, inicio_inscricao, fim_inscricao, nome_responsavel):

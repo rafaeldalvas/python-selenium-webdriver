@@ -11,10 +11,7 @@ webdriver.get(url)
 
 login_professor = LoginProfessor(webdriver)
 
-login_professor.realiza_login(
-    login = 'testes.professor',
-    senha = '6kmfDK'
-)
+login_professor.realiza_login()
 
 editar_palestrante = certificadoParticipante(webdriver)
 
@@ -24,7 +21,7 @@ sleep(1)
 certificadoParticipante.ct50_certificado_participante()
 
 # ------------ Caso de teste: Geração de certificado padrão ---------------#
-editar_palestrante.clicarMain()
+webdriver.get(url)
 sleep(1)
 editar_palestrante.tiraInscricao()
 sleep(1)

@@ -9,10 +9,7 @@ webdriver.get(url)
 
 login_professor = LoginProfessor(webdriver)
 
-login_professor.realiza_login(
-    login = 'testes.professor',
-    senha = '6kmfDK'
-)
+login_professor.realiza_login()
 
 criar_atividade = criarAtividade(webdriver)
 
@@ -73,4 +70,5 @@ criar_atividade.ct15_criar_atividade(
     hora_inicio = '0800',
     hora_fim    = '2200'
 )
+
 webdriver.close()

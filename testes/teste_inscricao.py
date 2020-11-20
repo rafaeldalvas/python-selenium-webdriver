@@ -11,10 +11,7 @@ webdriver.get(url)
 
 login_professor = LoginProfessor(webdriver)
 
-login_professor.realiza_login(
-    login = 'testes.professor',
-    senha = '6kmfDK'
-)
+login_professor.realiza_login()
 
 inscricao = inscricao(webdriver)
 
@@ -24,21 +21,21 @@ inscricao.ct40_inscricao()
 
 # ------------ Prazo para inscrição vencido  ---------------#
 sleep(1)
-inscricao.clicarMain()
+webdriver.get(url)
 sleep(1)
 inscricao.caminho(False, True)
 inscricao.ct41_inscricao()
 
 # ------------ Ver Inscritos  ---------------#
 sleep(1)
-inscricao.clicarMain()
+webdriver.get(url)
 sleep(1)
 inscricao.caminho(True)
 inscricao.ct42_inscricao()
 
 # ------------ Horário indisponível  ---------------#
 sleep(1)
-inscricao.clicarMain()
+webdriver.get(url)
 sleep(1)
 inscricao.caminho(True)
 inscricao.ct43_inscricao()

@@ -89,10 +89,17 @@ class cadastrarPalestrante(PageElement):
 
             self.find_element(self.salvar).click()
 
-            print('\n CT_22 sem erros: o palestrante foi cadastrado com sucesso')
-
+            msg = self.espera_mensagem()
+            if msg is True and self.find_element(self.alert_texto).text.find('Palestrante salvo com sucesso') != -1:
+                print("\n [!] CT_11 reportou erro: " + self.find_element(self.alert_texto).text)
+                self.find_element(self.btn_ok_alert).click()
+            else:
+                print('\n CT_22 sem erros: o palestrante foi cadastrado com sucesso')
         except UnexpectedAlertPresentException as e:
             print("\n [!] CT_22 reportou erro: " + str(e))
+        except ElementClickInterceptedException:
+            print("\n [!] CT_22 reportou erro: " + self.find_element(self.alert_texto).text)
+            self.find_element(self.btn_ok_alert).click()
 
     # ------------ Caso de teste: Caracteres inválidos ---------------#
     def ct23_cadastrar_palestrante(self, nome, email, cpf, rg, pis, telefone, agencia, conta, valor_participacao,
@@ -127,6 +134,9 @@ class cadastrarPalestrante(PageElement):
                 print("\n CT_23 reportou erro: Não houve criação do palestrante com campos preenchidos incorretamente")
             else:
                 print("\n [!] CT_23 reportou erro: " + str(e))
+        except ElementClickInterceptedException:
+            print("\n [!] CT_23 reportou erro: " + self.find_element(self.alert_texto).text)
+            self.find_element(self.btn_ok_alert).click()
 
     # ------------ Caso de teste: Campo obrigatório vazio ---------------#
     def ct24_cadastrar_palestrante(self, nome, email, cpf):
@@ -168,7 +178,10 @@ class cadastrarPalestrante(PageElement):
                 print("\n [!] CT_24 reportou erro: Palestrante cadastrado com campos obrigatorios nao preenchidos")
 
         except UnexpectedAlertPresentException as e:
-            print("\n [!] CT_23 reportou erro: " + str(e))
+            print("\n [!] CT_24 reportou erro: " + str(e))
+        except ElementClickInterceptedException:
+            print("\n [!] CT_24 reportou erro: " + self.find_element(self.alert_texto).text)
+            self.find_element(self.btn_ok_alert).click()
 
     # ------------ Caso de teste: CPF inválido ---------------#
     def ct25_cadastrar_palestrante(self, nome, email, cpf):
@@ -186,5 +199,7 @@ class cadastrarPalestrante(PageElement):
                 else:
                     print("\n CT_25 reportou erro: O sistema não permitiu um CPF inválido")
         except UnexpectedAlertPresentException as e:
-                    print("\n [!] CT_23 reportou erro: " + str(e))
-
+                    print("\n [!] CT_25 reportou erro: " + str(e))
+        except ElementClickInterceptedException:
+            print("\n [!] CT_25 reportou erro: " + self.find_element(self.alert_texto).text)
+            self.find_element(self.btn_ok_alert).click()

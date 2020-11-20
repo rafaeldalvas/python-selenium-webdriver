@@ -12,11 +12,11 @@ class LoginProfessor(PageElement):
     senha = (By.ID, 'password')
     btn = (By.ID, 'login-submit')
 
-    def realiza_login(self, login, senha):
+    def realiza_login(self):
         id_field = WebDriverWait(self.webdriver, poll_frequency=0.2, timeout=10)
         id_field.until(expected_conditions.visibility_of_element_located(self.login))
         if id_field is not None:
-            self.find_element(self.login).send_keys(login)
-            self.find_element(self.senha).send_keys(senha)
+            self.find_element(self.login).send_keys('testes.professor')
+            self.find_element(self.senha).send_keys('6kmfDK')
             sleep(2)
             self.find_element(self.btn).click()
