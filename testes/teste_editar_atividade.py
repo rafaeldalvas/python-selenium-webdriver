@@ -2,7 +2,7 @@ from selenium import webdriver
 from pages.page_editar_atividade import editarAtividade
 from utils.login import LoginProfessor
 
-webdriver = webdriver.Chrome(r'd:\Downloads\chromedriver_win32\chromedriver.exe')
+webdriver = webdriver.Chrome()
 
 url = "https://integra-h.nrc.ice.ufjf.br/"
 webdriver.get(url)
@@ -73,3 +73,5 @@ editar_atividade.ct22_editar_atividade(
     hora_inicio = '0800',
     hora_fim    = '0900'
 )
+
+webdriver.close()

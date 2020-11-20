@@ -1,4 +1,4 @@
-from selenium.common.exceptions import UnexpectedAlertPresentException, NoSuchElementException, TimeoutException, \
+from selenium.common.exceptions import UnexpectedAlertPresentException, TimeoutException, \
     ElementClickInterceptedException
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support import expected_conditions
@@ -9,7 +9,6 @@ from time import sleep
 
 class editarEvento(PageElement):
     # CAMINHO
-    sleep(2)
     calendario = (By.CSS_SELECTOR, "i.fa-calendar")
     admin = (By.CSS_SELECTOR, "a[href$='admEvento/inicial.zul?']")
     cadastro_evento = (By.ID, 'zk-comp-112')
@@ -87,7 +86,7 @@ class editarEvento(PageElement):
             return False
 
     def caminho(self, ct_08 = False, ct_10 = False):
-        sleep(1)
+        sleep(2)
         self.find_element(self.calendario).click()
         sleep(1)
         self.find_element(self.admin).click()
@@ -205,7 +204,6 @@ class editarEvento(PageElement):
                     print("\n [!] CT_07 reportou erro: Não houve exclusão do evento")
                 self.find_element(self.btn_ok_alert).click()
 
-
         except UnexpectedAlertPresentException as e:
             print("\n [!] CT_07 reportou erro: " + str(e))
 
@@ -242,7 +240,6 @@ class editarEvento(PageElement):
         except ElementClickInterceptedException:
             print("\n CT_19 reportou erro: " + self.find_element(self.alert_texto).text)
             self.find_element(self.btn_ok_alert).click()
-
 
 # -- Caso de teste: Campos obrigatórios não preenchidos ---#
     def ct_10_editar_evento(self, nome, descricao, inicio_evento, fim_evento, inicio_inscricao, fim_inscricao, nome_responsavel):

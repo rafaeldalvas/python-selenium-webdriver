@@ -1,7 +1,6 @@
-from selenium.common.exceptions import UnexpectedAlertPresentException, NoSuchElementException, \
+from selenium.common.exceptions import UnexpectedAlertPresentException,\
     ElementClickInterceptedException, TimeoutException
 from selenium.webdriver.common.by import By
-from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.support import expected_conditions
 from selenium.webdriver.support.wait import WebDriverWait
 from utils.config import PageElement
@@ -27,7 +26,7 @@ class certificadoPalestrante(PageElement):
                               '2]/td[2]')
 
     def caminho(self):
-        sleep(2)
+        sleep(1)
         self.find_element(self.calendario).click()
         sleep(1)
         self.find_element(self.admin).click()

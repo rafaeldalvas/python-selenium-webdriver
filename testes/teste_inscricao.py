@@ -40,3 +40,5 @@ sleep(1)
 inscricao.caminho(True)
 inscricao.ct43_inscricao()
 
+webdriver.close()
+

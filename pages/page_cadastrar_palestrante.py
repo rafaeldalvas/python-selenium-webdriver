@@ -1,16 +1,12 @@
-from selenium.common.exceptions import UnexpectedAlertPresentException, NoSuchElementException, TimeoutException, \
-    ElementClickInterceptedException
+from selenium.common.exceptions import UnexpectedAlertPresentException, TimeoutException
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support import expected_conditions
 from selenium.webdriver.support.wait import WebDriverWait
-
 from utils.config import PageElement
 from time import sleep
 
-
 class cadastrarPalestrante(PageElement):
     # CAMINHO
-    sleep(2)
     calendario = (By.CSS_SELECTOR, "i.fa-calendar")
     admin = (By.CSS_SELECTOR, "a[href$='admEvento/inicial.zul?']")
     cadastro_palestrante = (By.ID, 'zk-comp-112')
@@ -63,7 +59,7 @@ class cadastrarPalestrante(PageElement):
         self.find_element(self.cadastro_palestrante).click()
         sleep(1)
         self.find_element(self.radio_palestrante).click()
-        sleep(2)
+        sleep(1)
         self.find_element(self.btn_novo).click()
 
     # ------------ Caso de teste: Cadastro de palestrante padrão ---------------#
@@ -122,7 +118,6 @@ class cadastrarPalestrante(PageElement):
             self.find_element(self.valor_transporte).send_keys(valor_transporte)
             self.find_element(self.valor_alimentacao).send_keys(valor_alimentacao)
             self.find_element(self.valor_hotel).send_keys(valor_hotel)
-
             self.find_element(self.salvar).click()
             sleep(1)
             msg = self.espera_mensagem()
@@ -151,10 +146,8 @@ class cadastrarPalestrante(PageElement):
             self.find_element(self.nome).send_keys(nome)
             self.find_element(self.email).send_keys(email)
             self.find_element(self.cpf).send_keys(cpf)
-
             self.find_element(self.nome).clear()
             self.find_element(self.salvar).click()
-
             msg = self.espera_mensagem()
             if msg is True:
                 if self.find_element(self.alert_texto).text == 'Palestrante salvo com sucesso':
@@ -198,7 +191,6 @@ class cadastrarPalestrante(PageElement):
             self.find_element(self.email).send_keys(email)
             self.find_element(self.cpf).send_keys(cpf)
             self.find_element(self.salvar).click()
-
             msg = self.espera_mensagem()
             if msg is True:
                 if self.find_element(self.alert_texto).text == 'Palestrante salvo com sucesso':

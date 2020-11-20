@@ -1,7 +1,7 @@
 from selenium import webdriver
 from pages.page_inscricao_externo import inscricaoExterno
 
-webdriver = webdriver.Chrome(r'd:\Downloads\chromedriver_win32\chromedriver.exe')
+webdriver = webdriver.Chrome()
 
 url = "https://integra-h.nrc.ice.ufjf.br/integra/geral/menuEvento.zul"
 
@@ -61,3 +61,4 @@ inscricao_externo.ct57_inscricao_externo(
     telefone    = '43663346975',
     celular     = '51405531814'
 )
+webdriver.close()

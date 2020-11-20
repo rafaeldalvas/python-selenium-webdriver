@@ -2,7 +2,7 @@ from selenium import webdriver
 from pages.page_certificado_palestrante import certificadoPalestrante
 from utils.login import LoginProfessor
 
-webdriver = webdriver.Chrome(r'd:\Downloads\chromedriver_win32\chromedriver.exe')
+webdriver = webdriver.Chrome()
 
 url = "https://integra-h.nrc.ice.ufjf.br/"
 webdriver.get(url)
@@ -25,3 +25,5 @@ certificado_palestrante.ct38_certificado_palestrante()
 webdriver.get(url)
 certificado_palestrante.caminho()
 certificado_palestrante.ct39_certificado_palestrante()
+
+webdriver.close()

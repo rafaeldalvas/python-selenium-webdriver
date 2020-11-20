@@ -2,7 +2,7 @@ from selenium import webdriver
 from pages.page_editar_evento import editarEvento
 from utils.login import LoginProfessor
 
-webdriver = webdriver.Chrome(r'd:\Downloads\chromedriver_win32\chromedriver.exe')
+webdriver = webdriver.Chrome()
 
 url = "https://integra-h.nrc.ice.ufjf.br/"
 webdriver.get(url)
@@ -56,3 +56,4 @@ editar_evento.ct_10_editar_evento(
     fim_inscricao='01/02/2021',
     nome_responsavel='Raquel Alves da Silva'
 )
+webdriver.close()

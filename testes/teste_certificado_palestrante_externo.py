@@ -1,7 +1,7 @@
 from selenium import webdriver
 from pages.page_certificado_palestrante_externo import certificadoPalestranteExterno
 
-webdriver = webdriver.Chrome(r'd:\Downloads\chromedriver_win32\chromedriver.exe')
+webdriver = webdriver.Chrome()
 
 url = "https://integra-h.nrc.ice.ufjf.br/integra/geral/menuEvento.zul"
 
@@ -31,3 +31,4 @@ certificado_palestrante_externo.caminho()
 certificado_palestrante_externo.ct61_certificado_palestrante_externo(
     cpf = '33332506080'
 )
+webdriver.close()

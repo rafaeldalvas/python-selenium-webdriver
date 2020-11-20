@@ -2,7 +2,7 @@ from selenium import webdriver
 from pages.page_confirmar_presenca import confirmarPresenca
 from utils.login import LoginProfessor
 
-webdriver = webdriver.Chrome(r'd:\Downloads\chromedriver_win32\chromedriver.exe')
+webdriver = webdriver.Chrome()
 
 url = "https://integra-h.nrc.ice.ufjf.br/"
 webdriver.get(url)
@@ -29,3 +29,5 @@ confirmar_presenca.ct35_confirmar_presenca()
 webdriver.get(url)
 confirmar_presenca.caminho()
 confirmar_presenca.ct36_confirmar_presenca()
+
+webdriver.close()

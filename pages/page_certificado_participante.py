@@ -1,4 +1,4 @@
-from selenium.common.exceptions import UnexpectedAlertPresentException, NoSuchElementException, TimeoutException, \
+from selenium.common.exceptions import UnexpectedAlertPresentException, TimeoutException, \
     ElementClickInterceptedException
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support import expected_conditions

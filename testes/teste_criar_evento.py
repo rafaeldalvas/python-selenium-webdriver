@@ -2,7 +2,7 @@ from selenium import webdriver
 from pages.page_criar_evento import criarEvento
 from utils.login import LoginProfessor
 
-webdriver = webdriver.Chrome(r'd:\Downloads\chromedriver_win32\chromedriver.exe')
+webdriver = webdriver.Chrome()
 
 url = "https://integra-h.nrc.ice.ufjf.br/"
 webdriver.get(url)
@@ -75,3 +75,4 @@ criar_evento.ct05_criar_evento(
     inicio_inscricao   = '02/11/2015',
     fim_inscricao      = '02/12/2015',
 )
+webdriver.close()

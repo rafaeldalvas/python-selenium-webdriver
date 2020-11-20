@@ -2,7 +2,7 @@ from selenium import webdriver
 from pages.page_confirmar_inscricao import confirmarInscricao
 from utils.login import LoginProfessor
 
-webdriver = webdriver.Chrome(r'd:\Downloads\chromedriver_win32\chromedriver.exe')
+webdriver = webdriver.Chrome()
 
 url = "https://integra-h.nrc.ice.ufjf.br/"
 webdriver.get(url)
@@ -36,3 +36,5 @@ confirmar_inscricao.ct48_confirmar_inscricao()
 webdriver.get(url)
 confirmar_inscricao.caminho()
 confirmar_inscricao.ct49_confirmar_inscricao()
+
+webdriver.close()

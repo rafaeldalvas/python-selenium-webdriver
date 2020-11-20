@@ -1,10 +1,5 @@
-from selenium.common.exceptions import UnexpectedAlertPresentException, TimeoutException, NoSuchElementException, \
-    ElementClickInterceptedException
-from selenium.webdriver.common.alert import Alert
+from selenium.common.exceptions import UnexpectedAlertPresentException, NoSuchElementException
 from selenium.webdriver.common.by import By
-from selenium.webdriver.common.keys import Keys
-from selenium.webdriver.support.wait import WebDriverWait
-from selenium.webdriver.support import expected_conditions, wait
 from utils.config import PageElement
 from time import sleep
 
@@ -81,7 +76,7 @@ class criarEvento(PageElement):
             return False
 
     def caminho(self):
-        sleep(1)
+        sleep(2)
         self.find_element(self.calendario).click()
         sleep(1)
         self.find_element(self.admin).click()
@@ -198,10 +193,8 @@ class criarEvento(PageElement):
             self.find_element(self.btn_tipo_evento).click()
             self.find_element(self.tipo_evento).click()
             # FIM TIPO DE EVENTO
-
             self.find_element(self.inscricao_externa).click()
             self.find_element(self.evento_pago).click()
-
             self.find_element(self.btn_enviar).click()
             msg = self.espera_mensagem()
             if msg is True:
@@ -210,6 +203,7 @@ class criarEvento(PageElement):
                 else:
                     print("\n [!] CT_02 reportou erro: " + self.find_element(self.alert_texto).text)
                 self.find_element(self.btn_ok_alert).click()
+                
         except UnexpectedAlertPresentException as e:
             print("\n [!] CT_02 reportou erro: " + str(e))
         except ElementClickInterceptedException:
@@ -250,7 +244,6 @@ class criarEvento(PageElement):
             self.find_element(self.tipo_evento).click()
             # FIM TIPO DE EVENTO
             sleep(1)
-
             self.find_element(self.nome).clear()
             self.find_element(self.btn_enviar).click()
             msg = self.espera_mensagem()
@@ -323,7 +316,6 @@ class criarEvento(PageElement):
             sleep(1)
             self.find_element(self.nome).send_keys(nome)
             self.find_element(self.descricao).send_keys(descricao)
-
             self.find_element(self.inicio_evento).clear()
             self.find_element(self.inicio_evento).send_keys(inicio_evento)
             self.find_element(self.fim_evento).clear()
@@ -332,13 +324,11 @@ class criarEvento(PageElement):
             self.find_element(self.inicio_inscricao).send_keys(inicio_inscricao)
             self.find_element(self.fim_inscricao).clear()
             self.find_element(self.fim_inscricao).send_keys(fim_inscricao)
-
             # TIPO DE EVENTO
             self.find_element(self.btn_tipo_evento).click()
             self.find_element(self.tipo_evento).click()
             # FIM TIPO DE EVENTO
-
-            # self.find_element(self.btn_enviar).click()
+            self.find_element(self.btn_enviar).click()
             sleep(1)
             msg = self.espera_mensagem()
             if msg is True:
