@@ -28,3 +28,5 @@ certificado_palestrante.ct38_certificado_palestrante()
 webdriver.get(url)
 certificado_palestrante.caminho()
 certificado_palestrante.ct39_certificado_palestrante()
+
+webdriver.close()

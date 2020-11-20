@@ -73,3 +73,4 @@ criar_atividade.ct15_criar_atividade(
     hora_inicio = '0800',
     hora_fim    = '2200'
 )
+webdriver.close()

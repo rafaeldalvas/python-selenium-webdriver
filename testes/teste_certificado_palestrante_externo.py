@@ -31,3 +31,4 @@ certificado_palestrante_externo.caminho()
 certificado_palestrante_externo.ct61_certificado_palestrante_externo(
     cpf = '33332506080'
 )
+webdriver.close()

@@ -59,3 +59,4 @@ editar_evento.ct_10_editar_evento(
     fim_inscricao='01/02/2021',
     nome_responsavel='Raquel Alves da Silva'
 )
+webdriver.close()

@@ -39,3 +39,5 @@ confirmar_inscricao.ct48_confirmar_inscricao()
 webdriver.get(url)
 confirmar_inscricao.caminho()
 confirmar_inscricao.ct49_confirmar_inscricao()
+
+webdriver.close()

@@ -25,3 +25,4 @@ certificado_participante_externo.caminho()
 certificado_participante_externo.ct63_certificado_participante_externo(
     cpf = '54616745005'
 )
+webdriver.close()

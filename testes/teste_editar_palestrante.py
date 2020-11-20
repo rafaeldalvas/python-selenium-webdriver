@@ -83,6 +83,7 @@ editar_palestrante.caminho()
 editar_palestrante.ct_32_editar_palestrante(
     cpf = '999.999.999-99'
 )
+webdriver.close()
 
 
 

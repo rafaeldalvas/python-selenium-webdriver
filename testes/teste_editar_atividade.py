@@ -76,3 +76,4 @@ editar_atividade.ct22_editar_atividade(
     hora_inicio = '0800',
     hora_fim    = '0900'
 )
+webdriver.close()

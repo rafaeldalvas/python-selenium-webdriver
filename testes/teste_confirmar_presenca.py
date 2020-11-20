@@ -32,3 +32,5 @@ confirmar_presenca.ct35_confirmar_presenca()
 webdriver.get(url)
 confirmar_presenca.caminho()
 confirmar_presenca.ct36_confirmar_presenca()
+
+webdriver.close()

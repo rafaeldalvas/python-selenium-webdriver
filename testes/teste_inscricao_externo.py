@@ -61,3 +61,4 @@ inscricao_externo.ct57_inscricao_externo(
     telefone    = '43663346975',
     celular     = '51405531814'
 )
+webdriver.close()

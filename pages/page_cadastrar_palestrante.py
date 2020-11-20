@@ -53,7 +53,7 @@ class cadastrarPalestrante(PageElement):
             return False
 
     def caminho(self):
-        sleep(1)
+        sleep(2)
         self.find_element(self.calendario).click()
         sleep(1)
         self.find_element(self.admin).click()
