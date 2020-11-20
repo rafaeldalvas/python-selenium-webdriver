@@ -9,10 +9,7 @@ webdriver.get(url)
 
 login_professor = LoginProfessor(webdriver)
 
-login_professor.realiza_login(
-    login = 'testes.professor',
-    senha = '6kmfDK'
-)
+login_professor.realiza_login()
 
 editar_atividade = editarAtividade(webdriver)
 
