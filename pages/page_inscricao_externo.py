@@ -7,7 +7,6 @@ from selenium.webdriver.support.wait import WebDriverWait
 from utils.config import PageElement
 from time import sleep
 
-
 class inscricaoExterno(PageElement):
     # CAMINHO
     inscricao_eventos = (By.CSS_SELECTOR, "a[href$='listaEventos.zul']")

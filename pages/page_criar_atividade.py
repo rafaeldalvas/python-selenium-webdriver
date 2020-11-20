@@ -93,7 +93,7 @@ class criarAtividade(PageElement):
 
             # DATAS DA ATIVIDADE
             self.find_element(self.btn_definir).click()
-            sleep(3)
+            sleep(2)
             self.find_element(self.sala).send_keys(sala)
             self.find_element(self.data).clear()
             self.find_element(self.data).send_keys(data)

@@ -23,7 +23,6 @@ class inscricao(PageElement):
     inscrever_se_ativdade2 = (By.ID, "zk-comp-12978!box")
     voltar = (By.ID, "zk-comp-164!box")
 
-
     # ALERT
     alert_tipo = (By.CSS_SELECTOR, 'div[class="z-separator-hor-bar"]')
     alert_texto = (By.XPATH, '//*/div[2]/div[1]/div/div/div/div/div[2]/div/table[1]/tbody/tr/td[3]/div/span')

@@ -75,7 +75,7 @@ class criarEvento(PageElement):
             return False
 
     def caminho(self):
-        sleep(1)
+        sleep(2)
         self.find_element(self.calendario).click()
         sleep(1)
         self.find_element(self.admin).click()
@@ -185,11 +185,9 @@ class criarEvento(PageElement):
             self.find_element(self.btn_tipo_evento).click()
             self.find_element(self.tipo_evento).click()
             # FIM TIPO DE EVENTO
-
             self.find_element(self.inscricao_externa).click()
             self.find_element(self.evento_pago).click()
-
-            # self.find_element(self.btn_enviar).click()
+            self.find_element(self.btn_enviar).click()
 
             sleep(1)
 
@@ -232,7 +230,6 @@ class criarEvento(PageElement):
             self.find_element(self.tipo_evento).click()
             # FIM TIPO DE EVENTO
             sleep(1)
-
             self.find_element(self.nome).clear()
             self.find_element(self.btn_enviar).click()
             msg = self.espera_mensagem()
@@ -302,7 +299,6 @@ class criarEvento(PageElement):
             sleep(1)
             self.find_element(self.nome).send_keys(nome)
             self.find_element(self.descricao).send_keys(descricao)
-
             self.find_element(self.inicio_evento).clear()
             self.find_element(self.inicio_evento).send_keys(inicio_evento)
             self.find_element(self.fim_evento).clear()
@@ -311,13 +307,11 @@ class criarEvento(PageElement):
             self.find_element(self.inicio_inscricao).send_keys(inicio_inscricao)
             self.find_element(self.fim_inscricao).clear()
             self.find_element(self.fim_inscricao).send_keys(fim_inscricao)
-
             # TIPO DE EVENTO
             self.find_element(self.btn_tipo_evento).click()
             self.find_element(self.tipo_evento).click()
             # FIM TIPO DE EVENTO
-
-            # self.find_element(self.btn_enviar).click()
+            self.find_element(self.btn_enviar).click()
             sleep(1)
 
             print('\n [!] CT_05 reportou erro: Evento criado com datas inválidas')
