@@ -1,5 +1,7 @@
 from selenium import webdriver
 from pages.page_certificado_palestrante_externo import certificadoPalestranteExterno
+import allure
+import pytest
 
 webdriver = webdriver.Chrome()
 
