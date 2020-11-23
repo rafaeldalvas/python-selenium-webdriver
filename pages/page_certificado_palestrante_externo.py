@@ -72,7 +72,7 @@ class CertificadoPalestranteExterno(PageElement):
             assert False
 
     # --------- Casos de teste: Palestrante sem eventos --------------#
-    def test_ct59_certificado_palestrante_externo(self, cpf):
+    def ct59_certificado_palestrante_externo(self, cpf):
         try:
             self.find_element(self.cpf).send_keys(cpf)
             self.find_element(self.confirmar).click()
@@ -103,7 +103,7 @@ class CertificadoPalestranteExterno(PageElement):
             assert True
 
     # --------------- Casos de teste: CPF inválido -------------------#
-    def test_ct60_certificado_palestrante_externo(self, cpf):
+    def ct60_certificado_palestrante_externo(self, cpf):
         try:
             self.find_element(self.cpf).send_keys(cpf)
             self.find_element(self.confirmar).click()
@@ -134,7 +134,7 @@ class CertificadoPalestranteExterno(PageElement):
             assert True
 
     # ------------ Casos de teste: CPF não cadastrado ----------------#
-    def test_ct61_certificado_palestrante_externo(self, cpf):
+    def ct61_certificado_palestrante_externo(self, cpf):
         try:
             self.find_element(self.cpf).send_keys(cpf)
             self.find_element(self.confirmar).click()
