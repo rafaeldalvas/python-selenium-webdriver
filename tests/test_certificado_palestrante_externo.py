@@ -10,7 +10,6 @@ url = "https://integra-h.nrc.ice.ufjf.br/integra/geral/menuEvento.zul"
 certificado_palestrante_externo = CertificadoPalestranteExterno(webdriver)
 
 # --------- Casos de teste: Geração de certificado padrão --------#
-@allure.severity(allure.severity_level.NORMAL)
 def test_ct58():
     webdriver.get(url)
     certificado_palestrante_externo.caminho()
@@ -19,7 +18,6 @@ def test_ct58():
     )
 
 # --------- Casos de teste: Palestrante sem eventos --------------#
-@allure.severity(allure.severity_level.NORMAL)
 def test_ct59():
     webdriver.get(url)
     certificado_palestrante_externo.caminho()
@@ -27,7 +25,6 @@ def test_ct59():
         cpf = '62126930050'
     )
 # --------------- Casos de teste: CPF inválido -------------------#
-@allure.severity(allure.severity_level.NORMAL)
 def test_ct60():
     webdriver.get(url)
     certificado_palestrante_externo.caminho()
@@ -35,7 +32,6 @@ def test_ct60():
         cpf = '99999999999'
     )
 # ------------ Casos de teste: CPF não cadastrado ----------------#
-@allure.severity(allure.severity_level.NORMAL)
 def test_ct61():
     webdriver.get(url)
     certificado_palestrante_externo.caminho()

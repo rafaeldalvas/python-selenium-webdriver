@@ -388,7 +388,7 @@ class criarAtividade(PageElement):
             if erro is False:
                 print("\n CT_15 reportou erro: " + self.find_element(self.alert_texto).text)
             else:
-                print("\n [!] CT_15 reportou erro: Evento criado com campos obrigatorios nao preenchidos")
+                print("\n [!] CT_15 reportou erro: Atividade criada com campos obrigatorios nao preenchidos")
 
         except UnexpectedAlertPresentException as e:
             print("\n CT_15 reportou erro: " + str(e))
