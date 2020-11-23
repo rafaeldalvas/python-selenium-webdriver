@@ -1,3 +1,4 @@
+import pytest
 from selenium.common.exceptions import UnexpectedAlertPresentException, \
     ElementClickInterceptedException, TimeoutException
 from selenium.webdriver.common.by import By
@@ -5,11 +6,9 @@ from selenium.webdriver.support import expected_conditions
 from selenium.webdriver.support.wait import WebDriverWait
 from utils.config import PageElement
 from time import sleep
-import allure
-import pytest
 
-@allure.severity(allure.severity_level.NORMAL)
-class certificadoPalestranteExterno(PageElement):
+
+class CertificadoPalestranteExterno(PageElement):
     # CAMINHO
     certificado_palestrante = (By.CSS_SELECTOR, "a[href$='janelaCPF.zul?op=1']")
     cpf = (By.ID, 'zk-comp-46') # valido: 83239472600 / sem eventos: 33332506080
@@ -73,7 +72,7 @@ class certificadoPalestranteExterno(PageElement):
             assert False
 
     # --------- Casos de teste: Palestrante sem eventos --------------#
-    def ct59_certificado_palestrante_externo(self, cpf):
+    def test_ct59_certificado_palestrante_externo(self, cpf):
         try:
             self.find_element(self.cpf).send_keys(cpf)
             self.find_element(self.confirmar).click()
@@ -104,7 +103,7 @@ class certificadoPalestranteExterno(PageElement):
             assert True
 
     # --------------- Casos de teste: CPF inválido -------------------#
-    def ct60_certificado_palestrante_externo(self, cpf):
+    def test_ct60_certificado_palestrante_externo(self, cpf):
         try:
             self.find_element(self.cpf).send_keys(cpf)
             self.find_element(self.confirmar).click()
@@ -135,7 +134,7 @@ class certificadoPalestranteExterno(PageElement):
             assert True
 
     # ------------ Casos de teste: CPF não cadastrado ----------------#
-    def ct61_certificado_palestrante_externo(self, cpf):
+    def test_ct61_certificado_palestrante_externo(self, cpf):
         try:
             self.find_element(self.cpf).send_keys(cpf)
             self.find_element(self.confirmar).click()
