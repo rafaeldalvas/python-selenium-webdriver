@@ -35,38 +35,38 @@ class editarEvento(PageElement):
 
     # FORMUMARIO RESPONSAVEL
     btn_buscar = (By.CSS_SELECTOR, 'table[id$="comp-159!box"] [class$="button-cm"]')
-    nome_responsavel = (By.ID, 'zk-comp-240')  # Pesquisar - Raquel Alves da Silva
-    btn_pesquisar_responsavel = (By.CSS_SELECTOR, 'table[id$="comp-247!box"] [class$="button-cm"]')
-    checkbox_responsavel = (By.CSS_SELECTOR, '[type="checkbox"]')
-    seleciona_nome = (By.ID, 'table[id$="comp-259!box"] [class$="button-cm"]')
-    btn_confirma_responsavel = (By.CSS_SELECTOR, 'table[id$="comp-278!box"] [class$="button-cm"]')
+    nome_responsavel = (By.XPATH, '/html/body/div[4]/div[2]/div[1]/div/div/div/div[1]/div[1]/div/div[2]/div[''1]/div/div/div/table/tbody/tr[2]/td[2]/input')  # Pesquisa - Raquel Alves da Silva
+    btn_pesquisar_responsavel = (By.XPATH, '/html/body/div[4]/div[2]/div[1]/div/div/div/div[1]/div[1]/div/div[2]/div[''1]/div/div/div/table/tbody/tr[2]/td[5]/span/table/tbody/tr[2]/td[2]')
+    checkbox_responsavel = (By.XPATH, '/html/body/div[4]/div[2]/div[1]/div/div/div/div[1]/div[2]/table/tbody/tr[''1]/td[1]/div/div[2]/table/tbody[2]/tr/td[1]/div/input')
+    seleciona_nome = (By.XPATH, '/html/body/div[4]/div[2]/div[1]/div/div/div/div[1]/div[2]/table/tbody/tr[1]/td[''2]/div/span')
+    btn_confirma_responsavel = (By.XPATH, '/html/body/div[4]/div[2]/div[1]/div/div/div/div[1]/div[3]/span')
 
     # FORMULARIO CERTIFICADO
     btn_editar_certificado = (By.CSS_SELECTOR, 'table[id$="comp-167!box"] [class$="button-cm"]')
-    combo_certificado = (By.ID, "zk-comp-233!btn")  # COMBO BOX
-    certificado = (By.CSS_SELECTOR, 'tr[id$="zk-comp-277"] [class="z-combo-item-text"]')  # OPÇÃO PADRAO ICE 2
+    combo_certificado = (By.XPATH, "/html/body/div[4]/div[2]/div[1]/div/div/div/div[1]/div/div/table[1]/tbody/tr[2]/td[2]/span/input")  # COMBO BOX
+    certificado = (By.XPATH, '/html/body/div[6]/table/tbody/tr[2]/td[2]')  # OPÇÃO PADRAO ICE 2
 
-    combo_assinatura1 = (By.ID, "zk-comp-238!btn")
-    assinatura1 = (By.CSS_SELECTOR, 'tr[id$="zk-comp-293"] [class="z-combo-item-text"]')
-    funcao1 = (By.ID, "zk-comp-242")
+    combo_assinatura1 = (By.XPATH, "/html/body/div[4]/div[2]/div[1]/div/div/div/div[1]/div/div/table[1]/tbody/tr[3]/td[2]/span/input")
+    assinatura1 = (By.XPATH, '/html/body/div[7]/table/tbody/tr[6]/td[1]')
+    funcao1 = (By.XPATH, "/html/body/div[4]/div[2]/div[1]/div/div/div/div[1]/div/div/table[1]/tbody/tr[3]/td[4]/input")
 
-    combo_assinatura2 = (By.ID, "zk-comp-247!btn")
-    assinatura2 = (By.CSS_SELECTOR, 'tr[id$="zk-comp-332"] [class="z-combo-item-text"]')
-    funcao2 = (By.ID, "zk-comp-251")
+    combo_assinatura2 = (By.XPATH, "/html/body/div[4]/div[2]/div[1]/div/div/div/div[1]/div/div/table[1]/tbody/tr[4]/td[2]/span/input")
+    assinatura2 = (By.XPATH, '/html/body/div[8]/table/tbody/tr[9]/td[1]')
+    funcao2 = (By.XPATH, "/html/body/div[4]/div[2]/div[1]/div/div/div/div[1]/div/div/table[1]/tbody/tr[4]/td[4]/input")
 
-    combo_assinatura3 = (By.ID, "zk-comp-256!btn")
-    assinatura3 = (By.CSS_SELECTOR, 'tr[id$="zk-comp-387"] [class="z-combo-item-text"]')
-    funcao3 = (By.ID, "zk-comp-260")
+    combo_assinatura3 = (By.XPATH, "/html/body/div[4]/div[2]/div[1]/div/div/div/div[1]/div/div/table[1]/tbody/tr[5]/td[2]/span/input")
+    assinatura3 = (By.XPATH, '/html/body/div[9]/table/tbody/tr[11]/td[1]')
+    funcao3 = (By.XPATH, "/html/body/div[4]/div[2]/div[1]/div/div/div/div[1]/div/div/table[1]/tbody/tr[5]/td[4]/input")
 
-    btn_salvar = (By.CSS_SELECTOR, 'table[id$="comp-263!box"] [class$="button-cm"]')
-    btn_ok = (By.CSS_SELECTOR, 'table[id$="comp-403!box"] [class$="button-cm"]')
+    btn_salvar = (By.XPATH, '/html/body/div[4]/div[2]/div[1]/div/div/div/div[1]/div/div/table[2]/tbody/tr/td[1]/span/table/tbody/tr[2]/td[2]')
+    btn_ok = (By.XPATH, '/html/body/div[10]/div[2]/div[1]/div/div/div/div/div[2]/div/table[2]/tbody/tr/td/span/table/tbody/tr[2]/td[2]')
 
     # CONCLUIR
     btn_enviar = (By.CSS_SELECTOR, 'table[id$="comp-199!box"] [class$="button-cm"]')
 
     # EXCLUIR EVENTO
     btn_excluir = (By.CSS_SELECTOR, 'table[id$="zk-comp-136!box"] [class$="z-button-cm"]')
-    confirm_excluir = (By.CSS_SELECTOR, 'table[id$="zk-comp-229!box"] [class$="z-button-cm"]')
+    confirm_excluir = (By.XPATH, '/html/body/div[4]/div[2]/div[1]/div/div/div/div/div[2]/div/table[2]/tbody/tr/td[1]/span/table/tbody/tr[2]/td[2]')
 
     # CANCELAR
     btn_cancelar = (By.CSS_SELECTOR, 'table[id$="comp-201!box"] [class$="button-cm"]')
@@ -106,15 +106,19 @@ class editarEvento(PageElement):
         sleep(1)
         self.find_element(self.combo_certificado).click()
         self.find_element(self.certificado).click()
+        sleep(1)
         self.find_element(self.combo_assinatura1).click()
+        sleep(1)
         self.find_element(self.assinatura1).click()
         self.find_element(self.funcao1).clear()
         self.find_element(self.funcao1).send_keys(funcao1)
         self.find_element(self.combo_assinatura2).click()
+        sleep(1)
         self.find_element(self.assinatura2).click()
         self.find_element(self.funcao2).clear()
         self.find_element(self.funcao2).send_keys(funcao2)
         self.find_element(self.combo_assinatura3).click()
+        sleep(1)
         self.find_element(self.assinatura3).click()
         self.find_element(self.funcao3).clear()
         self.find_element(self.funcao3).send_keys(funcao3)
@@ -127,9 +131,13 @@ class editarEvento(PageElement):
         self.find_element(self.btn_buscar).click()
         sleep(1)
         self.find_element(self.nome_responsavel).send_keys(nome_responsavel)
+        sleep(1)
         self.find_element(self.btn_pesquisar_responsavel).click()
+        sleep(1)
         self.find_element(self.checkbox_responsavel).click()
+        sleep(2)
         self.find_element(self.seleciona_nome).click()
+        sleep(1)
         self.find_element(self.btn_confirma_responsavel).click()
 
     # --------- Caso de teste: Edição de evento padrão -------------#
@@ -179,38 +187,43 @@ class editarEvento(PageElement):
             if msg is True:
                 if self.find_element(self.alert_texto).text == 'Evento salvo com sucesso':
                     print('\n CT_06 sem erros: o evento foi editado com sucesso')
+                    assert True
                 else:
                     print("\n [!] CT_06 reportou erro: Não houve edição do evento")
+                    assert False
                 self.find_element(self.btn_ok_alert).click()
         except UnexpectedAlertPresentException as e:
             print("\n [!] CT_06 reportou erro: " + str(e))
-
+            assert False
         except ElementClickInterceptedException:
             print("\n [!] CT_06 reportou erro: " + self.find_element(self.alert_texto).text)
             self.find_element(self.btn_ok_alert).click()
+            assert False
 
 # --------- Caso de teste: Exclusão de eventos -------------#
     def ct_07_editar_evento(self):
         try:
             self.find_element(self.btn_excluir).click()
-            sleep(1)
+            sleep(2)
             self.find_element(self.confirm_excluir).click()
             sleep(1)
             msg = self.espera_mensagem()
             if msg is True:
-                if self.find_element(self.alert_texto).text == 'Evento excluído com sucesso':
+                if self.find_element(self.alert_texto).text.find('Evento excluido com sucesso') > -1:
                     print('\n CT_07 sem erros: o evento foi excluído com sucesso')
+                    assert True
                 else:
                     print("\n [!] CT_07 reportou erro: Não houve exclusão do evento")
+                    assert False
                 self.find_element(self.btn_ok_alert).click()
-
         except UnexpectedAlertPresentException as e:
             print("\n [!] CT_07 reportou erro: " + str(e))
+            assert False
 
         except ElementClickInterceptedException:
             print("\n [!] CT_07 reportou erro: " + self.find_element(self.alert_texto).text)
             self.find_element(self.btn_ok_alert).click()
-
+            assert False
 
 # --------- Caso de teste: Cancelar transação -------------#
     def ct_08_editar_evento(self):
@@ -218,9 +231,10 @@ class editarEvento(PageElement):
             sleep(1)
             self.find_element(self.btn_cancelar).click()
             print('\n CT_08 sem erros: A operação foi cancelada com sucesso')
-
+            assert True
         except UnexpectedAlertPresentException as e:
             print("\n [!] CT_08 reportou erro: " + str(e))
+            assert False
 
 # -- Caso de teste: Nenhum evento selecionado ao editar ---#
     def ct_9_editar_evento(self):
@@ -228,18 +242,23 @@ class editarEvento(PageElement):
             sleep(1)
             msg = self.espera_mensagem()
             if msg is True:
-                if self.find_element(self.alert_texto).text == 'Selecione um evento':
+                if self.find_element(self.alert_texto).text.find('Selecione um evento') > -1:
                     print("\n CT_09 reportou erro: O sistema pediu para selecionar um evento")
+                    assert True
                 else:
                     print("\n [!] CT_09 reportou erro: " + self.find_element(self.alert_texto).text)
+                    assert False
                 self.find_element(self.btn_ok_alert).click()
             else:
-                 print("\n [!] CT_09 reportou erro: Houve acesso ao formulário sem selecionar um evento")
+                print("\n [!] CT_09 reportou erro: Houve acesso ao formulário sem selecionar um evento")
+                assert False
         except UnexpectedAlertPresentException as e:
             print("\n [!] CT_09 reportou erro: " + str(e))
+            assert False
         except ElementClickInterceptedException:
-            print("\n CT_19 reportou erro: " + self.find_element(self.alert_texto).text)
+            print("\n [!] CT_09 reportou erro: " + self.find_element(self.alert_texto).text)
             self.find_element(self.btn_ok_alert).click()
+            assert False
 
 # -- Caso de teste: Campos obrigatórios não preenchidos ---#
     def ct_10_editar_evento(self, nome, descricao, inicio_evento, fim_evento, inicio_inscricao, fim_inscricao, nome_responsavel):
@@ -313,12 +332,16 @@ class editarEvento(PageElement):
 
             if erro is False:
                 print("\n CT_10 reportou erro: O sistema exibiu os campos faltantes")
+                assert True
             else:
                 print("\n [!] CT_10 reportou erro: Evento editado com campos obrigatorios nao preenchidos")
+                assert False
 
         except UnexpectedAlertPresentException as e:
-            print("\n CT_10 reportou erro: " + str(e))
+            print("\n [!] CT_10 reportou erro: " + str(e))
+            assert False
 
         except ElementClickInterceptedException:
             print("\n [!] CT_10 reportou erro: " + self.find_element(self.alert_texto).text)
             self.find_element(self.btn_ok_alert).click()
+            assert False
