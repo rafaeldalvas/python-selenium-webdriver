@@ -43,7 +43,7 @@ def test_ct28():
     editar_palestrante.ct_28_editar_palestrante()
 #
 # --------- Caso de teste: Palestrante não selecionado -----------#
-def test_ct_29():
+def test_ct29():
     webdriver.get(url)
     editar_palestrante.caminho(True)
     editar_palestrante.ct_29_editar_palestrante()
