@@ -15,14 +15,14 @@ class editarAtividade(PageElement):
     cadastro_atividade = (By.ID, 'zk-comp-112')
     radio_atividade = (By.ID, 'zk-comp-116!real')
     combo_atividade = (By.ID, "zk-comp-125!btn")  # COMBO BOX
-    evento = (By.XPATH, '/html/body/div[3]/table/tbody/tr[2]/td[2]')  # EVENTO TESTES DALVAS E JP
+    evento = (By.XPATH, '/html/body/div[3]/table/tbody/tr[14]')  # EVENTO TESTES DALVAS E JP
     atividade = (By.XPATH, '/html/body/div[1]/div/div/div/div[2]/div[2]/div/div[2]/div['
                            '1]/div/div/div/div/div/div/div/div/div[2]/div/div/div/div/div[1]/div[2]/div['
-                           '1]/div/div/div/table/tbody/tr[1]/td/div/div[2]/table/tbody[2]/tr[6]/td['
-                           '1]/div/input')  # atividade teste
+                           '1]/div/div/div/table/tbody/tr[1]/td/div/div[2]/table/tbody[2]/tr[5]/td[1]/div/input')  #
+    # atividade teste
     atividade_2 = (By.XPATH, '/html/body/div[1]/div/div/div/div[2]/div[2]/div/div[2]/div['
                              '1]/div/div/div/div/div/div/div/div/div[2]/div/div/div/div/div[1]/div[2]/div['
-                             '1]/div/div/div/table/tbody/tr[1]/td/div/div[2]/table/tbody[2]/tr[10]/td[1]/div/input')
+                             '1]/div/div/div/table/tbody/tr[1]/td/div/div[2]/table/tbody[2]/tr[7]/td[1]/div/input')
     btn_editar = (By.CSS_SELECTOR, '#zk-comp-137\!box > tbody > tr:nth-child(2) > td.z-button-cm')
 
     # FORMULARIO BASICO
@@ -178,19 +178,22 @@ class editarAtividade(PageElement):
                 txt = self.find_element(self.alert_texto).text
                 if txt == "Atividade salva com sucesso":
                     print("\n CT_16 sem erros: " + txt)
-                    self.find_element(self.btn_ok_alert).click()
+                    assert True
                 else:
                     print("\n [!] CT_16 reportou erro: " + txt)
-                    self.find_element(self.btn_ok_alert).click()
+                    assert False
+                self.find_element(self.btn_ok_alert).click()
             else:
                 print("\n CT_16 sem erros: atividade editada com sucesso!")
+                assert True
 
         except UnexpectedAlertPresentException as e:
             print("\n [!] CT_16 reportou erro: " + str(e))
-
+            assert False
         except ElementClickInterceptedException:
             print("\n [!] CT_16 reportou erro: " + self.find_element(self.alert_texto).text)
             self.find_element(self.btn_ok_alert).click()
+            assert False
 
     # ----------- Casos de teste: Exclusão de atividade --------------#
     def ct17_editar_atividade(self):
@@ -203,16 +206,19 @@ class editarAtividade(PageElement):
             if msg is True:
                 if self.find_element(self.alert_texto).text == 'Atividade excluída com sucesso':
                     print('\n CT_17 sem erros: o atividade foi excluída com sucesso')
+                    assert True
                 else:
                     print("\n [!] CT_17 reportou erro: Não houve exclusão da atividade")
+                    assert False
                 self.find_element(self.btn_ok_alert).click()
 
         except UnexpectedAlertPresentException as e:
             print("\n [!] CT_17 reportou erro: " + str(e))
-
+            assert False
         except ElementClickInterceptedException:
             print("\n [!] CT_17 reportou erro: " + self.find_element(self.alert_texto).text)
             self.find_element(self.btn_ok_alert).click()
+            assert False
 
     # -------------- Casos de teste: Cancelar edição -----------------#
     def ct18_editar_atividade(self):
@@ -225,15 +231,19 @@ class editarAtividade(PageElement):
             if msg is True:
                 print("\n [!] CT_18 reportou erro: " + self.find_element(self.alert_texto).text)
                 self.find_element(self.btn_ok_alert).click()
+                assert False
             else:
                 print("\n CT_18 sem erros: atividade cancelada com sucesso!")
+                assert True
 
         except UnexpectedAlertPresentException as e:
             print("\n [!] CT_18 reportou erro: " + str(e))
+            assert False
 
         except ElementClickInterceptedException:
             print("\n [!] CT_18 reportou erro: " + self.find_element(self.alert_texto).text)
             self.find_element(self.btn_ok_alert).click()
+            assert False
 
     # --- Casos de teste: Nenhuma atividade selecionada ao editar ----#
     def ct19_editar_atividade(self):
@@ -242,18 +252,22 @@ class editarAtividade(PageElement):
             if msg is True:
                 if self.find_element(self.alert_texto).text == 'Selecione uma atividade':
                     print("\n CT_19 reportou erro: o sistema pediu para selecionar uma atividade")
+                    assert True
                 else:
                     print("\n [!] CT_19 reportou erro: " + self.find_element(self.alert_texto).text)
+                    assert False
                 self.find_element(self.btn_ok_alert).click()
             else:
                 print("\n [!] CT_19 sem erros: sistema não reportou erros!")
+                assert False
 
         except UnexpectedAlertPresentException as e:
             print("\n CT_19 reportou erro: " + str(e))
-
+            assert True
         except ElementClickInterceptedException:
             print("\n CT_19 reportou erro: " + self.find_element(self.alert_texto).text)
             self.find_element(self.btn_ok_alert).click()
+            assert True
 
     # ----- Casos de teste: Campos obrigatórios não preenchidos ------#
     def ct20_editar_atividade(self, tema, descricao, vagas, duracao, local, sala, data, hora_inicio, hora_fim):
@@ -413,18 +427,23 @@ class editarAtividade(PageElement):
             if msg is True:
                 if self.find_element(self.alert_texto).text != txt:
                     print("\n CT_21 reportou erro: " + self.find_element(self.alert_texto).text)
+                    assert True
                 else:
                     print("\n [!] CT_21 reportou erro: " + self.find_element(self.alert_texto).text)
+                    assert False
                 self.find_element(self.btn_ok_alert).click()
             else:
                 print("\n [!] CT_21 sem erros: atividade criada com sucesso!")
+                assert False
 
         except UnexpectedAlertPresentException as e:
             print("\n CT_21 reportou erro: " + str(e))
+            assert True
 
         except ElementClickInterceptedException:
             print("\n CT_21 reportou erro: " + self.find_element(self.alert_texto).text)
             self.find_element(self.btn_ok_alert).click()
+            assert True
 
     # ---------------- Casos de teste: Hora inválida -----------------#
     def ct22_editar_atividade(self, sala, data, hora_inicio, hora_fim):
@@ -436,15 +455,20 @@ class editarAtividade(PageElement):
             if msg is True:
                 if self.find_element(self.alert_texto).text != txt:
                     print("\n CT_21 reportou erro: " + self.find_element(self.alert_texto).text)
+                    assert True
                 else:
                     print("\n [!] CT_21 reportou erro: " + self.find_element(self.alert_texto).text)
+                    assert False
                 self.find_element(self.btn_ok_alert).click()
             else:
                 print("\n [!] CT_22 sem erros: atividade criada com sucesso!")
+                assert False
 
         except UnexpectedAlertPresentException as e:
             print("\n CT_22 reportou erro: " + str(e))
+            assert True
 
         except ElementClickInterceptedException:
             print("\n CT_22 reportou erro: " + self.find_element(self.alert_texto).text)
             self.find_element(self.btn_ok_alert).click()
+            assert True
