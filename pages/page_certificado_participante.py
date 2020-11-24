@@ -29,7 +29,7 @@ class certificadoParticipante(PageElement):
     reabrir = (By.ID, "zk-comp-135!box")
 
     # CERTIFICADO
-    dropdownCertificado = (By.ID, "zk-comp-148!cell")
+    dropdownCertificado = (By.XPATH, "zk-comp-148!cell")
     gerar = (By.CLASS_NAME, "z-button-cm")
 
     # ALERT
@@ -68,7 +68,7 @@ class certificadoParticipante(PageElement):
     def ct50_certificado_participante(self):
         try:
             sleep(1)
-            self.find_element(self.dropdownCertificado).click()
+            # self.find_element(self.dropdownCertificado).click()
             self.find_element(self.gerar).click()
             msg = self.espera_mensagem()
             original_window = self.webdriver.current_window_handle
@@ -76,17 +76,22 @@ class certificadoParticipante(PageElement):
                 txt = self.find_element(self.alert_texto).text
                 print("\n [!] CT_50 reportou erro: " + txt)
                 self.find_element(self.btn_ok_alert).click()
+                assert False
             else:
-                if len(self.webdriver.current_window_handles) != 1:
+                if len(self.webdriver.window_handles) != 1:
                     print("\n CT_50 sem erros: certificado gerado com sucesso!")
                     self.webdriver.switch_to.window(original_window)
+                    assert True
                 else:
                     print("\n [!] CT_50 reportou erro: o certificado não foi gerado")
+                    assert False
         except UnexpectedAlertPresentException as e:
             print("\n [!] CT_50 reportou erro: " + str(e))
+            assert False
         except ElementClickInterceptedException:
             print("\n [!] CT_50 reportou erro: " + self.find_element(self.alert_texto).text)
             self.find_element(self.btn_ok_alert).click()
+            assert False
 
 # ------------ Usuário sem certificado disponível  ---------------#
     def ct51_certificado_participante(self):
@@ -98,15 +103,21 @@ class certificadoParticipante(PageElement):
             if msg is True:
                 if self.find_element(self.alert_texto).text.find('Sem certificado para o participante') != -1:
                     print("\n CT_51 reportou erro: o sistema informou que não existe certificado para o participante")
+                    assert True
                 else:
                     print("\n [!] CT_51 sistema reportou erro: " + self.find_element(self.alert_texto).text)
+                    assert False
             else:
                 print("\n [!] CT_51 sistema reportou erro: não foi informado que o usuário não possui certificado para gerar")
+                assert False
         except UnexpectedAlertPresentException as e:
             print("\n [!] CT_51 reportou erro: " + str(e))
+            assert False
         except ElementClickInterceptedException:
             print("\n [!] CT_51 reportou erro: " + self.find_element(self.alert_texto).text)
             self.find_element(self.btn_ok_alert).click()
+            assert False
+
 
 
 
