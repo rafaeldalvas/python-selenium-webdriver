@@ -16,20 +16,21 @@ login_professor.realiza_login()
 inscricao = inscricao(webdriver)
 
 # ------------- Caso de teste: Inscrição padrão  -----------------#
-inscricao.caminho(True)
-inscricao.ct40_inscricao()
+def test_ct40():
+    inscricao.caminho()
+    inscricao.ct40_inscricao()
 # ---------------- Prazo para inscrição vencido  -----------------#
-webdriver.get(url)
-inscricao.caminho(False, True)
-inscricao.ct41_inscricao()
+def test_ct41():
+    webdriver.get(url)
+    inscricao.caminho(True)
+    inscricao.ct41_inscricao()
 # ------------------------ Ver Inscritos  ------------------------#
-webdriver.get(url)
-inscricao.caminho(True)
-inscricao.ct42_inscricao()
+def test_ct42():
+    webdriver.get(url)
+    inscricao.caminho()
+    inscricao.ct42_inscricao()
 # ------------------- Horário indisponível  ----------------------#
-webdriver.get(url)
-inscricao.caminho(True)
-inscricao.ct43_inscricao()
-
-webdriver.close()
-
+def test_ct43():
+    webdriver.get(url)
+    inscricao.caminho()
+    inscricao.ct43_inscricao()

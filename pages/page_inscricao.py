@@ -12,11 +12,12 @@ class inscricao(PageElement):
     menu_evento = (By.CSS_SELECTOR, "a[href$='inicial.zul?pag=listaEventos']")
     mais_info = (By.XPATH, "/html/body/div/div/div/div/div[2]/div[2]/div/div[2]/div[1]/div/div/div/div/div/div/div/div/table/tbody/tr[1]/td/div/div[1]/div/div[2]/div[1]/div/div/div/span/table/tbody/tr[3]/td[2]")
     skip = (By.ID, "zk-comp-137!tb_l")
+    mais_info_vencido = (By.XPATH, "/html/body/div/div/div/div/div[2]/div[2]/div/div[2]/div[1]/div/div/div/div/div/div/div/div/table/tbody/tr[19]/td/div/div[2]/div/div[2]/div[1]/div/div/div/span/table/tbody/tr[2]/td[2]")
 
     # CASOS DE TESTE
-    atividade = (By.XPATH, "/html/body/div/div/div/div/div[2]/div[2]/div/div[2]/div[1]/div/div/div/div/div/div/div/div[1]/div/div[2]/div[1]/div/div/div/div[3]/div[2]/table/tbody[2]/tr[1]/td[7]/div/table/tbody/tr/td/span/table/tbody/tr[2]/td[2]")
+    atividade = (By.XPATH, "/html/body/div/div/div/div/div[2]/div[2]/div/div[2]/div[1]/div/div/div/div/div/div/div/div[1]/div/div[2]/div[1]/div/div/div/div[3]/div[2]/table/tbody[2]/tr[3]/td[7]/div/table/tbody/tr/td/span/table/tbody/tr[1]/td[2]")
 
-    atividade_vencida = (By.XPATH, "/html/body/div/div/div/div/div[2]/div[2]/div/div[2]/div[1]/div/div/div/div/div/div/div/div[1]/div/div[2]/div[1]/div/div/div/div[3]/div[2]/table/tbody[2]/tr[3]/td[7]/div/table/tbody/tr/td/span/table/tbody/tr[2]/td[2]")
+    atividade_vencida = (By.XPATH, "/html/body/div/div/div/div/div[2]/div[2]/div/div[2]/div[1]/div/div/div/div/div/div/div/div[1]/div/div[2]/div[1]/div/div/div/div[3]/div[2]/table/tbody[2]/tr[1]/td[3]/div/table/tbody/tr[1]/td/span/table/tbody/tr[2]/td[2]")
 
     horario_indisp_atividade_1 = (By.XPATH, "/html/body/div/div/div/div/div[2]/div[2]/div/div[2]/div[1]/div/div/div/div/div/div/div/div[1]/div/div[2]/div[1]/div/div/div/div[3]/div[2]/table/tbody[2]/tr[4]/td[7]/div/table/tbody/tr[1]/td/span/table/tbody/tr[2]/td[2]")
 
@@ -40,13 +41,16 @@ class inscricao(PageElement):
         except TimeoutException:
             return False
 
-    def caminho(self, noPrazo = False, vencida = False):
+    def caminho(self, vencido = False):
         sleep(2)
         self.find_element(self.calendario).click()
         sleep(1)
         self.find_element(self.menu_evento).click()
         sleep(1)
-        self.find_element(self.mais_info).click()
+        if vencido is False:
+            self.find_element(self.mais_info).click()
+        else:
+            self.find_element(self.mais_info_vencido).click()
         sleep(1)
         self.find_element(self.skip).click()
 
@@ -57,25 +61,30 @@ class inscricao(PageElement):
             self.find_element(self.atividade).click()
             sleep(1)
             self.find_element(self.inscrever_se).click()
-            sleep(5)
+            sleep(10)
             msg = self.espera_mensagem()
             if msg is True:
                 self.find_element(self.btn_ok_alert).click()
-                sleep(5)
+                sleep(10)
                 msgConfirmacao = self.espera_mensagem()
                 if msgConfirmacao is True:
-                    if self.find_element(self.alert_texto).text.find('Inscrição solicitada!') != -1:
+                    if self.find_element(self.alert_texto).text.find('Inscrição solicitada!') > -1:
                         print('\n CT_40 sem erros: a inscrição foi solicitada com sucesso')
+                        assert True
                     else:
                         print("\n [!] CT_40 reportou erro: " + self.find_element(self.alert_texto).text)
+                        assert False
                     self.find_element(self.btn_ok_alert).click()
                 else:
                     print("\n [!] CT_40 reportou erro: a inscrição não foi solicitada")
+                    assert False
         except UnexpectedAlertPresentException as e:
             print("\n [!] CT_40 reportou erro: " + str(e))
+            assert False
         except ElementClickInterceptedException:
-            print("\n CT_19 reportou erro: " + self.find_element(self.alert_texto).text)
+            print("\n [!] CT_40 reportou erro: " + self.find_element(self.alert_texto).text)
             self.find_element(self.btn_ok_alert).click()
+            assert False
 
 # ------------ Prazo para inscrição vencido  ---------------#
     def ct41_inscricao(self):
@@ -84,22 +93,26 @@ class inscricao(PageElement):
             self.find_element(self.atividade_vencida).click()
             sleep(1)
             self.find_element(self.inscrever_se).click()
-            sleep(5)
+            sleep(10)
             msg = self.espera_mensagem()
             if msg is True:
                 self.find_element(self.btn_ok_alert).click()
-                sleep(5)
+                sleep(10)
                 msgConfirmacao = self.espera_mensagem()
                 if msgConfirmacao is True:
-                    if self.find_element(self.alert_texto).text.find('Inscrição solicitada!') != -1:
+                    if self.find_element(self.alert_texto).text.find('Inscrição solicitada!') > -1:
                         print('\n [!] CT_41 reportou erro: a inscrição foi solicitada após o vencimento do prazo')
+                        assert False
                     self.find_element(self.btn_ok_alert).click()
                 else:
                     print("\n CT_41 reportou erro: a inscrição não foi solicitada")
+                    assert True
         except UnexpectedAlertPresentException as e:
             print("\n [!] CT_41 reportou erro: " + str(e))
+            assert False
         except NoSuchElementException as e:
             print("\n CT_41 reportou erro: a inscrição não foi solicitada")
+            assert True
 
 
 # ------------ Ver Inscritos  ---------------#
@@ -113,10 +126,13 @@ class inscricao(PageElement):
             url = self.webdriver.current_url
             if url.find('pag=listaInscritos') > 0:
                 print('\n CT_42 sem erros: a lista de inscritos foi exibida')
+                assert True
             else:
                 print('\n [!] CT_42 reportou erro: a lista de inscritos não foi exibida')
+                assert False
         except UnexpectedAlertPresentException as e:
             print("\n [!] CT_42 reportou erro: " + str(e))
+            assert False
 
 # ------------ Horário indisponível  ---------------#
     def ct43_inscricao(self):
@@ -131,35 +147,24 @@ class inscricao(PageElement):
 
             self.find_element(self.horario_indisp_atividade_2).click()
             self.find_element(self.inscrever_se).click()
+            sleep(10)
             msg = self.espera_mensagem()
             if msg is True:
                 self.find_element(self.btn_ok_alert).click()
-                sleep(5)
+                sleep(10)
                 msgConfirmacao = self.espera_mensagem()
                 if msgConfirmacao is True:
                     if self.find_element(self.alert_texto).text.find('Inscrição solicitada!') > -1:
                         print("\n [!] CT_43 reportou erro: a inscrição foi solicitada sendo que o usuário não possui horário disponível")
+                        assert False
                     else:
                         print('\n CT_43 reportou erro: o sistema não permitiu a inscrição do usuário')
+                        assert True
                     self.find_element(self.btn_ok_alert).click()
         except UnexpectedAlertPresentException as e:
             print("\n [!] CT_43 reportou erro: " + str(e))
+            assert False
         except NoSuchElementException as e:
-            print("\n CT_43 reportou erro: usuário já inscrito na atividade")
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+            print("\n [!] CT_43 reportou erro: usuário já inscrito na atividade")
+            assert False
 
