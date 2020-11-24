@@ -13,8 +13,6 @@ login_professor = LoginProfessor(webdriver)
 login_professor.realiza_login()
 
 confirmar_presenca = confirmarPresenca(webdriver)
-webdriver.get(url)
-confirmar_presenca.caminho()
 
 # --------- Casos de teste: Confirmar presença padrão ------------#
 def test_ct33():

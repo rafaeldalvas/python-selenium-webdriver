@@ -8,6 +8,7 @@ webdriver = webdriver.Chrome(r'd:\Downloads\chromedriver_win32\chromedriver.exe'
 
 url = "https://integra-h.nrc.ice.ufjf.br/"
 webdriver.get(url)
+webdriver.maximize_window()
 
 login_professor = LoginProfessor(webdriver)
 
