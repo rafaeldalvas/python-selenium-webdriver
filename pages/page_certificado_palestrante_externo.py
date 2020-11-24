@@ -1,3 +1,4 @@
+import pytest
 from selenium.common.exceptions import UnexpectedAlertPresentException, \
     ElementClickInterceptedException, TimeoutException
 from selenium.webdriver.common.by import By
@@ -7,7 +8,7 @@ from utils.config import PageElement
 from time import sleep
 
 
-class certificadoPalestranteExterno(PageElement):
+class CertificadoPalestranteExterno(PageElement):
     # CAMINHO
     certificado_palestrante = (By.CSS_SELECTOR, "a[href$='janelaCPF.zul?op=1']")
     cpf = (By.ID, 'zk-comp-46') # valido: 83239472600 / sem eventos: 33332506080
@@ -51,19 +52,24 @@ class certificadoPalestranteExterno(PageElement):
                 txt = self.find_element(self.alert_texto).text
                 print("\n [!] CT_58 reportou erro: " + txt)
                 self.find_element(self.btn_ok_alert).click()
+                assert False
             else:
                 if len(self.webdriver.window_handles) != 1:
                     print("\n CT_58 sem erros: certificado gerado com sucesso!")
                     self.webdriver.switch_to.window(original_window)
+                    assert True
                 else:
                     print("\n [!] CT_58 sem erros: o certificado não foi gerado")
+                    assert False
 
         except UnexpectedAlertPresentException as e:
             print("\n [!] CT_58 reportou erro: " + str(e))
+            assert False
 
         except ElementClickInterceptedException:
             print("\n [!] CT_58 reportou erro: " + self.find_element(self.alert_texto).text)
             self.find_element(self.btn_ok_alert).click()
+            assert False
 
     # --------- Casos de teste: Palestrante sem eventos --------------#
     def ct59_certificado_palestrante_externo(self, cpf):
@@ -77,19 +83,24 @@ class certificadoPalestranteExterno(PageElement):
                 txt = self.find_element(self.alert_texto).text
                 print("\n CT_59 reportou erro: " + txt)
                 self.find_element(self.btn_ok_alert).click()
+                assert True
             else:
                 if len(self.webdriver.window_handles) != 1:
                     print("\n [!] CT_59 sem erros: certificado gerado com sucesso!")
                     self.webdriver.switch_to.window(original_window)
+                    assert False
                 else:
                     print("\n CT_59 sem erros: o certificado não foi gerado")
+                    assert True
 
         except UnexpectedAlertPresentException as e:
             print("\n CT_59 reportou erro: " + str(e))
+            assert True
 
         except ElementClickInterceptedException:
             print("\n CT_59 reportou erro: " + self.find_element(self.alert_texto).text)
             self.find_element(self.btn_ok_alert).click()
+            assert True
 
     # --------------- Casos de teste: CPF inválido -------------------#
     def ct60_certificado_palestrante_externo(self, cpf):
@@ -103,19 +114,24 @@ class certificadoPalestranteExterno(PageElement):
                 txt = self.find_element(self.alert_texto).text
                 print("\n CT_60 reportou erro: " + txt)
                 self.find_element(self.btn_ok_alert).click()
+                assert True
             else:
                 if len(self.webdriver.window_handles) != 1:
                     print("\n [!] CT_60 sem erros: certificado gerado com sucesso!")
                     self.webdriver.switch_to.window(original_window)
+                    assert False
                 else:
                     print("\n CT_60 sem erros: o certificado não foi gerado")
+                    assert True
 
         except UnexpectedAlertPresentException as e:
             print("\n CT_60 reportou erro: " + str(e))
+            assert True
 
         except ElementClickInterceptedException:
             print("\n CT_60 reportou erro: " + self.find_element(self.alert_texto).text)
             self.find_element(self.btn_ok_alert).click()
+            assert True
 
     # ------------ Casos de teste: CPF não cadastrado ----------------#
     def ct61_certificado_palestrante_externo(self, cpf):
@@ -129,16 +145,21 @@ class certificadoPalestranteExterno(PageElement):
                 txt = self.find_element(self.alert_texto).text
                 print("\n CT_61 reportou erro: " + txt)
                 self.find_element(self.btn_ok_alert).click()
+                assert True
             else:
                 if len(self.webdriver.window_handles) != 1:
                     print("\n [!] CT_61 sem erros: certificado gerado com sucesso!")
                     self.webdriver.switch_to.window(original_window)
+                    assert False
                 else:
                     print("\n CT_61 sem erros: o certificado não foi gerado")
+                    assert True
 
         except UnexpectedAlertPresentException as e:
             print("\n CT_61 reportou erro: " + str(e))
+            assert True
 
         except ElementClickInterceptedException:
             print("\n CT_61 reportou erro: " + self.find_element(self.alert_texto).text)
             self.find_element(self.btn_ok_alert).click()
+            assert True

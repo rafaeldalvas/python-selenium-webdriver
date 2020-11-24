@@ -12,8 +12,9 @@ class certificadoParticipanteExterno(PageElement):
     certificado_participante = (By.CSS_SELECTOR, "a[href$='janelaCPF.zul?op=2']")
     cpf = (By.ID, 'zk-comp-46')
     confirmar = (By.ID, 'zk-comp-49')
-    palestra = (By.CSS_SELECTOR, '#zk-comp-104\!cell > img')
-    gerar = (By.CSS_SELECTOR, 'table[id$="comp-108!box"] [class$="button-cm"]')
+    gerar = (By.XPATH, '/html/body/div/div/div/div/div/div/div['
+                              '2]/div/section/div/div/section/div/div/section/div/div/div/div/div[2]/div['
+                              '1]/div/div/div/div[1]/div[2]/table/tbody[2]/tr/td[3]/div/span/table/tbody/tr[2]/td[2]')
 
     alert_tipo = (By.CSS_SELECTOR, 'div[class="z-separator-hor-bar"]')
     alert_texto = (By.XPATH, '//*/div[2]/div[1]/div/div/div/div/div[2]/div/table[1]/tbody/tr/td[3]/div/span')
@@ -39,8 +40,6 @@ class certificadoParticipanteExterno(PageElement):
         try:
             self.find_element(self.cpf).send_keys(cpf)
             self.find_element(self.confirmar).click()
-            sleep(1)
-            self.find_element(self.palestra).click()
             sleep(1)
             self.find_element(self.gerar).click()
             sleep(1)

@@ -13,9 +13,10 @@ class confirmarInscricao(PageElement):
     admin_inscricao = (By.CSS_SELECTOR, "a[href$='inicial.zul?pag=admInscricao']")
 
     combo_evento = (By.ID, 'zk-comp-116!btn')
-    evento = (By.ID, 'zk-comp-162')
+    evento = (By.XPATH, '/html/body/div[3]/table/tbody/tr[14]/td[2]')
     combo_atividade = (By.ID, 'zk-comp-122!btn')
-    atividade = (By.ID, 'zk-comp-169')
+    atividade = (By.XPATH, '/html/body/div[4]/table/tbody/tr[4]/td[2]')
+    atividade2 = (By.XPATH, '/html/body/div[4]/table/tbody/tr[7]/td[2]')
     todas_atividades = (By.ID, 'zk-comp-167')
     inscricoes_pendentes = (By.CSS_SELECTOR, 'table[id$="comp-127!box"] [class$="button-cm"]')
     todas_inscricoes = (By.CSS_SELECTOR, 'table[id$="comp-129!box"] [class$="button-cm"]')
@@ -78,19 +79,22 @@ class confirmarInscricao(PageElement):
                     if txt == "As inscrições selecionadas foram confirmadas.":
                         print("\n CT_44 sem erros: " + txt)
                         self.find_element(self.btn_ok_alert).click()
+                        assert True
                     else:
                         print("\n [!] CT_44 reportou erro: " + txt)
                         self.find_element(self.btn_ok_alert).click()
+                        assert False
 
         except TimeoutException:
             print("\n [!] CT_44 reportou erro: Não foram exibidas as presenças")
-
+            assert False
         except UnexpectedAlertPresentException as e:
             print("\n [!] CT_44 reportou erro: " + str(e))
-
+            assert False
         except ElementClickInterceptedException:
             print("\n [!] CT_44 reportou erro: " + self.find_element(self.alert_texto).text)
             self.find_element(self.btn_ok_alert).click()
+            assert False
 
     # ----------- Casos de teste: Ver todas inscrições ---------------#
     def ct45_confirmar_inscricao(self):
@@ -100,7 +104,7 @@ class confirmarInscricao(PageElement):
             self.find_element(self.evento).click()
             self.find_element(self.combo_atividade).click()
             sleep(1)
-            self.find_element(self.atividade).click()
+            self.find_element(self.atividade2).click()
             self.find_element(self.todas_inscricoes).click()
             sleep(1)
             self.find_element(self.checkbox_todos).click()
@@ -115,16 +119,19 @@ class confirmarInscricao(PageElement):
                 if txt == "As inscrições selecionadas foram confirmadas.":
                     print("\n CT_45 sem erros: " + txt)
                     self.find_element(self.btn_ok_alert).click()
+                    assert True
                 else:
                     print("\n [!] CT_45 reportou erro: " + txt)
                     self.find_element(self.btn_ok_alert).click()
+                    assert False
 
         except UnexpectedAlertPresentException as e:
             print("\n [!] CT_45 reportou erro: " + str(e))
-
+            assert False
         except ElementClickInterceptedException:
             print("\n [!] CT_45 reportou erro: " + self.find_element(self.alert_texto).text)
             self.find_element(self.btn_ok_alert).click()
+            assert False
 
     # -------- Casos de teste: Ver relatório de inscritos ------------#
     def ct46_confirmar_inscricao(self):
@@ -144,19 +151,23 @@ class confirmarInscricao(PageElement):
                 txt = self.find_element(self.alert_texto).text
                 print("\n [!] CT_46 reportou erro: " + txt)
                 self.find_element(self.btn_ok_alert).click()
+                assert False
             else:
                 if len(self.webdriver.window_handles) != 1:
                     print("\n CT_46 sem erros: relatório gerado com sucesso!")
                     self.webdriver.switch_to.window(original_window)
+                    assert True
                 else:
                     print("\n [!] CT_46 sem erros: o relatório não foi gerado")
+                    assert False
 
         except UnexpectedAlertPresentException as e:
             print("\n [!] CT_46 reportou erro: " + str(e))
-
+            assert False
         except ElementClickInterceptedException:
             print("\n [!] CT_46 reportou erro: " + self.find_element(self.alert_texto).text)
             self.find_element(self.btn_ok_alert).click()
+            assert False
 
     # ----- Casos de teste: Ver relatório de inscritos efetivados ----#
     def ct47_confirmar_inscricao(self):
@@ -176,19 +187,23 @@ class confirmarInscricao(PageElement):
                 txt = self.find_element(self.alert_texto).text
                 print("\n [!] CT_47 reportou erro: " + txt)
                 self.find_element(self.btn_ok_alert).click()
+                assert False
             else:
                 if len(self.webdriver.window_handles) != 1:
                     print("\n CT_47 sem erros: relatório gerado com sucesso!")
                     self.webdriver.switch_to.window(original_window)
+                    assert True
                 else:
                     print("\n [!] CT_47 sem erros: o relatório não foi gerado")
+                    assert False
 
         except UnexpectedAlertPresentException as e:
             print("\n [!] CT_47 reportou erro: " + str(e))
-
+            assert False
         except ElementClickInterceptedException:
             print("\n [!] CT_47 reportou erro: " + self.find_element(self.alert_texto).text)
             self.find_element(self.btn_ok_alert).click()
+            assert False
 
     # ------------ Casos de teste: Campo evento vazio ----------------#
     def ct48_confirmar_inscricao(self):
@@ -201,16 +216,19 @@ class confirmarInscricao(PageElement):
                 if txt == "Selecione um evento!":
                     print("\n CT_48 sem erros: " + txt)
                     self.find_element(self.btn_ok_alert).click()
+                    assert True
                 else:
                     print("\n [!] CT_48 reportou erro: " + txt)
                     self.find_element(self.btn_ok_alert).click()
+                    assert False
 
         except UnexpectedAlertPresentException as e:
             print("\n [!] CT_48 reportou erro: " + str(e))
-
+            assert False
         except ElementClickInterceptedException:
             print("\n [!] CT_48 reportou erro: " + self.find_element(self.alert_texto).text)
             self.find_element(self.btn_ok_alert).click()
+            assert False
 
     # ----------- Casos de teste: Campo atividade vazio --------------#
     def ct49_confirmar_inscricao(self):
@@ -226,13 +244,16 @@ class confirmarInscricao(PageElement):
                 if txt == "Selecione uma atividade!":
                     print("\n CT_49 sem erros: " + txt)
                     self.find_element(self.btn_ok_alert).click()
+                    assert True
                 else:
                     print("\n [!] CT_49 reportou erro: " + txt)
                     self.find_element(self.btn_ok_alert).click()
+                    assert False
 
         except UnexpectedAlertPresentException as e:
             print("\n [!] CT_49 reportou erro: " + str(e))
-
+            assert False
         except ElementClickInterceptedException:
             print("\n [!] CT_49 reportou erro: " + self.find_element(self.alert_texto).text)
             self.find_element(self.btn_ok_alert).click()
+            assert False

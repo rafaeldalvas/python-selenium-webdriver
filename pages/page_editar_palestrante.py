@@ -6,7 +6,6 @@ from selenium.webdriver.support.wait import WebDriverWait
 from time import sleep
 from utils.config import PageElement
 
-
 class editarPalestrante(PageElement):
     # CAMINHO
     calendario = (By.CSS_SELECTOR, "i.fa-calendar")
@@ -115,16 +114,20 @@ class editarPalestrante(PageElement):
 
             msg = self.espera_mensagem()
             if msg is True:
-                if self.find_element(self.alert_texto).text == 'Palestrante salvo com sucesso':
-                    print('\n CT_27 sem erros: o palestrante foi cadastrado com sucesso')
+                if self.find_element(self.alert_texto).text.find('Palestrante salvo com sucesso') > -1:
+                    print('\n CT_27 sem erros: o palestrante foi editado com sucesso')
+                    assert True
                 else:
                     print("\n [!] CT_27 reportou erro: " + self.find_element(self.alert_texto).text)
+                    assert False
                 self.find_element(self.btn_ok_alert).click()
         except UnexpectedAlertPresentException as e:
             print("\n [!] CT_27 reportou erro: " + str(e))
+            assert False
         except ElementClickInterceptedException:
-            print("\n CT_27 reportou erro: " + self.find_element(self.alert_texto).text)
+            print("\n [!] CT_27 reportou erro: " + self.find_element(self.alert_texto).text)
             self.find_element(self.btn_ok_alert).click()
+            assert False
 
     # ------------ Caso de teste: Cancelar edição ---------------#
     def ct_28_editar_palestrante(self):
@@ -132,9 +135,10 @@ class editarPalestrante(PageElement):
             sleep(1)
             self.find_element(self.btn_cancelar).click()
             print('\n CT_28 sem erros: A operação foi cancelada com sucesso')
-
+            assert True
         except UnexpectedAlertPresentException as e:
             print("\n [!] CT28 reportou erro: " + str(e))
+            assert False
 
     # ------------ Caso de teste: Palestrante não selecionado ---------------#
     def ct_29_editar_palestrante(self):
@@ -142,19 +146,24 @@ class editarPalestrante(PageElement):
             sleep(1)
             msg = self.espera_mensagem()
             if msg is True:
-                if self.find_element(self.alert_texto).text == 'Selecione um palestrante':
+                if self.find_element(self.alert_texto).text.find('Selecione um palestrante') > -1:
                     print("\n CT_29 reportou erro: O sistema pediu para selecionar um palestrante")
+                    assert True
                 else:
                     print("\n [!] CT_29 reportou erro: " + self.find_element(self.alert_texto).text)
+                    assert False
                 self.find_element(self.btn_ok_alert).click()
             else:
-                 print("\n [!] CT_29 reportou erro: Houve acesso ao formulário sem selecionar um palestrante")
+                print("\n [!] CT_29 reportou erro: Houve acesso ao formulário sem selecionar um palestrante")
+                assert False
             self.find_element(self.btn_ok_alert).click()
         except UnexpectedAlertPresentException as e:
             print("\n [!] CT_29 reportou erro: " + str(e))
+            assert False
         except ElementClickInterceptedException:
-            print("\n CT_19 reportou erro: " + self.find_element(self.alert_texto).text)
+            print("\n [!] CT_29 reportou erro: " + self.find_element(self.alert_texto).text)
             self.find_element(self.btn_ok_alert).click()
+            assert False
 
     # ------------ Caso de teste: Caracteres inválidos ---------------#
     def ct_30_editar_palestrante(self, cpf, rg, pis, telefone, agencia, conta):
@@ -167,7 +176,7 @@ class editarPalestrante(PageElement):
             self.find_element(self.salvar).click()
             msg = self.espera_mensagem()
             if msg is True:
-                if self.find_element(self.alert_texto).text == 'Palestrante salvo com sucesso':
+                if self.find_element(self.alert_texto).text.find('Palestrante salvo com sucesso') > -1:
                     erro = True
                 self.find_element(self.btn_ok_alert).click()
 
@@ -179,7 +188,7 @@ class editarPalestrante(PageElement):
                 self.find_element(self.salvar).click()
                 msg = self.espera_mensagem()
                 if msg is True:
-                    if self.find_element(self.alert_texto).text == 'Palestrante salvo com sucesso':
+                    if self.find_element(self.alert_texto).text.find('Palestrante salvo com sucesso') > -1:
                         erro = True
                     self.find_element(self.btn_ok_alert).click()
 
@@ -191,7 +200,7 @@ class editarPalestrante(PageElement):
                 self.find_element(self.salvar).click()
                 msg = self.espera_mensagem()
                 if msg is True:
-                    if self.find_element(self.alert_texto).text == 'Palestrante salvo com sucesso':
+                    if self.find_element(self.alert_texto).text.find('Palestrante salvo com sucesso') > -1:
                         erro = True
                     self.find_element(self.btn_ok_alert).click()
 
@@ -203,7 +212,7 @@ class editarPalestrante(PageElement):
                 self.find_element(self.salvar).click()
                 msg = self.espera_mensagem()
                 if msg is True:
-                    if self.find_element(self.alert_texto).text == 'Palestrante salvo com sucesso':
+                    if self.find_element(self.alert_texto).text.find('Palestrante salvo com sucesso') > -1:
                         erro = True
                     self.find_element(self.btn_ok_alert).click()
 
@@ -215,7 +224,7 @@ class editarPalestrante(PageElement):
                 self.find_element(self.salvar).click()
                 msg = self.espera_mensagem()
                 if msg is True:
-                    if self.find_element(self.alert_texto).text == 'Palestrante salvo com sucesso':
+                    if self.find_element(self.alert_texto).text.find('Palestrante salvo com sucesso') > -1:
                         erro = True
                     self.find_element(self.btn_ok_alert).click()
 
@@ -227,20 +236,22 @@ class editarPalestrante(PageElement):
                 self.find_element(self.salvar).click()
                 msg = self.espera_mensagem()
                 if msg is True:
-                    if self.find_element(self.alert_texto).text == 'Palestrante salvo com sucesso':
+                    if self.find_element(self.alert_texto).text.find('Palestrante salvo com sucesso') > -1:
                         erro = True
                     self.find_element(self.btn_ok_alert).click()
 
             if erro is False:
                 print("\n CT_30 reportou erro: O sistema não permitiu caracteres inválidos")
+                assert True
             else:
                 print("\n [!] CT_30 reportou erro: Palestrante editado com campos numéricos sem números")
-
+                assert False
         except UnexpectedAlertPresentException as e:
             print("\n [!] CT_30 reportou erro: " + str(e))
-
+            assert False
         except ElementClickInterceptedException as e:
             print("\n [!] CT_30 reportou erro: " + str(e))
+            assert False
 
 # ------------ Caso de teste: Campos obrigatórios em branco ---------------#
     def ct_31_editar_palestrante(self, nome, email):
@@ -251,7 +262,7 @@ class editarPalestrante(PageElement):
             self.find_element(self.salvar).click()
             msg = self.espera_mensagem()
             if msg is True:
-                if self.find_element(self.alert_texto).text == 'Palestrante salvo com sucesso':
+                if self.find_element(self.alert_texto).text.find('Palestrante salvo com sucesso') > -1:
                     erro = True
                 self.find_element(self.btn_ok_alert).click()
 
@@ -261,7 +272,7 @@ class editarPalestrante(PageElement):
                 self.find_element(self.salvar).click()
                 msg = self.espera_mensagem()
                 if msg is True:
-                    if self.find_element(self.alert_texto).text == 'Palestrante salvo com sucesso':
+                    if self.find_element(self.alert_texto).text.find('Palestrante salvo com sucesso') > -1:
                         erro = True
                     self.find_element(self.btn_ok_alert).click()
 
@@ -272,21 +283,25 @@ class editarPalestrante(PageElement):
                 self.find_element(self.salvar).click()
                 msg = self.espera_mensagem()
                 if msg is True:
-                    if self.find_element(self.alert_texto).text == 'Palestrante salvo com sucesso':
+                    if self.find_element(self.alert_texto).text.find('Palestrante salvo com sucesso') > -1:
                         erro = True
                     self.find_element(self.btn_ok_alert).click()
 
             if erro is False:
                 print("\n CT_31 reportou erro: O sistema exibiu os campos faltantes")
+                assert True
             else:
                 print("\n [!] CT_31 reportou erro: Palestrante editado com campos obrigatorios nao preenchidos")
+                assert False
 
         except UnexpectedAlertPresentException as e:
-            print("\n CT_31 reportou erro: " + str(e))
+            print("\n [!] CT_31 reportou erro: " + str(e))
+            assert False
 
         except ElementClickInterceptedException:
             print("\n [!] CT_31 reportou erro: " + self.find_element(self.alert_texto).text)
             self.find_element(self.btn_ok_alert).click()
+            assert False
 
 # ------------ Caso de teste: CPF inválido ---------------#
     def ct_32_editar_palestrante(self, cpf):
@@ -298,46 +313,20 @@ class editarPalestrante(PageElement):
             self.find_element(self.salvar).click()
             msg = self.espera_mensagem()
             if msg is True:
-                if self.find_element(self.alert_texto).text == 'Palestrante salvo com sucesso':
+                if self.find_element(self.alert_texto).text.find('Palestrante salvo com sucesso') > -1:
                     erro = True
                 self.find_element(self.btn_ok_alert).click()
 
             if erro is False:
                 print("\n CT_32 reportou erro: O sistema não permitiu um CPF inválido")
+                assert True
             else:
                 print("\n [!] CT_32 reportou erro: Palestrante editado com CPF inválido")
-
+                assert False
         except UnexpectedAlertPresentException as e:
             print("\n [!] CT_32 reportou erro: " + str(e))
-
+            assert False
         except ElementClickInterceptedException:
             print("\n [!] CT_32 reportou erro: " + self.find_element(self.alert_texto).text)
             self.find_element(self.btn_ok_alert).click()
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+            assert False
