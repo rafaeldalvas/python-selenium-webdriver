@@ -15,8 +15,14 @@ class certificadoParticipante(PageElement):
     admin = (By.CSS_SELECTOR, "a[href$='admEvento/inicial.zul?']")
     admin_inscricao = (By.CSS_SELECTOR, "a[href$='inicial.zul?pag=admInscricao']")
 
+    # TIRAR INSCRICAO
+    inscrever_se = (By.ID, "zk-comp-158!box")
+    inscritos = (By.ID, "zk-comp-162!box")
+    inscrever_se_ativdade1 = (By.ID, "zk-comp-12933!box")
+    inscrever_se_ativdade2 = (By.ID, "zk-comp-12978!box")
+    voltar = (By.ID, "zk-comp-164!box")
+
     # FECHAR ATIVIDADE
-    admin = (By.CSS_SELECTOR, "a[href$='admEvento/inicial.zul?']")
     controle_presenca = (By.ID, "zk-comp-116")
     mais_infos = (By.ID, "zk-comp-124!box")
     evento = (By.ID, "zk-comp-12952!box")
