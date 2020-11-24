@@ -13,9 +13,9 @@ class confirmarInscricao(PageElement):
     admin_inscricao = (By.CSS_SELECTOR, "a[href$='inicial.zul?pag=admInscricao']")
 
     combo_evento = (By.ID, 'zk-comp-116!btn')
-    evento = (By.ID, 'zk-comp-162')
+    evento = (By.XPATH, '/html/body/div[3]/table/tbody/tr[14]/td[2]')
     combo_atividade = (By.ID, 'zk-comp-122!btn')
-    atividade = (By.ID, 'zk-comp-169')
+    atividade = (By.XPATH, '/html/body/div[4]/table/tbody/tr[3]/td[2]')
     todas_atividades = (By.ID, 'zk-comp-167')
     inscricoes_pendentes = (By.CSS_SELECTOR, 'table[id$="comp-127!box"] [class$="button-cm"]')
     todas_inscricoes = (By.CSS_SELECTOR, 'table[id$="comp-129!box"] [class$="button-cm"]')
